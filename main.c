@@ -31,8 +31,10 @@ struct clientes {
 int ExisteCliente(struct clientes *cli,char *codigo){
     int i;
     int encontrou=0;
-    for(i=0;i<MAXC || !encontrou;i++){
-        if(strcmp(cli[i].codigo,codigo)){
+    int igual;
+    for(i=0;i<MAXC && !encontrou;i++){
+        igual = strcmp(cli[i].codigo,codigo);
+        if(igual==0){
             encontrou=1;
         }
     }
@@ -42,8 +44,10 @@ int ExisteCliente(struct clientes *cli,char *codigo){
 int ExisteProduto(struct produtos *pro,char *codigo){
     int i;
     int encontrou=0;
-    for(i=0;i<MAXP || !encontrou;i++){
-        if(strcmp(pro[i].codigo,codigo)){
+    int igual;
+    for(i=0;i<MAXP && !encontrou;i++){
+        igual = strcmp(pro[i].codigo,codigo);
+        if(igual==0){
             encontrou=1;
         }
     }
@@ -103,15 +107,15 @@ int leituraVendas(struct vendas *vd, char *filename){
     FILE* file = fopen(filename, "r");
     int nLinhas = 0;
     int LinhasM=0;
-    char *linha=malloc(64*sizeof(char*));
+    char *linha=malloc(32*sizeof(char*));
     char *produto, *cliente, *PouN;
     float preco;
     int unidades, mes, filial;
-    char *tok=malloc(64*sizeof(char*));
+    char *tok=malloc(32*sizeof(char*));
     int erro=0;
 
     if (file) {
-       while (fgets(linha, 64, file)) {
+       while (fgets(linha, 32, file)) {
 
             erro=0;
             produto = strtok(linha, " ");
@@ -149,7 +153,7 @@ int leituraVendas(struct vendas *vd, char *filename){
             }else LinhasM++;
             
         }
-        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas Mal: %d\n Linhas correcta:%d \n ", filename, nLinhas,LinhasM,nLinhas-LinhasM);   
+        printf("Nome do ficheiro: %s\n Linhas correctas: %d\n Linhas Mal: %d\n Linhas lidas:%d \n ", filename, nLinhas,LinhasM,nLinhas+LinhasM);   
         fclose(file);
     } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
     return nLinhas;
