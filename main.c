@@ -3,36 +3,176 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "avl.h"
+
 #define MAXC 20000
 #define MAXP 200000
 #define MAXV 1500000
 
 struct vendas{
-
-    char produto[7];
-    float preco;
-    int unidades;
-    char PouN[2];
-    char cliente[7];
-    int mes;
-    int filial;
+	struct avl avlV;
+    char* linha;
 };
+static struct avl_tree AVLVendas[26];
 
 struct produtos {
-     char codigo[7];
-}pro[MAXP];
-
+	struct avl avlP;
+	char codigo[7];
+};
+static struct avl_tree AVLProdutos[26];
 
 struct clientes {
-     char codigo[7];
-}cli[MAXC];
+	struct avl avlC;
+    char codigo[7];
+};
+static struct avl_tree AVLClientes[26];
+
+int comparaCodCliente(void* a,void *b){
+	
+	int i=0;
+
+	i = strcmp( ((struct clientes*)a)->codigo, ((struct clientes*)b)->codigo);
+
+	return i;
+}
+
+int comparaCodProduto(void* a,void* b){
+	
+	int i=0;
+
+	i = strcmp( ((struct produtos*)a)->codigo, ((struct produtos*)a)->codigo );
+
+	return i;
+}
+
+
+int comparaVenda(void* a,void* b){
+	
+	int i=0;
+
+	i = strcmp( ((struct vendas*)a)->linha, ((struct vendas*)a)->linha);
+
+	return i;
+}
+
+int iniciaAlvClientes()
+{
+	int i=0;
+
+	while(i<=25)
+	{	
+		AVLClientes[i].compar=comparaCodCliente;
+		AVLClientes[i].root=0;
+		i++;
+	}
+	
+	return i-26;
+}
+
+int iniciaAlvProdutos()
+{
+	int i=0;
+
+	while(i<=25)
+	{	
+		AVLProdutos[i].compar=comparaCodProduto;
+		AVLProdutos[i].root=0;
+		i++;
+	}
+	
+	return i-26;
+}
+
+int iniciaAlvVendas()
+{
+	int i=0;
+
+	while(i<=25)
+	{	
+		AVLVendas[i].compar=comparaVenda;
+		AVLVendas[i].root=0;
+		i++;
+	}
+	
+	return i-26;
+}
+
+void insereAVLCLientes(char cod[7]){
+	int j=26, n = 0;
+	struct clientes *insereCliente;
+
+	insereCliente = malloc(sizeof(struct clientes));
+	memset(insereCliente-> codigo, '\0', 7);
+	strcpy((insereCliente -> codigo),cod);
+	
+
+	if (cod[0]>=97 && cod[0]<=123) 
+		j = ((int)cod[0])-97;
+	else
+		if (cod[0]>=64 && cod[0]<=90) 
+			j = ((int)cod[0])-65;
+
+
+	if ((n= avl_easySearch(&AVLClientes[j], (struct avl*)insereCliente)) == 0){
+		avl_insert(&AVLClientes[j], (struct avl*)insereCliente);
+	}
+	else{
+		free(insereCliente);
+	}
+}
+
+void insereAVLVendas(char* lin){
+	int j=26, n = 0;
+	struct vendas *insereVenda;
+
+	insereVenda = malloc(sizeof(struct vendas));
+	insereVenda -> linha = strdup(lin);
+	
+
+	if (lin[0]>=97 && lin[0]<=123) 
+		j = ((int)lin[0])-97;
+	else
+		if (lin[0]>=64 && lin[0]<=90) 
+			j = ((int)lin[0])-65;
+
+	if ((n= avl_easySearch(&AVLVendas[j], (struct avl*)insereVenda)) == 0){
+		avl_insert(&AVLVendas[j], (struct avl*)insereVenda);
+	}
+	else{
+		free(insereVenda);
+	}
+}
+
+void insereAVLProdutos(char cod[7]){
+	int j=26, n = 0;
+	struct produtos *insereProduto;
+
+	insereProduto = malloc(sizeof(struct produtos));
+	memset(insereProduto-> codigo, '\0', 7);
+	strcpy((insereProduto -> codigo),cod);
+	
+
+	if (cod[0]>=97 && cod[0]<=123) 
+		j = ((int)cod[0])-97;
+	else
+		if (cod[0]>=64 && cod[0]<=90) 
+			j = ((int)cod[0])-65;
+
+
+	if ((n= avl_easySearch(&AVLProdutos[j], (struct avl*)insereProduto)) == 0){
+		avl_insert(&AVLProdutos[j], (struct avl*)insereProduto);
+	}
+	else{
+		free(insereProduto);
+	}
+}
 
 
 int ExisteCliente(struct clientes *cli,char *codigo){
     int i;
     int encontrou=0;
     for(i=0;i<MAXC  && !encontrou;i++){
-        if(strcmp(cli[i].codigo,codigo)==0){
+        if(avl_easySearch(&AVLClientes[i],(struct avl*) cli)){
             encontrou=1;
         }
     }
@@ -43,7 +183,7 @@ int ExisteProduto(struct produtos *pro,char *codigo){
     int i;
     int encontrou=0;
     for(i=0;i<MAXP && !encontrou;i++){
-        if(strcmp(pro[i].codigo,codigo)==0){
+        if(avl_easySearch(&AVLProdutos[i],(struct avl*) pro)){
             encontrou=1;
         }
     }
@@ -61,7 +201,7 @@ int leituraCli(struct clientes *cl, char* filename) {
 
             tok = strtok(linha, "\r\n");
             if(strlen(tok)==5 && isalpha(tok[0]) && isdigit(tok[1])&& isdigit(tok[2])&& isdigit(tok[3])&& isdigit(tok[4])){
-                strcpy(cl[nLinhas].codigo,tok);
+                insereAVLCLientes(tok);
             }else LinhasM++;
             nLinhas++;
 
@@ -84,8 +224,7 @@ int leituraPro(struct produtos *pro, char* filename) {
 
             tok = strtok(linha, "\r\n");
             if(strlen(tok)==6 && isalpha(tok[0]) && isalpha(tok[1])&& isdigit(tok[2])&& isdigit(tok[3])&& isdigit(tok[4]) && isdigit(tok[5])){
-
-                strcpy(pro[nLinhas].codigo,tok);
+            	insereAVLProdutos(tok);
             } else LinhasM++;
             
             nLinhas++;
@@ -99,6 +238,28 @@ int leituraPro(struct produtos *pro, char* filename) {
 }
 
 int leituraVendas(struct vendas *vd, char *filename){
+
+    FILE* file = fopen(filename, "r");
+    int nLinhas = 0;
+    int LinhasM=0;
+    char *linha=malloc(32*sizeof(char*));
+
+    if (file) {
+       while (fgets(linha, 32, file)) {
+            	insereAVLVendas(linha);
+            	nLinhas++;
+            }
+        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n", filename, nLinhas);   
+        fclose(file);
+    } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
+    return nLinhas;
+}
+
+
+
+
+/* LEITURA QUE VERIFICAVA AS LINHAS VALIDAS */
+/*int leituraVendas(struct vendas *vd, char *filename){
 
     FILE* file = fopen(filename, "r");
     FILE* validas = fopen("VendasValidas.txt","w");
@@ -148,6 +309,7 @@ int leituraVendas(struct vendas *vd, char *filename){
                 strcpy(vd[nLinhas].cliente,cliente);
                 vd[nLinhas].mes = mes;
                 vd[nLinhas].filial = filial;
+                avl_insert(AVLVendas,(struct avl*)vd[nLinhas]);
                 nLinhas++;
 
             }else LinhasM++;
@@ -158,20 +320,28 @@ int leituraVendas(struct vendas *vd, char *filename){
         fclose(validas);
     } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
     return nLinhas;
-}
-
+}*/
 
 
 int main() {
-   static struct vendas vend[MAXV];
+	struct produtos* pro;
+	struct clientes* cli;
+	struct vendas* vend;
+
+	iniciaAlvVendas();
+	iniciaAlvClientes();
+	iniciaAlvProdutos();
+
+	leituraCli(cli,"Clientes.txt");
+    leituraPro(pro,"Produtos.txt");
+    leituraVendas(vend,"VendasValidas.txt");
 
 
-	leituraCli(cli,"clientes.txt");
-    leituraPro(pro,"produtos.txt");
-    leituraVendas(vend,"vendas.txt");
-    printf("Linha de teste de clientes: %s\n", cli[1000].codigo);    
-    printf("Linha de teste de produtos: %s\n", pro[1000].codigo);
-    printf("Linha de teste das Vendas: \n produto: %s \n preco: %f \n unidades: %d \n P ou N: %s\n cliente: %s\n mes: %d\n filial: %d\n", vend[1000].produto,vend[1000].preco,vend[1000].unidades,vend[1000].PouN,vend[1000].cliente,vend[1000].mes,vend[1000].filial);
+    /*printf("Linha de teste de clientes: %s\n", &AVLClientes[10].root.codigo);
+      
+    printf("Linha de teste de produtos: %s\n", AVLProdutos[10]->root->codigo);
+    printf("Linha de teste das Vendas: %s\n", AVLVendas[10]->root->linha);
+	*/
 
     return 0;
 }
