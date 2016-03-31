@@ -1,17 +1,11 @@
 #ifndef _CATALOGOCLIENTES_H
 #define _CATALOGOCLIENTES_H
 
-#define MAX_COD_CLIENTES 5
 
-/* Definição da struct de array de clientes */
-struct Cliente{
-	struct avl avl;
-	char codigo[MAX_COD_CLIENTES];
-};
+typedef struct clientes* Clientes;
 
 /* Funções */
-
-int comparaCod(struct Cliente a, struct Cliente b);
-int iniciaAlvClientes();
-
+Clientes InicializaClientes();
+int VeTotalC(Clientes c);
+void insereAvlClientes(Clientes p,char *cod);
 #endif

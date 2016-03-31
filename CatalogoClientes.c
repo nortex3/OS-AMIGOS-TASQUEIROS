@@ -1,70 +1,60 @@
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include  "avl.h"
 #include "CatalogoClientes.h"
 
-/* Compara códigos dos clientes, retornando
-	< 0 se str1 for menor que str2
-	> 0 se a str1 for maior que str2
-	= 0 se forem iguais */ 
-int comparaCod(struct Cliente a, struct Cliente b){
-	int i = 0;
-
-	i = strcmp( a-> codigo, b-> codigo );
-
-	return i;
-}
-
-/* Inicialização de uma avl Clientes */
-static struct avl_tree avlClientes[26];
+struct clientes{
+	int total[26];
+	Avl_tree AVLClientes[26];
+};
 
 /*
 Inicia as AVLs dos Clientes
 */
-int iniciaAlvClientes()
-{
-	int i=0;
-
-	while(i<=25)
-	{	
-		avlClientes[i].compar=comparaCod;
-		avlClientes[i].root=0;
-		i++;
-	}
-	
-	return i-25;
+Clientes InicializaClientes(){
+	int i;
+	Clientes tmp = (Clientes)malloc(sizeof(struct clientes));
+	for(i = 0; i < 26; i++){
+		tmp -> AVLClientes[i] = createTree();
+		tmp->total[i]=0;}
+    return tmp;
 }
+
+
+int VeTotalC(Clientes p){
+
+	int r=p->total[1]; /*Letras começadas por B*/
+	return r;
+}
+
+
+
 
 /*
 Insere os Clientes na Avl de Clientes
 */
-int insereAvlClientes(char Clientes[MAX_COD_CLIENTES])
-{
-	int j=25, n = 0;
-	struct Cliente *insereClientes;	
 
-	insereClientes = (struct Cliente *) malloc(sizeof(struct Cliente));
-	memset(insereClientes->codigo, '\0', MAX_COD_CLIENTES);
-	strcpy(insereClientes->nome, Clientes);
-	
-	if (Clientes[0]>=65 && Clientes[0]<=90) 
-		j = ((int)Clientes[0])-65;
+
+void insereAvlClientes(Clientes c,char *cod){
+	int j=26;
+	Avl node;
+	if (cod[0]>=97 && cod[0]<=123) 
+		j = ((int)cod[0])-97;
 	else
-		if (Clientes[0]>=65 && Clientes[0]<=90) 
-			j = ((int)Clientes[0])-65;
-	
+		if (cod[0]>=64 && cod[0]<=90) 
+			j = ((int)cod[0])-65;
+
+	if(existe(cod, c-> AVLClientes[j]) == 0){
+			node = createNode(cod);
+			avl_insert(c -> AVLClientes[j], node);
+			c->total[j]++;
 			
-	if( (n = avl_easySearch(&avlClientes[j], (struct avl*)insereClientes)) == 0 )
-	{
-		avl_insert(&avlClientes[j], (struct avl*)insereClientes);
-	}
-	else 
-	{
-		free(insereClientes);	
-		return 0;
-	}
-	return 1;
+		}
+	
 }
 
 /* FALTA MUITA COISA MAS DA TRABALHO */

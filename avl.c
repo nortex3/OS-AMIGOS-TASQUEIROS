@@ -14,6 +14,26 @@
  */
 
 #include "avl.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+ /* Data structures */
+
+/* One element of the AVL tree */
+typedef struct avl
+{
+   char* codigo;
+   struct avl* left;
+   struct avl* right;
+   signed char balance;
+} avl;
+
+/* An AVL tree */
+typedef struct avl_tree
+{
+   avl* root;
+} avl_tree;
 
 /* Private methods */
 
@@ -21,8 +41,8 @@
  * Warning: no balance maintainance
  */
 void avl_swl(avl** root){
-   avl* a=*root;
-   avl* b=a->right;
+   Avl a=*root;
+   Avl b=a->right;
    *root=b;
    a->right=b->left;
    b->left=a;
@@ -32,8 +52,8 @@ void avl_swl(avl** root){
  * Warning: no balance maintainance
  */
 void avl_swr(avl** root){
-   avl* a=*root;
-   avl* b=a->left;
+   Avl a=*root;
+   Avl b=a->left;
    *root=b;
    a->left=b->right;
    b->right=a;
@@ -41,7 +61,7 @@ void avl_swr(avl** root){
 
 /* Balance maintainance after especially nasty swings
  */
-void avl_nasty(avl* root){
+void avl_nasty(Avl root){
    switch(root->balance){
     case -1:root->left->balance=0;
       root->right->balance=1;
@@ -55,13 +75,41 @@ void avl_nasty(avl* root){
    root->balance=0;
 }
 
+int existe(char* s, Avl_tree ptr){
+   Avl p = ptr -> root;
+   int r = 1;
+   if(!p) return 0;
+   while(p && r){
+      r = strcmp(s, p -> codigo);
+      if(r < 0) p = p -> left;
+      else if(r > 0) p = p -> right;
+      else r = 0;
+   }
+   if(r == 0) return 1;
+   return 0;
+}
+
+Avl createNode(char* s){
+   Avl tmp = (Avl)malloc(sizeof(avl));
+   char* c = (char*)malloc((strlen(s)+1)*sizeof(char));
+   strcpy(c, s);
+   tmp -> codigo = c;
+   return tmp;
+}
+
+Avl_tree createTree(){
+   Avl_tree tmp = (Avl_tree)malloc(sizeof(avl_tree));
+   tmp -> root = NULL;
+   return tmp;
+}
+
 /* Public methods */
 
 /* Insert element a into the AVL tree t
  * returns 1 if the depth of the tree has grown
  * Warning: do not insert elements already present
  */
-int avl_insert(avl_tree* t,avl* a)
+int avl_insert(Avl_tree t,Avl a)
 {
    /* initialize */
    a->left=0;
@@ -73,12 +121,11 @@ int avl_insert(avl_tree* t,avl* a)
       return 1;
    }
    
-   if(t->compar(t->root,a)>0){
+   if(strcmp(t->root->codigo,a->codigo)>0){
       /* insert into the left subtree */
       if(t->root->left){
 	 avl_tree left_subtree;
 	 left_subtree.root=t->root->left;
-	 left_subtree.compar=t->compar;
 	 if(avl_insert(&left_subtree,a)){
 	    switch(t->root->balance--){
 	     case 1: return 0;
@@ -105,7 +152,6 @@ int avl_insert(avl_tree* t,avl* a)
       if(t->root->right){
 	 avl_tree right_subtree;
 	 right_subtree.root=t->root->right;
-	 right_subtree.compar=t->compar;
 	 if(avl_insert(&right_subtree,a)){
 	    switch(t->root->balance++){
 	     case -1: return 0;
@@ -130,197 +176,61 @@ int avl_insert(avl_tree* t,avl* a)
    }
 }
 
-/* Remove an element a from the AVL tree t
- * returns -1 if the depth of the tree has shrunk
- * Warning: if the element is not present in the tree,
- *          returns 0 as if it had been removed succesfully.
- */
-int avl_remove(avl_tree* t, avl* a)
-{
-   int b;
-   if(t->root==a)
-     return avl_removeroot(t);
-   b=t->compar(t->root,a);
-   if(b>=0){
-      /* remove from the left subtree */
-      int ch;
-      avl_tree left_subtree;
-      if( (left_subtree.root=t->root->left) ){
-	 left_subtree.compar=t->compar;
-	 ch=avl_remove(&left_subtree,a);
-	 t->root->left=left_subtree.root;
-	 if(ch){
-	    switch(t->root->balance++){
-	     case -1: return -1;
-	     case 0: return 0;
-	    }
-	    switch(t->root->right->balance){
-	     case 0:	avl_swl(&(t->root));
-	       t->root->balance=-1;
-	       t->root->left->balance=1;
-	       return 0;
-	     case 1: avl_swl(&(t->root));
-	       t->root->balance=0;
-	       t->root->left->balance=0;
-	       return -1;
-	    }
-	    avl_swr(&(t->root->right));
-	    avl_swl(&(t->root));
-	    avl_nasty(t->root);
-	    return -1;
-	 }
-      }
+/*list* inorderTraversal(Avl r){
+   list* aux, *pr, *fst;
+   char* c;
+   aux = (list*)malloc(sizeof(list));
+   aux -> next = NULL;
+   fst = aux;
+   if(r != NULL){
+      inorderTraversal(r -> left);
+      pr = (list*)malloc(sizeof(list));
+      c = (char*)malloc((strlen(r->autor)+1)*sizeof(char));
+      strcpy(c, r->autor);
+      pr -> name = c;
+      aux -> next = pr;
+      aux = pr;
+      printf("%s\n", r->autor);
+      inorderTraversal(r -> right);
    }
-   if(b<=0){
-      /* remove from the right subtree */
-      int ch;
-      avl_tree right_subtree;
-      if( (right_subtree.root=t->root->right) ){
-	 right_subtree.compar=t->compar;
-	 ch=avl_remove(&right_subtree,a);
-	 t->root->right=right_subtree.root;
-	 if(ch){
-	    switch(t->root->balance--){
-	     case 1: return -1;
-	     case 0: return 0;
-	    }
-	    switch(t->root->left->balance){
-	     case 0:	avl_swr(&(t->root));
-	       t->root->balance=1;
-	       t->root->right->balance=-1;
-	       return 0;
-	     case -1:avl_swr(&(t->root));
-	       t->root->balance=0;
-	       t->root->right->balance=0;
-	       return -1;
-	    }
-	    avl_swl(&(t->root->left));
-	    avl_swr(&(t->root));
-	    avl_nasty(t->root);
-	    return -1;
-	 }
-      }
+   fst = fst -> next;
+   aux -> next = NULL;
+   return fst;
+}*/
+
+list* inorderTraversal(Avl a, list* l){
+   list* r;
+   char* c;
+   if(a == NULL) r = l;
+   else{
+      r = (list*)malloc(sizeof(list));
+      c = (char*)malloc((strlen(a->codigo)+1)*sizeof(char));
+      strcpy(c, a->codigo);
+      r -> name = c;
+      r -> next = inorderTraversal(a -> right, l);
+      r = inorderTraversal(a -> left, r);
    }
-   return 0;
+   return r;
 }
 
-/* Remove the root of the AVL tree t
- * Warning: dumps core if t is empty
- */
-int avl_removeroot(avl_tree* t)
-{
-   int ch;
-   avl* a;
-   if(!t->root->left){
-      if(!t->root->right){
-	 t->root=0;
-	 return -1;
-      }
-      t->root=t->root->right;
-      return -1;
-   }
-   if(!t->root->right){
-      t->root=t->root->left;
-      return -1;
-   }
-   if(t->root->balance<0){
-      /* remove from the left subtree */
-      a=t->root->left;
-      while(a->right) a=a->right;
-   }else{
-      /* remove from the right subtree */
-      a=t->root->right;
-      while(a->left) a=a->left;
-   }
-   ch=avl_remove(t,a);
-   a->left=t->root->left;
-   a->right=t->root->right;
-   a->balance=t->root->balance;
-   t->root=a;
-   if(a->balance==0) return ch;
-   return 0;
+list* copy(Avl_tree a){
+   list* p, *tmp = NULL;
+   p = inorderTraversal(a -> root, tmp);
+   /*tmp = p;
+   while(tmp){
+      printf("%s\n", tmp->name);
+      tmp = tmp -> next;
+   }*/
+   return p;
 }
 
-/* Iterate through elements in t from a range between a and b (inclusive)
- * for each element calls iter(a) until it returns 0
- * returns the last value returned by iterator or 0 if there were no calls
- * Warning: a<=b must hold
- */
-int avl_range(avl_tree* t,avl* a,avl* b,int(*iter)(avl* a))
-{
-   int x,c=0;
-   if(!t->root) return 0;
-   x=t->compar(t->root,a);
-   if(a!=b){
-      if(x<0){
-	 x=t->compar(t->root,b);
-	 if(x>0) x=0;
-      }
-   }
-   if(x>=0){
-      /* search in the left subtree */
-      avl_tree left_subtree;
-      if( (left_subtree.root=t->root->left) ){
-	 left_subtree.compar=t->compar;
-	 if(!(c=avl_range(&left_subtree,a,b,iter))) if(x>0) return 0;
-      }
-   }
-   if(x==0){
-      if(!(c=iter(t->root))) return 0;
-   }
-   if(x<=0){
-      /* search in the right subtree */
-      avl_tree right_subtree;
-      if( (right_subtree.root=t->root->right) ){
-	 right_subtree.compar=t->compar;
-	 if(!(c=avl_range(&right_subtree,a,b,iter))) if(x<0) return 0;
-      }
-   }
-   return c;
-}
-
-/* Iterate through elements in t equal to a
- * for each element calls iter(a) until it returns 0
- * returns the last value returned by iterator or 0 if there were no calls
- */
-int avl_search(avl_tree* t,avl* a,int(*iter)(avl* a))
-{
-   return avl_range(t,a,a,iter);
-}
-
-
-/* Itera em t ate encontrar a
- * versao mais simples de que usar o avl_range
- * retorna 1 caso encontre 1 elemento igual, ou 0 caso nao encontre
- */
-int avl_easySearch(avl_tree* t,avl* a)
-{
-   int x, c = 0;
-   if(!t->root) return 0;
-   x=t->compar(t->root,a);
-   if(x==0){   return 1;   }
+int length(Avl a){
+   if(!a) return 0;
+   return strlen(a -> codigo) + length(a -> left) + length(a -> right);
    
-   if(x>=0)
-   {
-      /* search in the left subtree */
-      avl_tree left_subtree;
-      if( (left_subtree.root=t->root->left) ){
-	 left_subtree.compar=t->compar;
-	 if( !(c=avl_easySearch(&left_subtree,a)) ) return c;
-      }
-   }
-
-   if(x<=0)
-   {
-      /* search in the right subtree */
-      avl_tree right_subtree;
-      if( (right_subtree.root=t->root->right) ){
-	 right_subtree.compar=t->compar;
-	 if( !(c=avl_easySearch(&right_subtree,a)) ) return c;
-      }
-   }
-
-   return c;
 }
 
+int namesLength(Avl_tree a){
+    return length(a -> root);
+}
 

@@ -16,23 +16,17 @@
 #ifndef _AVL_H
 #define _AVL_H 1
 
-/* Data structures */
+typedef struct avl_tree* Avl_tree;
+typedef struct avl* Avl;
 
-/* One element of the AVL tree */
-typedef struct avl
-{
-   struct avl* left;
-   struct avl* right;
-   signed char balance;
-} avl;
+typedef struct list{
+	char* name;
+	struct list* next;
+}list;
 
-/* An AVL tree */
-typedef struct avl_tree
-{
-   avl* root;
-   int(*compar)(void* a,void* b);
-} avl_tree;
-
+int existe(char* s, Avl_tree ptr);
+Avl createNode(char* s);
+Avl_tree createTree();
 
 /* Public methods */
 
@@ -40,39 +34,10 @@ typedef struct avl_tree
  * returns 1 if the depth of the tree has grown
  * Warning: do not insert elements already present
  */
-int avl_insert(avl_tree* t,avl* a);
-
-/* Remove an element a from the AVL tree t
- * returns -1 if the depth of the tree has shrunk
- * Warning: if the element is not present in the tree, 
- *          returns 0 as if it had been removed succesfully.
- */
-int avl_remove(avl_tree* t, avl* a);
-
-/* Remove the root of the AVL tree t
- * Warning: dumps core if t is empty
- */
-int avl_removeroot(avl_tree* t);
-
-/* Iterate through elements in t from a range between a and b (inclusive)
- * for each element calls iter(a) until it returns 0
- * returns the last value returned by iterator or 0 if there were no calls
- * Warning: a<=b must hold
- */
-int avl_range(avl_tree* t,avl* a,avl* b,int(*iter)(avl* a));
-
-/* Iterate through elements in t equal to a
- * for each element calls iter(a) until it returns 0
- * returns the last value returned by iterator or 0 if there were no calls
- */
-int avl_search(avl_tree* t, avl* a,int(*iter)(avl* a));
-
-
-/* Itera em t ate encontrar a
- * versao mais simples de que usar o avl_range
- * retorna 1 caso encontre 1 elemento igual, ou 0 caso nao encontre
- */
-int avl_easySearch(avl_tree* t,avl* a);
+int avl_insert(Avl_tree t,Avl a);
+list* inorderTraversal(Avl a, list* l);
+list* copy(Avl_tree a);
+int length(Avl a);
+int namesLength(Avl_tree a);
 
 #endif /* avl.h */
-
