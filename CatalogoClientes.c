@@ -56,5 +56,3 @@ void insereAvlClientes(Clientes c,char *cod){
 		}
 	
 }
-
-/* FALTA MUITA COISA MAS DA TRABALHO */

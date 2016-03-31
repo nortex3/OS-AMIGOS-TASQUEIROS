@@ -3,6 +3,7 @@ CFLAGS:=-ansi -O2 -Wall -pedantic
 TARGET:=GEREVENDAS
 
 all: $(TARGET)
+	 rm *.o
 
 $(TARGET): Main.o CatalogoClientes.o CatalogoProdutos.o avl.o 
 	$(CC) $(CFLAGS) $^ -o $@ 

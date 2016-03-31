@@ -25,7 +25,7 @@ int leituraPro(Produtos pro, char* filename) {
             nLinhas++;
 
         }
-    printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas Mal: %d\n Linhas correcta:%d \n ", filename, nLinhas,LinhasM,nLinhas-LinhasM);   
+    printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas Mal: %d\n Linhas correctas:%d \n ", filename, nLinhas,LinhasM,nLinhas-LinhasM);   
     fclose(file);
     } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
     return nLinhas;
@@ -48,7 +48,7 @@ int leituraCli(Clientes cl, char* filename) {
             nLinhas++;
 
         }
-        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas Mal: %d\n Linhas correcta:%d \n ", filename, nLinhas,LinhasM,nLinhas-LinhasM);
+        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas Mal: %d\n Linhas correctas:%d \n", filename, nLinhas,LinhasM,nLinhas-LinhasM);
         fclose(file);
     } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
     return nLinhas;
