@@ -11,10 +11,11 @@ struct produtos {
  	Avl_tree AVLProdutos[26];
 };
 
+
 /* Catalogo de produtos */
 int VeTotalP(Produtos p){
 
-	int r=p->total[1]; /*Letras começadas por B*/
+	int r=p->total[1]; 
 	return r;
 }
 
@@ -44,6 +45,18 @@ void insereAVLProdutos(Produtos p,char *cod){
 			
 		}
 	
+}
+
+
+int ExisteProduto(char* cod, Produtos p){int r=0;
+	int j=0;
+	if (cod[0]>=97 && cod[0]<=123) 
+        j = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            j = ((int)cod[0])-65;
+    r=existe(cod,p->AVLProdutos[j]);
+    return r;
 }
 
 

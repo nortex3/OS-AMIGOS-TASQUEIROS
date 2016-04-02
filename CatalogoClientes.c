@@ -27,7 +27,7 @@ Clientes InicializaClientes(){
 
 int VeTotalC(Clientes p){
 
-	int r=p->total[1]; /*Letras começadas por B*/
+	int r=p->total[1]; 
 	return r;
 }
 
@@ -55,4 +55,17 @@ void insereAvlClientes(Clientes c,char *cod){
 			
 		}
 	
+}
+
+
+int ExisteCliente(char* cod, Clientes p){
+	int r=0;
+	int j=0;
+	if (cod[0]>=97 && cod[0]<=123) 
+        j = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            j = ((int)cod[0])-65;
+    r=existe(cod,p->AVLClientes[j]);
+    return r;
 }
