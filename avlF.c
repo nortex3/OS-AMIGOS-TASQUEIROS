@@ -32,6 +32,15 @@ typedef struct avl
    int UnidadesVendidas[12][2]; /* Unidades vendidas cada mes de cada tipo*/
    double Faturacao[12][2]; /*valor de cada mes e tipo*/
    double TotalFaturado; /*preco*quant*/
+
+   double TotalFatFilial1[12][2];
+   double TotalFatFilial2[12][2];
+   double TotalFatFilial3[12][2];
+
+   int TotalUniFilial1[12][2];
+   int TotalUniFilial2[12][2];
+   int TotalUniFilial3[12][2];
+
    struct avl* left;
    struct avl* right;
    signed char balance;
@@ -98,7 +107,7 @@ int existeF(char* s, Avl_tree ptr){
    return 0;
 }
 
-int avl_actualiza(char* s, Avl_tree ptr,double preco,int quantidade,int mes,char tipo){
+int avl_actualiza(char* s, Avl_tree ptr,double preco,int quantidade,int mes,char tipo,int filial){
    Avl tmp = ptr->root;
    Avl p = procura(tmp,s);
    if(!p) return 0;
@@ -111,12 +120,44 @@ int avl_actualiza(char* s, Avl_tree ptr,double preco,int quantidade,int mes,char
          p->UnidadesVendidas[mes-1][NORMAL] +=quantidade;
          p->Faturacao[mes-1][NORMAL]+= quantidade*preco;
 
+         if(filial==1){
+            p->TotalUniFilial1[mes-1][NORMAL] +=quantidade;
+            p->TotalFatFilial1[mes-1][NORMAL] +=quantidade*preco;
+          }else{
+              if(filial==2){
+
+                p->TotalUniFilial2[mes-1][NORMAL] +=quantidade;
+                p->TotalFatFilial2[mes-1][NORMAL] +=quantidade*preco;
+              } else {
+
+                  if(filial==3){
+
+                    p->TotalUniFilial3[mes-1][NORMAL] +=quantidade;
+                    p->TotalFatFilial3[mes-1][NORMAL] +=quantidade*preco;
+                  }
+                }
+              }
+
        }else{
       
           p->UnidadesVendidas[mes-1][PROMO] +=quantidade;
           p->Faturacao[mes-1][PROMO]+= quantidade*preco;
 
-        }
+          if(filial==1){
+            p->TotalUniFilial1[mes-1][PROMO] +=quantidade;
+            p->TotalFatFilial1[mes-1][PROMO] +=quantidade*preco;
+          }else{
+          
+              if(filial==2){
+
+                p->TotalUniFilial2[mes-1][PROMO] +=quantidade;
+                p->TotalFatFilial2[mes-1][PROMO] +=quantidade*preco;
+              }else{
+                  p->TotalUniFilial3[mes-1][PROMO] +=quantidade;
+                  p->TotalFatFilial3[mes-1][PROMO] +=quantidade*preco;
+                }
+              }
+            }
    }
    return 1;
 
@@ -130,10 +171,17 @@ Avl procuraTree(Avl_tree p, char* cod){
     else return procura(node->right, cod);
 }
 
+/* Funcao de teste*/
+
 double total(Avl a){
-   double r = a->TotalFaturado;
+  double r = a->TotalFatFilial2[7][PROMO];
+printf("%d\n",a->TotalVendidas );
+printf("%f\n",a->TotalFaturado );
    return r;
 }
+
+/*----------------------*/
+
 
 Avl procura(Avl node, char* cod){
    if(node == NULL) return 0;
@@ -142,23 +190,57 @@ Avl procura(Avl node, char* cod){
     else return procura(node->right, cod);
 }
 
-Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipo){
+Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipo, int filial){
     Avl tmp = (Avl)malloc(sizeof(avl));
    char* c = (char*)malloc((strlen(s)+1)*sizeof(char));
    strcpy(c, s);
    tmp -> codigo = c;
    tmp->TotalVendidas=quantidade; 
    tmp->TotalFaturado=quantidade*preco; 
+
    if(tipo=='N'){
-      tmp->UnidadesVendidas[mes-1][NORMAL] = quantidade;
-      tmp->Faturacao[mes-1][NORMAL]=+ quantidade*preco;
+      tmp->UnidadesVendidas[mes-1][NORMAL]= quantidade;
+      tmp->Faturacao[mes-1][NORMAL]= quantidade*preco;
+
+      if(filial==1){
+        tmp->TotalUniFilial1[mes-1][NORMAL] =quantidade;
+        tmp->TotalFatFilial1[mes-1][NORMAL] =quantidade*preco;
+      } 
+        if(filial==2){
+
+        tmp->TotalUniFilial2[mes-1][NORMAL] =quantidade;
+        tmp->TotalFatFilial2[mes-1][NORMAL] =quantidade*preco;
+      }
+     
+
+      if(filial==3){
+
+        tmp->TotalUniFilial3[mes-1][NORMAL] =quantidade;
+        tmp->TotalFatFilial3[mes-1][NORMAL] =quantidade*preco;
+      }
+    
 
      }else{
       
-      tmp->UnidadesVendidas[mes-1][PROMO] = quantidade;
-      tmp->Faturacao[mes-1][PROMO]=+ quantidade*preco;
+        tmp->UnidadesVendidas[mes-1][PROMO] = quantidade;
+        tmp->Faturacao[mes-1][PROMO]= quantidade*preco;
 
+        if(filial==1){
+          tmp->TotalUniFilial1[mes-1][PROMO] =quantidade;
+          tmp->TotalFatFilial1[mes-1][PROMO] =quantidade*preco;
         }
+        if(filial==2){
+
+          tmp->TotalUniFilial2[mes-1][PROMO] =quantidade;
+          tmp->TotalFatFilial2[mes-1][PROMO] =quantidade*preco;
+        }
+
+        if(filial==3){
+
+          tmp->TotalUniFilial3[mes-1][PROMO] =quantidade;
+          tmp->TotalFatFilial3[mes-1][PROMO] =quantidade*preco;
+        }
+      }
    return tmp;
 }
 

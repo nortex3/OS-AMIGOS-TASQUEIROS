@@ -4,7 +4,7 @@
 typedef struct FatGlobal* FaturacaoGlobal;
 
 FaturacaoGlobal InicializaTotalProdutos();
-void insereAvlFaturacao(FaturacaoGlobal c,char *cod, double preco,int quantidade,int mes,char tipo);
+void insereAvlFaturacao(FaturacaoGlobal c,char *cod, double preco,int quantidade,int mes,char tipo,int filial);
 int VeTotalFG(FaturacaoGlobal p);
 double totaldoproduto(FaturacaoGlobal p);
 #endif

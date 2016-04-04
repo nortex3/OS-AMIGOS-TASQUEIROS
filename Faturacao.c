@@ -27,9 +27,9 @@ int VeTotalFG(FaturacaoGlobal p){
 }
 
 double totaldoproduto(FaturacaoGlobal p){
-    Avl_tree b = p->avl_produtos[0]; 
+    Avl_tree b = p->avl_produtos[13]; 
     double r;
-    Avl a = procuraTree(b,"AF1184");
+    Avl a = procuraTree(b,"NR1091");
     r= total(a);
     return r;
 }
@@ -58,7 +58,7 @@ FaturacaoGlobal InicializaTotalProdutos() {
 /*
 Insere os produtos vendidos na Avl de Faturacao
 */
-void insereAvlFaturacao(FaturacaoGlobal c,char *cod, double preco,int quantidade,int mes,char tipo){
+void insereAvlFaturacao(FaturacaoGlobal c,char *cod, double preco,int quantidade,int mes,char tipo, int filial){
     int j=26;
     Avl node;
     if (cod[0]>=97 && cod[0]<=123) 
@@ -68,7 +68,7 @@ void insereAvlFaturacao(FaturacaoGlobal c,char *cod, double preco,int quantidade
             j = ((int)cod[0])-65;
 
     if(existeF(cod, c-> avl_produtos[j])== 0){
-            node = createNodeF(cod,preco,quantidade,mes,tipo);
+            node = createNodeF(cod,preco,quantidade,mes,tipo,filial);
             avl_insertF(c -> avl_produtos[j], node);
             if(tipo=='N'){
                 c->TotalVendas[mes-1][NORMAL]+=quantidade;
@@ -80,9 +80,9 @@ void insereAvlFaturacao(FaturacaoGlobal c,char *cod, double preco,int quantidade
                  c->TotalFaturado[mes-1][PROMO]+=quantidade*preco;
             
             }
-        } else{
+    }else{
 
-        avl_actualiza(cod,c->avl_produtos[j],preco,quantidade,mes,tipo);
+        avl_actualiza(cod,c->avl_produtos[j],preco,quantidade,mes,tipo,filial);
         if(tipo=='N'){
                 c->TotalVendas[mes-1][NORMAL]+=quantidade;
                 c->TotalFaturado[mes-1][NORMAL]+=quantidade*preco;

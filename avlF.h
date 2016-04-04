@@ -24,10 +24,10 @@ typedef struct list{
 	struct list* next;
 }list;
 Avl procura(Avl p, char* cod);
-int avl_actualiza(char* s, Avl_tree ptr,double preco,int quantidade,int mes,char tipo);
+int avl_actualiza(char* s, Avl_tree ptr,double preco,int quantidade,int mes,char tipo,int filial);
 double  total(Avl a);
 int existeF(char* s, Avl_tree ptr);
-Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipo);
+Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipom,int filial);
 Avl_tree createTreeF();
 Avl procuraTree(Avl_tree node, char* cod);
 

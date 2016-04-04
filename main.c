@@ -10,7 +10,7 @@
 #include "avl.h"
 
 
-int leituraPro(Produtos pro, char* filename) {
+int leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
     int nLinhas = 0;
     int LinhasM = 0;
     char linha[10];
@@ -22,6 +22,8 @@ int leituraPro(Produtos pro, char* filename) {
             tok = strtok(linha, "\r\n");
             if(strlen(tok)==6 && isalpha(tok[0]) && isalpha(tok[1])&& isdigit(tok[2])&& isdigit(tok[3])&& isdigit(tok[4]) && isdigit(tok[5])){
             	insereAVLProdutos(pro,tok);
+                insereAvlFaturacao(fb,tok,0.0,0,0,'A',0);
+
             } else LinhasM++;
             
             nLinhas++;
@@ -98,7 +100,7 @@ int leituraVendas(FaturacaoGlobal fb, Produtos p, Clientes c, char *filename){
 
 
             if(erro==0){
-                insereAvlFaturacao(fb,produto,preco,unidades,mes,PouN[0]);
+                insereAvlFaturacao(fb,produto,preco,unidades,mes,PouN[0],filial);
                 /* Falta inserir no modulo filial*/
                 nLinhas++;
 
@@ -117,12 +119,12 @@ int main() {
     Produtos pro = InicializaProdutos();
     FaturacaoGlobal fb = InicializaTotalProdutos();
 
-    leituraPro(pro,"Produtos.txt");
+    leituraPro(fb,pro,"Produtos.txt");
     leituraCli(cli,"Clientes.txt");
     leituraVendas(fb,pro,cli,"Vendas_1M.txt");
     
     printf("Total de vendas em fevereiro em modo promocao: %d\n",VeTotalFG(fb) );
-    printf("Total faturado do produto AF1184: %f\n",totaldoproduto(fb) );
+    printf("Total faturado do produto NR1091, na filial 2, mes 8, modo PROMO: %f\n",totaldoproduto(fb) );
     printf("Produtos começados por B: %d\n",VeTotalP(pro) );
     printf("Clientes começado por B: %d\n",VeTotalC(cli) );
 
