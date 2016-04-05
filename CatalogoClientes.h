@@ -8,4 +8,5 @@ typedef struct clientes* Clientes;
 Clientes InicializaClientes();
 int VeTotalC(Clientes c);
 void insereAvlClientes(Clientes p,char *cod);
+int ExisteCliente(char* cod, Clientes p);
 #endif
