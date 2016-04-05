@@ -48,7 +48,8 @@ void insereAVLProdutos(Produtos p,char *cod){
 }
 
 
-int ExisteProduto(char* cod, Produtos p){int r=0;
+int ExisteProduto(char* cod, Produtos p){
+	int r=0;
 	int j=0;
 	if (cod[0]>=97 && cod[0]<=123) 
         j = ((int)cod[0])-97;

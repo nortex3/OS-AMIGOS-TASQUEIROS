@@ -6,7 +6,9 @@
 #include "CatalogoProdutos.h"
 #include "CatalogoClientes.h"
 #include "Faturacao.h"
+#include "GestaoFilial.h"
 #include "avl.h"
+#include "avlFilial.h"
 #include "leitura.h"
 
 int leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
@@ -35,7 +37,7 @@ int leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
 
 }
 
-int leituraCli(Clientes cl, char* filename) {
+int leituraCli(Clientes cl,GF gf , char* filename) {
     int nLinhas = 0;
     char linha[10];
     char *tok;
@@ -47,6 +49,7 @@ int leituraCli(Clientes cl, char* filename) {
             tok = strtok(linha, "\r\n");
             if(strlen(tok)==5 && isalpha(tok[0]) && isdigit(tok[1])&& isdigit(tok[2])&& isdigit(tok[3])&& isdigit(tok[4])){
                 insereAvlClientes(cl,tok);
+                insereAvlCli(gf,tok,NULL,0,0,'A',0);
             }else LinhasM++;
             nLinhas++;
 
@@ -59,8 +62,8 @@ int leituraCli(Clientes cl, char* filename) {
 }
 
 
-/* LEITURA QUE VERIFICA AS LINHAS VALIDAS */
-int leituraVendas(FaturacaoGlobal fb, Produtos p, Clientes c, char *filename){
+/* LEITURA QUE VERIFICAVA AS LINHAS VALIDAS */
+int leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *filename){
 
     FILE* file = fopen(filename, "r");
     int nLinhas = 0;
@@ -100,7 +103,7 @@ int leituraVendas(FaturacaoGlobal fb, Produtos p, Clientes c, char *filename){
 
             if(erro==0){
                 insereAvlFaturacao(fb,produto,preco,unidades,mes,PouN[0],filial);
-                /* Falta inserir no modulo filial*/
+                insereAvlCli(gf,cliente,produto,unidades,mes,PouN[0], filial);
                 nLinhas++;
 
             }else LinhasM++;
