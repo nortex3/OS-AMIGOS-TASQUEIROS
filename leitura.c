@@ -8,6 +8,7 @@
 #include "Faturacao.h"
 #include "GestaoFilial.h"
 #include "avl.h"
+#include "avlF.h"
 #include "avlFilial.h"
 #include "leitura.h"
 
@@ -30,7 +31,7 @@ int leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
             nLinhas++;
 
         }
-    printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas Mal: %d\n Linhas correcta:%d \n ", filename, nLinhas,LinhasM,nLinhas-LinhasM);   
+    printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas erradas: %d\n Linhas correctas: %d \n", filename, nLinhas,LinhasM,nLinhas-LinhasM);   
     fclose(file);
     } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
     return nLinhas;
@@ -54,7 +55,7 @@ int leituraCli(Clientes cl,GF gf , char* filename) {
             nLinhas++;
 
         }
-        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas Mal: %d\n Linhas correcta:%d \n ", filename, nLinhas,LinhasM,nLinhas-LinhasM);
+        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas erradas: %d\n Linhas correctas: %d \n", filename, nLinhas,LinhasM,nLinhas-LinhasM);
         fclose(file);
     } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
     return nLinhas;
@@ -109,7 +110,7 @@ int leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *filena
             }else LinhasM++;
             
         }
-        printf("Nome do ficheiro: %s\n Linhas correctas: %d\n Linhas Mal: %d\n Linhas lidas:%d \n ", filename, nLinhas,LinhasM,nLinhas+LinhasM);   
+        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas erradas: %d\n Linhas correctas: %d \n", filename, nLinhas+LinhasM,LinhasM,nLinhas);   
         fclose(file);
     } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
     return nLinhas;

@@ -67,7 +67,7 @@ typedef struct avl_treeC
 
 void tol(AvlC a){
 printf("ola:%d\n",a->TotalComprados );
-//printf("%f\n",a->TotalFaturado );
+/*printf("%f\n",a->TotalFaturado );*/
 }
 
 
