@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "interface.h"
-#include "CatalogoProdutos.h"
-#include "CatalogoClientes.h"
-#include "Faturacao.h"
-#include "GestaoFilial.h"
-#include "avlF.h"
-#include "avl.h"
-#include "avlFilial.h"
-#include "leitura.h"
+#include "headers/interface.h"
+#include "headers/CatalogoProdutos.h"
+#include "headers/CatalogoClientes.h"
+#include "headers/Faturacao.h"
+#include "headers/GestaoFilial.h"
+#include "headers/avlF.h"
+#include "headers/avl.h"
+#include "headers/avlFilial.h"
+#include "headers/leitura.h"
 
 
 void printInicializar();

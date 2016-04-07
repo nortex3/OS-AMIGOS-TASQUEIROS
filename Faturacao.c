@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "Faturacao.h"
 
-#include "avlF.h"
+#include "headers/Faturacao.h"
+#include "headers/avlF.h"
 
 #define NORMAL 0
 #define PROMO 1

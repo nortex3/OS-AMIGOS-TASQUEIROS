@@ -23,10 +23,13 @@ typedef struct list{
 	char* name;
 	struct list* next;
 }list;
-
-int existe(char* s, Avl_tree ptr);
-Avl createNode(char* s);
-Avl_tree createTree();
+Avl procura(Avl p, char* cod);
+int avl_actualiza(char* s, Avl_tree ptr,double preco,int quantidade,int mes,char tipo,int filial);
+double  total(Avl a);
+int existeF(char* s, Avl_tree ptr);
+Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipom,int filial);
+Avl_tree createTreeF();
+Avl procuraTree(Avl_tree node, char* cod);
 
 /* Public methods */
 
@@ -34,13 +37,5 @@ Avl_tree createTree();
  * returns 1 if the depth of the tree has grown
  * Warning: do not insert elements already present
  */
-int avl_insert(Avl_tree t,Avl a);
-list* inorderTraversal(Avl a, list* l);
-list* copy(Avl_tree a);
-int length(Avl a);
-int namesLength(Avl_tree a);
-Avl createCharNode(Avl_tree a);
-int toArrayClientesAux(Avl clientes, int index, char** aux);
-int toArrayProdutosAux(Avl produtos, int index, char** aux);
-
+int avl_insertF(Avl_tree t,Avl a);
 #endif /* avl.h */

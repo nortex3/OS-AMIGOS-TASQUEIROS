@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "Faturacao.h"
 
-#include "avlFilial.h"
-#include "GestaoFilial.h"
+#include "headers/Faturacao.h"
+#include "headers/avlFilial.h"
+#include "headers/GestaoFilial.h"
 
 #define NORMAL 0
 #define PROMO 1

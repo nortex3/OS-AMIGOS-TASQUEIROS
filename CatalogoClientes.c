@@ -4,8 +4,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "avl.h"
-#include "CatalogoClientes.h"
+#include "headers/avl.h"
+#include "headers/CatalogoClientes.h"
 
 struct clientes{
 	int total[26];

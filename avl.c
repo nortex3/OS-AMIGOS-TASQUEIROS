@@ -13,7 +13,7 @@
  *
  */
 
-#include "avl.h"
+#include "headers/avl.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -174,42 +174,6 @@ int avl_insert(Avl_tree t,Avl a)
 	 return 1;
       }
    }
-}
-
-list* inorderTraversal(Avl a, list* l){
-   list* r;
-   char* c;
-   if(a == NULL) r = l;
-   else{
-      r = (list*)malloc(sizeof(list));
-      c = (char*)malloc((strlen(a->codigo)+1)*sizeof(char));
-      strcpy(c, a->codigo);
-      r -> name = c;
-      r -> next = inorderTraversal(a -> right, l);
-      r = inorderTraversal(a -> left, r);
-   }
-   return r;
-}
-
-list* copy(Avl_tree a){
-   list* p, *tmp = NULL;
-   p = inorderTraversal(a -> root, tmp);
-   /*tmp = p;
-   while(tmp){
-      printf("%s\n", tmp->name);
-      tmp = tmp -> next;
-   }*/
-   return p;
-}
-
-int length(Avl a){
-   if(!a) return 0;
-   return strlen(a -> codigo) + length(a -> left) + length(a -> right);
-   
-}
-
-int namesLength(Avl_tree a){
-    return length(a -> root);
 }
 
 Avl createCharNode(Avl_tree a){

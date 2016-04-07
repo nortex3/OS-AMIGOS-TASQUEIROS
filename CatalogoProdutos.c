@@ -3,8 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "avl.h"
-#include "CatalogoProdutos.h"
+#include "headers/avl.h"
+#include "headers/CatalogoProdutos.h"
 
 struct produtos {
 	int total[26];

@@ -3,15 +3,11 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "CatalogoProdutos.h"
-#include "CatalogoClientes.h"
-#include "Faturacao.h"
-#include "GestaoFilial.h"
-#include "avlF.h"
-#include "avl.h"
-#include "avlFilial.h"
-#include "leitura.h"
-#include "interface.h"
+#include "headers/CatalogoProdutos.h"
+#include "headers/CatalogoClientes.h"
+#include "headers/Faturacao.h"
+#include "headers/GestaoFilial.h"
+#include "headers/interface.h"
 
 Clientes cli;
 Produtos pro;

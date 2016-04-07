@@ -13,7 +13,7 @@
  *
  */
 
-#include "avlF.h"
+#include "headers/avlF.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -322,40 +322,4 @@ int avl_insertF(Avl_tree t,Avl a)
       }
    }
 }
-/*
-list* inorderTraversalF(Avl a, list* l){
-   list* r;
-   char* c;
-   if(a == NULL) r = l;
-   else{
-      r = (list*)malloc(sizeof(list));
-      c = (char*)malloc((strlen(a->codigo)+1)*sizeof(char));
-      strcpy(c, a->codigo);
-      r -> name = c;
-      r -> next = inorderTraversal(a -> right, l);
-      r = inorderTraversal(a -> left, r);
-   }
-   return r;
-}
-
-list* copyF(Avl_tree a){
-   list* p, *tmp = NULL;
-   p = inorderTraversal(a -> root, tmp);
-   tmp = p;
-   while(tmp){
-      printf("%s\n", tmp->name);
-      tmp = tmp -> next;
-   }
-   return p;
-}
-
-int lengthF(Avl a){
-   if(!a) return 0;
-   return strlen(a -> codigo) + length(a -> left) + length(a -> right);
-   
-}
-
-int namesLengthF(Avl_tree a){
-    return length(a -> root);
-}*/
 

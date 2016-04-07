@@ -3,14 +3,14 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "CatalogoProdutos.h"
-#include "CatalogoClientes.h"
-#include "Faturacao.h"
-#include "GestaoFilial.h"
-#include "avl.h"
-#include "avlF.h"
-#include "avlFilial.h"
-#include "leitura.h"
+#include "headers/CatalogoProdutos.h"
+#include "headers/CatalogoClientes.h"
+#include "headers/Faturacao.h"
+#include "headers/GestaoFilial.h"
+#include "headers/avl.h"
+#include "headers/avlF.h"
+#include "headers/avlFilial.h"
+#include "headers/leitura.h"
 
 int leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
     int nLinhas = 0;
