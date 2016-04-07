@@ -3,6 +3,7 @@
 
 
 typedef struct clientes* Clientes;
+typedef struct conjClientes* ConjClientes;
 
 /* Funções */
 Clientes InicializaClientes();

@@ -2,6 +2,7 @@
 #define _CATALOGOPRODUTOS_H
 
 typedef struct produtos* Produtos;
+typedef struct conjProds* ConjProds;
 
 Produtos InicializaProdutos();
 void insereAVLProdutos(Produtos p,char *cod);

@@ -12,6 +12,11 @@ struct clientes{
 	Avl_tree AVLClientes[26];
 };
 
+struct conjClientes {
+	char** lista;
+	int tamanho;
+}
+
 /*
 Inicia as AVLs dos Clientes
 */

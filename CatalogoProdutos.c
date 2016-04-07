@@ -11,6 +11,10 @@ struct produtos {
  	Avl_tree AVLProdutos[26];
 };
 
+struct conjProds {
+	char** lista;
+	int tamanho;
+}
 
 /* Catalogo de produtos */
 int VeTotalP(Produtos p){
