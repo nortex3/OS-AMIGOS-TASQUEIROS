@@ -15,7 +15,7 @@ struct clientes{
 struct conjClientes {
 	char** lista;
 	int tamanho;
-}
+};
 
 /*
 Inicia as AVLs dos Clientes

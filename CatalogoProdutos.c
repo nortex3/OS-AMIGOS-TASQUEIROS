@@ -14,7 +14,7 @@ struct produtos {
 struct conjProds {
 	char** lista;
 	int tamanho;
-}
+};
 
 /* Catalogo de produtos */
 int VeTotalP(Produtos p){
