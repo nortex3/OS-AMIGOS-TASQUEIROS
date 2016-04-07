@@ -39,5 +39,8 @@ list* inorderTraversal(Avl a, list* l);
 list* copy(Avl_tree a);
 int length(Avl a);
 int namesLength(Avl_tree a);
+Avl createCharNode(Avl_tree a);
+int toArrayClientesAux(Avl clientes, int index, char** aux);
+int toArrayProdutosAux(Avl produtos, int index, char** aux);
 
 #endif /* avl.h */

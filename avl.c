@@ -212,3 +212,34 @@ int namesLength(Avl_tree a){
     return length(a -> root);
 }
 
+Avl createCharNode(Avl_tree a){
+   Avl b;
+   b = a->root;
+   return b;
+}
+
+int toArrayClientesAux(Avl clientes, int index, char** aux){
+   if(clientes == NULL){
+      return index;
+   }
+   aux[index] = clientes->codigo;
+   index++;
+   if (clientes->left)
+      index = toArrayClientesAux(clientes->left,index,aux);
+   if (clientes->right)
+      index = toArrayClientesAux(clientes->right,index,aux);
+   return index;  
+}
+
+int toArrayProdutosAux(Avl produtos, int index, char** aux){
+   if(produtos == NULL){
+      return index;
+   }
+   aux[index] = produtos->codigo;
+   index++;
+   if (produtos->left)
+      index = toArrayClientesAux(produtos->left,index,aux);
+   if (produtos->right)
+      index = toArrayClientesAux(produtos->right,index,aux);
+   return index;  
+}

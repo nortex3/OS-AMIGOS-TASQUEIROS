@@ -4,7 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include  "avl.h"
+#include "avl.h"
 #include "CatalogoClientes.h"
 
 struct clientes{
@@ -68,4 +68,22 @@ int ExisteCliente(char* cod, Clientes p){
             j = ((int)cod[0])-65;
     r=existe(cod,p->AVLClientes[j]);
     return r;
+}
+
+void toArrayClientes(Clientes cli, char c){
+   int index = 0, size = 0, n = 0, i = 0;
+   char** aux;
+   Avl_tree a;
+   Avl b;
+   
+   n = c-65;
+   size = cli->total[n];
+   aux = malloc(sizeof(char*)*size);
+   a = cli -> AVLClientes[n];
+   b = createCharNode(a);
+   toArrayClientesAux(b, index, aux);
+   while(i<size){
+   	printf("%s\n",aux[i]);
+   	i++;
+   }
 }

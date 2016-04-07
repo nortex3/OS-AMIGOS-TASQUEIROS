@@ -9,4 +9,6 @@ Clientes InicializaClientes();
 int ExisteCliente(char* cod, Clientes p);
 int VeTotalC(Clientes c);
 void insereAvlClientes(Clientes p,char *cod);
+void toArrayClientes(Clientes cli, char c);
+
 #endif

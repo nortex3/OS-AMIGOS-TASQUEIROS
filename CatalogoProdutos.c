@@ -60,8 +60,23 @@ int ExisteProduto(char* cod, Produtos p){
     return r;
 }
 
-
-
+void toArrayProdutos(Produtos pro, char c){
+   int index = 0, size = 0, n = 0, i = 0;
+   char** aux;
+   Avl_tree a;
+   Avl b;
+   
+   n = c-65;
+   size = pro->total[n];
+   aux = malloc(sizeof(char*)*size);
+   a = pro -> AVLProdutos[n];
+   b = createCharNode(a);
+   toArrayProdutosAux(b, index, aux);
+   while(i<size){
+   	printf("%s\n",aux[i]);
+   	i++;
+   }
+}
 
 
 
