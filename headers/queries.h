@@ -1,6 +1,9 @@
 #ifndef _queries_H
 #define _queries_H
 
+void querie1Clientes();
+void querie1Produtos();
+void querie1Vendas();
 void querie2(char i);
 void querie3();
 void querie4();

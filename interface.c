@@ -19,11 +19,6 @@ void imprimirMenu();
 void inicializarMenu();
 int printMenu();
 
-extern Clientes cli;
-extern Produtos pro;
-extern FaturacaoGlobal fg;
-extern GF gf;
-
 static int initCli = 0;
 static int initPro = 0;
 static int initVendas = 0;
@@ -89,17 +84,13 @@ void inicializarMenu(){
 		switch(r){
 			case 1:
 				printf("\033c");
-				cli = InicializaClientes();
-				gf = InicializaGestFil();
-				leituraCli(cli, gf, "Clientes.txt");
+				querie1Clientes();
 				initCli = 1;
 				inicializarMenu();
 				break;
 			case 2:
 				printf("\033c");
-				fg = InicializaTotalProdutos();
-				pro = InicializaProdutos();
-				leituraPro(fg, pro, "Produtos.txt");
+				querie1Produtos();
 				initPro = 1;
 				inicializarMenu();
 				break;
@@ -110,22 +101,17 @@ void inicializarMenu(){
 					inicializarMenu();					
 				}
 				else{
-					leituraVendas(gf, fg, pro, cli, "Vendas_1M.txt");
+					querie1Vendas();
 					initVendas = 1;
 					inicializarMenu();
 				}
 				break;
 			case 4:
-				cli = InicializaClientes();
-				gf = InicializaGestFil();
-				fg = InicializaTotalProdutos();
-				pro = InicializaProdutos();
-				printf("\033c");
-				leituraCli(cli, gf, "Clientes.txt");
+				querie1Clientes();
 				initCli = 1;
-				leituraPro(fg, pro, "Produtos.txt");
+				querie1Produtos();
 				initPro = 1;
-				leituraVendas(gf, fg, pro, cli, "Vendas_1M.txt");
+				querie1Vendas();
 				initVendas = 1;
 				inicializarMenu();
 				break;
@@ -188,12 +174,18 @@ void imprimirMenu(){
 					printf("Insira uma letra maiúscula: ");
 					i = scanf("%c",&c);
 					if(i > 0){
-						toArrayProdutos(pro, c);
-					}
-				}
-				else{
+                         if (c>=64 && c<=90){
+					         querie6(c);
+                         }
+                         else{
+                                printf("\033c");
+                                printf("Letra inválida.\n");
+                            }
+                       }
+                }
+                else{
 					printf("\033c");
-					printf("Produtos não inicializados\n");
+					printf("Produtos não inicializados.\n");
 				}
 				imprimirMenu();
 				break;
