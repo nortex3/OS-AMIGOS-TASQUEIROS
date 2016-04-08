@@ -28,6 +28,7 @@ Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipom,int filia
 Avl_tree createTreeF();
 Avl procuraTree(Avl_tree node, char* cod);
 void RecolheInfoNodo(Avl p,int mes, double array[]);
+void RecolheInfoNodoFilial(Avl p,int mes, double array[]);
 
 /* Public methods */
 
