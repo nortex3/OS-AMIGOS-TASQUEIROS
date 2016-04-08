@@ -12,6 +12,13 @@
 #include "headers/avlFilial.h"
 #include "headers/leitura.h"
 
+struct leitura{
+    int LinhasM;
+    int nLinhas;
+    int linhasLidas;
+    char* nomeFile;
+};
+
 int leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
     int nLinhas = 0;
     int LinhasM = 0;
