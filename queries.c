@@ -18,6 +18,8 @@ extern FaturacaoGlobal fg;
 extern GF gf;
 extern ConjProds prods;
 
+void printQuerie2(ConjClientes clientes, int contador, int index);
+
 void querie1Clientes(){
 	cli = InicializaClientes();
 	gf = InicializaGestFil();
@@ -37,7 +39,8 @@ void querie1Vendas(){
 void querie2(char c){
     int aux = 0;
     ConjClientes clientes = toArrayClientes(cli, c);
-    printQuerie2(clientes, aux, aux, aux);
+	printf("\033c");
+    printQuerie2(clientes, aux, aux);
 }
 
 void querie3(int mes,char* codPro,int modo){
@@ -74,18 +77,50 @@ void querie6(char c){
 }*/
 
 /* \n ENTER, \b BACKSPACE, ASCII of ESC = 27 */
-void printQuerie2(ConjClientes clientes, int contador, int index, int i){
+void printQuerie2(ConjClientes clientes, int contador, int index){
+	int n = 0, i,c = 0;
+
 	printf("################## GEREVENDAS ##################\n");
-    for (i=0;i < 20; i++){
-		printf("# %s                                        #\n",clientes.lista[index]);
-		contador++;
-		index++;
+    for (i=0;i < 20 && index < clientes.tamanho; i++){
+			printf("# %s                                        #\n",clientes.lista[index]);
+			contador++;
+			index++;
 	}
 	printf("################################################\n");
-	printf("# Número de linhas começadas por '%c'           #\n",clientes.lista[0][0]);
+	printf("# Número de linhas começadas por '%c': %d      #\n",clientes.lista[0][0], clientes.tamanho);
 	printf("################################################\n");
-	printf("# Prima 'ENTER' para continuar                 #\n");
-	printf("# 'BACKSPACE' para retroceder                  #\n");
-	printf("# 'ESC' para sair                              #\n");
+	printf("# 1. Continuar.                                #\n");
+	printf("# 2. Retroceder.                               #\n");
+	printf("# 0. Sair.                                     #\n");
 	printf("################################################\n");
+	printf(">");
+	n = scanf("%d",&c);
+	if(n > 0){
+		if(c == 1){
+			printf("\033c");
+			printQuerie2(clientes, contador, index++);
+		}
+		else if(c == 1 && (contador+20) >= clientes.tamanho){
+			printf("\033c");
+			printf("Impossível continuar.\n");
+			printQuerie2(clientes, contador-40, index-40);
+		}
+		else if(c == 2 && (contador-40) >= 0){
+			printf("\033c");
+			printQuerie2(clientes, contador-40, index-40);
+		}
+		else if(c == 2 && (contador-40) <= 0){
+			printf("\033c");
+			printf("Impossível retroceder.\n");
+			printQuerie2(clientes, contador-20, index-20);
+		}
+		else if(c == 0){
+			printf("\033c");
+		}
+		else{
+			printf("\033c");
+			printf("Comando inválido\n");
+			printQuerie2(clientes, contador-20, index-20);
+		}
+	}
 }

@@ -186,10 +186,12 @@ int toArrayClientesAux(Avl clientes, int index, char** aux){
    if(clientes == NULL){
       return index;
    }
-   aux[index] = clientes->codigo;
-   index++;
    if (clientes->left)
       index = toArrayClientesAux(clientes->left,index,aux);
+   
+   aux[index] = clientes->codigo;
+   index++;
+
    if (clientes->right)
       index = toArrayClientesAux(clientes->right,index,aux);
    return index;  
@@ -199,10 +201,12 @@ int toArrayProdutosAux(Avl produtos, int index, char** aux){
    if(produtos == NULL){
       return index;
    }
-   aux[index] = produtos->codigo;
-   index++;
    if (produtos->left)
       index = toArrayClientesAux(produtos->left,index,aux);
+
+   aux[index] = produtos->codigo;
+   index++;
+
    if (produtos->right)
       index = toArrayClientesAux(produtos->right,index,aux);
    return index;  

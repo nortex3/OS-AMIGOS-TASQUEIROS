@@ -159,6 +159,7 @@ void imprimirMenu(){
 				if(initCli == 1){
 					printf("Insira uma letra maiúscula: ");
 					i = scanf("%c",&c);
+					i = getchar();
                     if(i > 0){
                          if (c>=64 && c<=90){
 					         querie2(c);
@@ -271,7 +272,7 @@ void printInicializar(){
 
 
 void imprimirMenuQueries(){
-	int r = 0, n = 0;
+	int r = 0, n = 0, aux = 0;
 	int mes=0;
 	int mesI=0,mesF=0;
 	int filial=0;
@@ -280,15 +281,15 @@ void imprimirMenuQueries(){
 	char s[6];
 	printf("################## GEREVENDAS ##################################################################\n"
 		   "# 1.  Querie3 - Apresentar total vendas e faturado de um dado produto e mês.          	       #\n"
-		   "# 2.  Querie4 - Lista de produtos que ninguém comprou.                                         #\n"
-		   "# 3.  Querie5 - Cria tabela com produtos comprados por um dado cliente                         #\n"
+		   "# 2.  Querie4 - Lista de produtos que ninguém comprou.                                         #\n");
+	printf("# 3.  Querie5 - Cria tabela com produtos comprados por um dado cliente                         #\n"
 		   "# 4.  Querie6 - Determina total de vendas e faturado num dado intervalo de meses.              #\n"
 		   "# 5.  Querie7 - Lista de clientes que realizaram compras em todas as filiais.                  #\n"
-		   "# 6.  Querie8 - Apresentar clientes que compraram um dado produto, numa filial especifica.     #\n"
-		   "# 7.  Querie9 - Lista de clientes que mais compraram um dado produto, num dado mês.            #\n"
+		   "# 6.  Querie8 - Apresentar clientes que compraram um dado produto, numa filial especifica.     #\n");
+	printf("# 7.  Querie9 - Lista de clientes que mais compraram um dado produto, num dado mês.            #\n"
 		   "# 8.  Querie10 - Listar os N produtos mais vendidos.                                           #\n"
-		   "# 9.  Querie11 - Apresentar os 3 produtos em que um dado cliente gastou mais dinheiro          #\n"
-		   "# 10. Querie12 - Número de clientes que não registaram compras, e produtos que ninguém comprou.#\n"
+		   "# 9.  Querie11 - Apresentar os 3 produtos em que um dado cliente gastou mais dinheiro          #\n");
+	printf("# 10. Querie12 - Número de clientes que não registaram compras, e produtos que ninguém comprou.#\n"
 		   "# 0.  Voltar ao menu inicial.                												   #\n"
 		   "################################################################################################\n"
 		   ">");
@@ -299,11 +300,11 @@ void imprimirMenuQueries(){
 			case 1:
 				if(initPro == 1 || initVendas==1){
 					printf("Insira um código de um produto: \n");
-					scanf("%s",s);
+					aux = scanf("%s",s);
 					printf("Insira um mês: \n");
-					scanf("%d",&mes);
+					aux = scanf("%d",&mes);
 				    printf("Insira 1 para resultados globais, Insira 2 para resultados filial a filial: \n");
-				    scanf("%d",&modo);
+				    aux = scanf("%d",&modo);
 					if(modo==1 ) {
 						printf("%d\n",modo );
 						querie3(mes,s,modo);}  
@@ -332,7 +333,7 @@ void imprimirMenuQueries(){
 			case 3:
 				if(initCli==1 || initPro == 1 || initVendas==1){
 					printf("Insira um código de um cliente: \n");
-					scanf("%s",s);
+					aux = scanf("%s",s);
 					querie5(s);        
                     }
 				else{
@@ -344,9 +345,9 @@ void imprimirMenuQueries(){
 			case 4:
 				if(initPro == 1 || initVendas==1){
 					printf("Insira mes inicial: \n");
-					scanf("%d",&mesI);
+					aux = scanf("%d",&mesI);
 					printf("Insira mês final: \n");
-					scanf("%d",&mesF);
+					aux = scanf("%d",&mesF);
 					querie6(mesI,mesF);        
                     }
 				else{
@@ -368,9 +369,9 @@ void imprimirMenuQueries(){
 			case 6:
 				if(initPro == 1 || initVendas==1){
 					printf("Insira um código de um produto: \n");
-					scanf("%s",s);
+					aux = scanf("%s",s);
 					printf("Insira uma filial: \n");
-					scanf("%d",&filial);
+					aux = scanf("%d",&filial);
 					querie8(s,filial);        
                     }
 				else{
@@ -382,9 +383,9 @@ void imprimirMenuQueries(){
 			case 7:
 				if(initCli==1||initPro == 1 || initVendas==1){
 					printf("Insira um código de um cliente: \n");
-					scanf("%s",s);
+					aux = scanf("%s",s);
 					printf("Insira um mês: \n");
-					scanf("%d",&mes);
+					aux = scanf("%d",&mes);
 					querie9(s,mes);        
                     }
 				else{
@@ -406,7 +407,7 @@ void imprimirMenuQueries(){
 			case 9:
 				if(initCli==1||initPro == 1 || initVendas==1){
 					printf("Insira um código de um cliente: \n");
-					scanf("%s",s);
+					aux = scanf("%s",s);
 					querie11(s);        
                     }
 				else{
@@ -429,6 +430,7 @@ void imprimirMenuQueries(){
 				printMenu();
 				break;
 			default:
+				printf("%d\n",aux );
 				printf("\033c");
 				printf("Opção inválida.\n");
 				imprimirMenuQueries();
