@@ -16,6 +16,7 @@ extern Clientes cli;
 extern Produtos pro;
 extern FaturacaoGlobal fg;
 extern GF gf;
+extern ConjProds prods;
 
 void querie1Clientes(){
 	cli = InicializaClientes();
@@ -34,12 +35,25 @@ void querie1Vendas(){
 }
 
 void querie2(char c){
-    toArrayClientes(cli, c);
+    int i;
+    ConjClientes clientes = toArrayClientes(cli, c);
+    for (i=0;i<(clientes.tamanho);i++)
+	{
+		printf("%s\n",clientes.lista[i]);
+	}
+     printf("%i\n",clientes.tamanho);
 
 }
 
 void querie6(char c){
-	toArrayProdutos(pro,c);
+	int i;
+	ConjProds prods = (toArrayProdutos(pro,c));
+	
+	for (i=0;i<(prods.tamanho);i++)
+	{
+		printf("%s\n",prods.lista[i]);
+	}
+	printf("%i\n",prods.tamanho);
 }
 
 

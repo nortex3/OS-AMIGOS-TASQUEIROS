@@ -12,10 +12,6 @@ struct clientes{
 	Avl_tree AVLClientes[26];
 };
 
-struct conjClientes {
-	char** lista;
-	int tamanho;
-};
 
 /*
 Inicia as AVLs dos Clientes
@@ -75,20 +71,20 @@ int ExisteCliente(char* cod, Clientes p){
     return r;
 }
 
-void toArrayClientes(Clientes cli, char c){
-   int index = 0, size = 0, n = 0, i = 0;
+ConjClientes toArrayClientes(Clientes cli, char c){
+   int index = 0, size = 0, n = 0;
    char** aux;
    Avl_tree a;
    Avl b;
+   ConjClientes clientes;
    
    n = c-65;
    size = cli->total[n];
    aux = malloc(sizeof(char*)*size);
    a = cli -> AVLClientes[n];
    b = createCharNode(a);
-   toArrayClientesAux(b, index, aux);
-   while(i<size){
-   	printf("%s\n",aux[i]);
-   	i++;
-   }
+   index=toArrayClientesAux(b, index, aux);
+   clientes.lista=aux;
+   clientes.tamanho=index;
+   return clientes;
 }
