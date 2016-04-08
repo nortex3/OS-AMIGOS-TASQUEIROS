@@ -20,10 +20,11 @@ struct FatGlobal {
 
 /* Funçoes de teste */
 
-void TotalVendasTotalFaturadoGlobal(FaturacaoGlobal fg,int mes, char* cod, double array[], int modo ){
+int TotalVendasTotalFaturadoGlobal(FaturacaoGlobal fg,int mes, char* cod, double array[], int modo ){
     int j=26;
     Avl_tree pro;
     Avl a;
+    int r=0;
     
     if (cod[0]>=97 && cod[0]<=123) 
         j = ((int)cod[0])-97;
@@ -35,7 +36,9 @@ void TotalVendasTotalFaturadoGlobal(FaturacaoGlobal fg,int mes, char* cod, doubl
     if(a!=NULL){
         if(modo==1) RecolheInfoNodo(a,mes,array);
         else RecolheInfoNodoFilial(a,mes,array);
-    }
+        
+    }else r=1;
+    return r;
 }
 
 

@@ -338,7 +338,9 @@ void imprimirMenuQueries(){
 					aux = scanf("%d",&mes);
 				    printf("Insira 1 para resultados globais, Insira 2 para resultados filial a filial: \n");
 				    aux = scanf("%d",&modo);
-				    if(mes<1||mes>12){
+				    if(!isalpha(s[0])) printf("Insira código do produto no formato pedido\n");
+				    else
+				   	 if(mes<1||mes>12){
 				    	printf("Insira um mês entre 1 e 12\n");
 				    }else
 					if(modo==1 || modo==2) {

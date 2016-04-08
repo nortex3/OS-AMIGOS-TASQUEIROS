@@ -48,15 +48,21 @@ void querie3(int mes,char* codPro,int modo){
 
 	double res[4];
 	double resF[12];
+	int r=0;
 	if(modo==1){
-		TotalVendasTotalFaturadoGlobal(fg,mes, codPro,res,modo);
+		r=TotalVendasTotalFaturadoGlobal(fg,mes, codPro,res,modo);
+		if(r==1) printf("Codigo Inexistente\n");
+		else{
 		printf("Total vendas em modo promoção: %d\n",(int)res[0] );
 		printf("Total vendas em modo normal: %d\n",(int)res[1] );
 		printf("Total faturado em modo promoção: %f\n",res[2] );
 		printf("Total faturado em modo normal: %f\n",res[3] );
+	}
 	}else{
 
-		TotalVendasTotalFaturadoGlobal(fg,mes, codPro,resF,modo);
+		r=TotalVendasTotalFaturadoGlobal(fg,mes, codPro,resF,modo);
+		if(r==1) printf("Codigo Inexistente\n");
+		else{
 		printf("-----------------Filial 1------------------------\n");
 
 		printf("Total vendas em modo promoção na filial1: %d\n",(int)resF[0] );
@@ -76,7 +82,7 @@ void querie3(int mes,char* codPro,int modo){
 		printf("Total faturado em modo promoção na filial3: %f\n",resF[10] );
 		printf("Total faturado em modo normal na filial3: %f\n",resF[11] );
 	}
-
+}
 
 
 }
