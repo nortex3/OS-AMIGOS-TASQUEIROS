@@ -16,7 +16,6 @@ GF gf;
 
 int main() {
     interfaceMain();
-    
     /*
     leituraPro(fb,pro,"Produtos.txt");
     leituraCli(cli,gf,"Clientes.txt");

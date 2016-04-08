@@ -35,14 +35,9 @@ void querie1Vendas(){
 }
 
 void querie2(char c){
-    int i;
+    int aux = 0;
     ConjClientes clientes = toArrayClientes(cli, c);
-    for (i=0;i<(clientes.tamanho);i++)
-	{
-		printf("%s\n",clientes.lista[i]);
-	}
-     printf("%i\n",clientes.tamanho);
-
+    printQuerie2(clientes, aux, aux, aux);
 }
 
 void querie6(char c){
@@ -56,4 +51,19 @@ void querie6(char c){
 	printf("%i\n",prods.tamanho);
 }
 
-
+/* \n ENTER, \b BACKSPACE, ASCII of ESC = 27 */
+void printQuerie2(ConjClientes clientes, int contador, int index, int i){
+	printf("################## GEREVENDAS ##################\n");
+    for (i=0;i < 20; i++){
+		printf("# %s                                        #\n",clientes.lista[index]);
+		contador++;
+		index++;
+	}
+	printf("################################################\n");
+	printf("# Número de linhas começadas por '%c'           #\n",clientes.lista[0][0]);
+	printf("################################################\n");
+	printf("# Prima 'ENTER' para continuar                 #\n");
+	printf("# 'BACKSPACE' para retroceder                  #\n");
+	printf("# 'ESC' para sair                              #\n");
+	printf("################################################\n");
+}
