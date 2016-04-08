@@ -8,7 +8,7 @@ void querie2(char i);
 void querie3();
 void querie4();
 void querie5();
-void querie6();
+void querie6(char i);
 void querie7();
 void querie8();
 void querie9();
