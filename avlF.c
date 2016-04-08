@@ -323,6 +323,7 @@ int avl_insertF(Avl_tree t,Avl a)
    }
 }
 
+
 /* Apoio Querie 3 */
 
 void RecolheInfoNodo(Avl p,int mes, double array[]){
@@ -338,8 +339,57 @@ void RecolheInfoNodo(Avl p,int mes, double array[]){
     array[1]= vendasNormais;
     array[2]= faturadoPromocao;
     array[3]= faturadoNormais;
-   
+
 }
+
+
+void RecolheInfoNodoFilial(Avl p,int mes, double array[]){
+
+    int vendasNormaisF1=0, vendasPromocaoF1=0;
+    int vendasNormaisF2=0, vendasPromocaoF2=0;
+    int vendasNormaisF3=0, vendasPromocaoF3=0;
+
+    double faturadoNormaisF1=0, faturadoPromocaoF1=0;
+    double faturadoNormaisF2=0, faturadoPromocaoF2=0;
+    double faturadoNormaisF3=0, faturadoPromocaoF3=0;
+
+    vendasPromocaoF1= p->TotalUniFilial1[mes-1][PROMO];
+    vendasNormaisF1= p->TotalUniFilial1[mes-1][NORMAL];
+
+    vendasPromocaoF2= p->TotalUniFilial2[mes-1][PROMO];
+    vendasNormaisF2= p->TotalUniFilial2[mes-1][NORMAL];
+
+    vendasPromocaoF3= p->TotalUniFilial3[mes-1][PROMO];
+    vendasNormaisF3= p->TotalUniFilial3[mes-1][NORMAL];
+
+
+
+    faturadoNormaisF1=p->TotalFatFilial1[mes-1][NORMAL];
+    faturadoPromocaoF1= p->TotalFatFilial1[mes-1][PROMO];
+
+    faturadoNormaisF2=p->TotalFatFilial2[mes-1][NORMAL];
+    faturadoPromocaoF2= p->TotalFatFilial2[mes-1][PROMO];
+
+    faturadoNormaisF3=p->TotalFatFilial3[mes-1][NORMAL];
+    faturadoPromocaoF3= p->TotalFatFilial3[mes-1][PROMO];
+
+    array[0]= vendasPromocaoF1;
+    array[1]= vendasNormaisF1;
+    array[2]= vendasPromocaoF2;
+    array[3]= vendasNormaisF2;
+    array[4]= vendasPromocaoF3;
+    array[5]= vendasNormaisF3;
+
+    array[6]= faturadoPromocaoF1;
+    array[7]= faturadoNormaisF1;
+    array[8]= faturadoPromocaoF2;
+    array[9]= faturadoNormaisF2;
+    array[10]= faturadoPromocaoF3;
+    array[11]= faturadoNormaisF3;
+  
+
+}
+
 
 
 

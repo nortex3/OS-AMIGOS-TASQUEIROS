@@ -43,14 +43,39 @@ void querie2(char c){
     printQuerie2(prods, aux, aux);
 }
 
+
 void querie3(int mes,char* codPro,int modo){
 
 	double res[4];
-	TotalVendasTotalFaturadoGlobal(fg,mes, codPro,res);
-	printf("Total vendas em modo promoção: %f\n",res[0] );
-	printf("Total vendas em modo normal: %f\n",res[1] );
-	printf("Total faturado em modo promoção: %f\n",res[2] );
-	printf("Total faturado em modo normal: %f\n",res[3] );
+	double resF[12];
+	if(modo==1){
+		TotalVendasTotalFaturadoGlobal(fg,mes, codPro,res,modo);
+		printf("Total vendas em modo promoção: %d\n",(int)res[0] );
+		printf("Total vendas em modo normal: %d\n",(int)res[1] );
+		printf("Total faturado em modo promoção: %f\n",res[2] );
+		printf("Total faturado em modo normal: %f\n",res[3] );
+	}else{
+
+		TotalVendasTotalFaturadoGlobal(fg,mes, codPro,resF,modo);
+		printf("-----------------Filial 1------------------------\n");
+
+		printf("Total vendas em modo promoção na filial1: %d\n",(int)resF[0] );
+		printf("Total vendas em modo normal na filial1: %d\n",(int)resF[1] );
+		printf("Total faturado em modo promoção na filial1: %f\n",resF[6] );
+		printf("Total faturado em modo normal na filial1: %f\n\n",resF[7] );
+		printf("-----------------Filial 2------------------------\n");
+		printf("Total vendas em modo promoção na filial2: %d\n",(int)resF[2] );
+		printf("Total vendas em modo normal na filial2: %d\n",(int)resF[3] );
+		printf("Total faturado em modo promoção na filial2: %f\n",resF[8] );
+		printf("Total faturado em modo normal na filial2: %f\n\n",resF[9] );
+
+		printf("-----------------Filial 3------------------------\n");
+
+		printf("Total vendas em modo promoção na filial3: %d\n",(int)resF[5] );
+		printf("Total vendas em modo normal na filial3: %d\n",(int)resF[6] );
+		printf("Total faturado em modo promoção na filial3: %f\n",resF[10] );
+		printf("Total faturado em modo normal na filial3: %f\n",resF[11] );
+	}
 
 
 
@@ -178,3 +203,4 @@ void printClientesAux(ConjClientes clientes, int contador, int index){
 		}
 	}
 }
+
