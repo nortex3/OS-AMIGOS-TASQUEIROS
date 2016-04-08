@@ -45,6 +45,28 @@ void querie2(char c){
 
 }
 
+void querie3(int mes,char* codPro,int modo){
+
+	double res[4];
+	TotalVendasTotalFaturadoGlobal(fg,mes, codPro,res);
+	printf("Total vendas em modo promoção: %f\n",res[0] );
+	printf("Total vendas em modo normal: %f\n",res[1] );
+	printf("Total faturado em modo promoção: %f\n",res[2] );
+	printf("Total faturado em modo normal: %f\n",res[3] );
+
+
+
+}
+void querie4(){}
+void querie5(char *s){}
+void querie6(int mesi,int mesf){}
+void querie7(){}
+void querie8(char* s,int filial){}
+void querie9(char* s,int filial){}
+void querie10(){}
+void querie11(char *s){}
+void querie12(){}
+/*
 void querie6(char c){
 	int i;
 	ConjProds prods = (toArrayProdutos(pro,c));
@@ -54,6 +76,6 @@ void querie6(char c){
 		printf("%s\n",prods.lista[i]);
 	}
 	printf("%i\n",prods.tamanho);
-}
+}*/
 
 
