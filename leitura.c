@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -12,18 +13,11 @@
 #include "headers/avlFilial.h"
 #include "headers/leitura.h"
 
-struct leitura{
-    int LinhasM;
-    int nLinhas;
-    int linhasLidas;
-    char* nomeFile;
-};
-
-int leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
-    int nLinhas = 0;
-    int LinhasM = 0;
+Leitura leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
+    Leitura tmp = (Leitura)malloc(sizeof(struct leitura));
     char linha[10];
     char *tok;
+    tmp->nomeFile = strdup(filename);
     FILE* file = fopen(filename, "r");
     if (file) {
         while (fgets(linha, 10, file)) {
@@ -32,24 +26,23 @@ int leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
             if(strlen(tok)==6 && isalpha(tok[0]) && isalpha(tok[1])&& isdigit(tok[2])&& isdigit(tok[3])&& isdigit(tok[4]) && isdigit(tok[5])){
             	insereAVLProdutos(pro,tok);
                 insereAvlFaturacao(fb,tok,0.0,0,0,'A',0);
-
-            } else LinhasM++;
+                tmp->linhasB++;
+            } else tmp->linhasM++;
             
-            nLinhas++;
+            tmp->linhasLidas++;
 
         }
-    printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas erradas: %d\n Linhas correctas: %d \n", filename, nLinhas,LinhasM,nLinhas-LinhasM);   
     fclose(file);
-    } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
-    return nLinhas;
+    }
+    return tmp;
 
 }
 
-int leituraCli(Clientes cl,GF gf , char* filename) {
-    int nLinhas = 0;
+Leitura leituraCli(Clientes cl,GF gf , char* filename) {
+    Leitura tmp = (Leitura)malloc(sizeof(struct leitura));
     char linha[10];
     char *tok;
-    int LinhasM=0;
+    tmp->nomeFile = strdup(filename);
     FILE* file = fopen(filename, "r");
     if (file) {
         while (fgets(linha, 10, file)) {
@@ -58,24 +51,24 @@ int leituraCli(Clientes cl,GF gf , char* filename) {
             if(strlen(tok)==5 && isalpha(tok[0]) && isdigit(tok[1])&& isdigit(tok[2])&& isdigit(tok[3])&& isdigit(tok[4])){
                 insereAvlClientes(cl,tok);
                 insereAvlCli(gf,tok,NULL,0,0,'A',0);
-            }else LinhasM++;
-            nLinhas++;
+                tmp->linhasB++;
+            }else tmp->linhasM++;
+            
+            tmp->linhasLidas++;
 
         }
-        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas erradas: %d\n Linhas correctas: %d \n", filename, nLinhas,LinhasM,nLinhas-LinhasM);
         fclose(file);
-    } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
-    return nLinhas;
+    }
+    return tmp;
 
 }
 
 
 /* LEITURA QUE VERIFICAVA AS LINHAS VALIDAS */
-int leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *filename){
-
+Leitura leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *filename){
+    Leitura tmp = (Leitura)malloc(sizeof(struct leitura));
+    tmp->nomeFile = strdup(filename);
     FILE* file = fopen(filename, "r");
-    int nLinhas = 0;
-    int LinhasM=0;
     char *linha=malloc(32*sizeof(char*));
     char *produto, *cliente, *PouN;
     float preco;
@@ -112,13 +105,13 @@ int leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *filena
             if(erro==0){
                 insereAvlFaturacao(fb,produto,preco,unidades,mes,PouN[0],filial);
                 insereAvlCli(gf,cliente,produto,unidades,mes,PouN[0], filial);
-                nLinhas++;
+                tmp->linhasB++;;
 
-            }else LinhasM++;
-            
+            }else tmp->linhasM++;
+
+            tmp->linhasLidas++;
         }
-        printf("Nome do ficheiro: %s\n Linhas lidas: %d\n Linhas erradas: %d\n Linhas correctas: %d \n", filename, nLinhas+LinhasM,LinhasM,nLinhas);   
         fclose(file);
-    } else printf("Não foi possível encontrar/abrir o ficheiro %s\n",filename);
-    return nLinhas;
+    }
+    return tmp;
 }

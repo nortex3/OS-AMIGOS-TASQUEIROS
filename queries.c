@@ -16,24 +16,31 @@ extern Clientes cli;
 extern Produtos pro;
 extern FaturacaoGlobal fg;
 extern GF gf;
-
+Leitura ler;
 void printQuerie2(ConjProds prods, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
 
 void querie1Clientes(){
 	cli = InicializaClientes();
 	gf = InicializaGestFil();
-	leituraCli(cli, gf, "Clientes.txt");
+	ler = leituraCli(cli, gf, "Clientes.txt");
+	printf("Número de linhas lidas: %d\n"
+		   "Número de linhas correctas: %d\n"
+		   "Número de linhas erradas: %d\n",ler->linhasLidas, ler->linhasB, ler->linhasM);
+	free(ler);
+
 }
 
 void querie1Produtos(){
 	fg = InicializaTotalProdutos();
 	pro = InicializaProdutos();
-	leituraPro(fg, pro, "Produtos.txt");
+	ler = leituraPro(fg, pro, "Produtos.txt");
+	free(ler);
 }
 
 void querie1Vendas(){
-	leituraVendas(gf, fg, pro, cli, "Vendas_1M.txt");
+	ler = leituraVendas(gf, fg, pro, cli, "Vendas_1M.txt");
+	free(ler);
 }
 
 void querie2(char c){
