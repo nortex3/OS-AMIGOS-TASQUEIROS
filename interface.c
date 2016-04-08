@@ -162,7 +162,7 @@ void imprimirMenu(){
 					i = getchar();
                     if(i > 0){
                          if (c>=64 && c<=90){
-					         querie2(c);
+					         printClientes(c);
                          }
                          else{
                                 printf("\033c");
@@ -182,7 +182,7 @@ void imprimirMenu(){
 					i = scanf("%c",&c);
 					if(i > 0){
                          if (c>=64 && c<=90){
-					       /* querie6(c);*/
+					        querie2(c);
                          }
                          else{
                                 printf("\033c");

@@ -16,4 +16,6 @@ void querie10();
 void querie11(char *s);
 void querie12();
 
+void printClientes(char c);
+
 #endif
