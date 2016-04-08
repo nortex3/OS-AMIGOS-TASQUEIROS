@@ -323,3 +323,24 @@ int avl_insertF(Avl_tree t,Avl a)
    }
 }
 
+/* Apoio Querie 3 */
+
+void RecolheInfoNodo(Avl p,int mes, double array[]){
+
+    int vendasNormais=0, vendasPromocao=0;
+    double faturadoNormais=0, faturadoPromocao=0;
+    vendasPromocao= p->UnidadesVendidas[mes-1][PROMO];
+    vendasNormais= p->UnidadesVendidas[mes-1][NORMAL];
+    faturadoNormais=p->Faturacao[mes-1][NORMAL];
+    faturadoPromocao= p->Faturacao[mes-1][PROMO];
+
+    array[0]= vendasPromocao;
+    array[1]= vendasNormais;
+    array[2]= faturadoPromocao;
+    array[3]= faturadoNormais;
+   
+}
+
+
+
+

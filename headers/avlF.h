@@ -19,10 +19,7 @@
 typedef struct avl_tree* Avl_tree;
 typedef struct avl* Avl;
 
-typedef struct list{
-	char* name;
-	struct list* next;
-}list;
+
 Avl procura(Avl p, char* cod);
 int avl_actualiza(char* s, Avl_tree ptr,double preco,int quantidade,int mes,char tipo,int filial);
 double  total(Avl a);
@@ -30,6 +27,7 @@ int existeF(char* s, Avl_tree ptr);
 Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipom,int filial);
 Avl_tree createTreeF();
 Avl procuraTree(Avl_tree node, char* cod);
+void RecolheInfoNodo(Avl p,int mes, double array[]);
 
 /* Public methods */
 
