@@ -5,15 +5,15 @@ void querie1Clientes();
 void querie1Produtos();
 void querie1Vendas();
 void querie2(char i);
-void querie3();
+void querie3(int mes,char* codPro,int modo);
 void querie4();
-void querie5();
-void querie6(char i);
+void querie5(char *s);
+void querie6(int mesi,int mesf);
 void querie7();
-void querie8();
-void querie9();
+void querie8(char* s,int filial);
+void querie9(char* s,int filial);
 void querie10();
-void querie11();
+void querie11(char *s);
 void querie12();
 
 #endif
