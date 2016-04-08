@@ -4,19 +4,16 @@
 void querie1Clientes();
 void querie1Produtos();
 void querie1Vendas();
-<<<<<<< HEAD
 void querie2(char c);
 void querie3(int mes,char* codPro,int modo);
 void querie4();
 void querie5();
 void querie6(char c);
-=======
 void querie2(char i);
 void querie3(int mes,char* codPro,int modo);
 void querie4();
 void querie5(char *s);
 void querie6(int mesi,int mesf);
->>>>>>> d973f30e941e83b5d3c12486c29f30d63ba2d7f1
 void querie7();
 void querie8(char* s,int filial);
 void querie9(char* s,int filial);
