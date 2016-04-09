@@ -19,13 +19,21 @@ struct GestFil {
 
 
 
-/*
-void tot(GF p){
-    Avl_treeC b = p->avlClientes[5]; 
-    AvlC a = procuraTreeC(b,"F2916");
-    tol(a);
-     
-}*/
+/*Apoio Querie 5 */
+
+void CalculaTotais(GF gf,char* cod,int *mes){
+
+    int j=26;
+    Avl_treeC cli;
+    if (cod[0]>=97 && cod[0]<=123) 
+        j = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            j = ((int)cod[0])-65;
+
+    cli=gf->avlClientes[j];
+    calculaListaProdutos(cli,mes);
+}
 
 
 

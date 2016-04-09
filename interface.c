@@ -405,8 +405,13 @@ void imprimirMenuQueries(){
 					aux = scanf("%d",&mesI);
 					printf("Insira mês final: \n");
 					aux = scanf("%d",&mesF);
-					querie6(mesI,mesF);        
-                    }
+					if((mesI>=1 && mesI<=mesF)&&(mesF<=12 && mesF>=mesI))
+						querie6(mesI,mesF);        
+                    else {
+						printf("\033c");
+						printf("Conjunto de meses incorrectos.\n");
+						}
+                   }
 				else{
 					printf("\033c");
 					printf("Produtos e vendas nao inicializados.\n");

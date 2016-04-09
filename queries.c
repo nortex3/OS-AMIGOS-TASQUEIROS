@@ -109,8 +109,69 @@ void querie3(int mes,char* codPro,int modo){
 
 }
 void querie4(){}
-void querie5(char *s){}
-void querie6(int mesi,int mesf){}
+void querie5(char *s){
+	//int tot[36][3];
+	//int **tot=NULL;
+	int mes[36];
+	int i=0,j=0;
+
+	for(i=0;i<36;i++){
+		mes[i]=0;
+	}
+
+	CalculaTotais(gf,s,mes);
+	printf("######################################################\n");
+	printf("##     Mês          |    Total        | 	Filial  ##\n");
+	printf("######################################################\n");
+	printf("##      1           |     %d          |       %d    ##\n",mes[0],1);
+	printf("##      1           |     %d          |       %d    ##\n",mes[1],2);
+	printf("##      1           |     %d          |       %d    ##\n",mes[2],3);
+	printf("##      2           |     %d          |       %d    ##\n",mes[3],1);
+	printf("##      2           |     %d          |       %d    ##\n",mes[4],2);
+	printf("##      2           |     %d          |       %d    ##\n",mes[5],3);
+	printf("##      3           |     %d          |       %d    ##\n",mes[6],1);
+	printf("##      3           |     %d          |       %d    ##\n",mes[7],2);
+	printf("##      3           |     %d          |       %d    ##\n",mes[8],3);
+	printf("##      4           |     %d          |       %d    ##\n",mes[9],1);
+	printf("##      4           |     %d          |       %d    ##\n",mes[10],2);
+	printf("##      4           |     %d          |       %d    ##\n",mes[11],3);
+	printf("##      5           |     %d          |       %d    ##\n",mes[12],1);
+	printf("##      5           |     %d          |       %d    ##\n",mes[13],2);
+	printf("##      5           |     %d          |       %d    ##\n",mes[14],3);
+	printf("##      6           |     %d          |       %d    ##\n",mes[15],1);
+	printf("##      6           |     %d          |       %d    ##\n",mes[16],2);
+	printf("##      6           |     %d          |       %d    ##\n",mes[17],3);
+	printf("##      7           |     %d          |       %d    ##\n",mes[18],1);
+	printf("##      7           |     %d          |       %d    ##\n",mes[19],2);
+	printf("##      7           |     %d          |       %d    ##\n",mes[20],3);
+	printf("##      8           |     %d          |       %d    ##\n",mes[21],1);
+	printf("##      8           |     %d          |       %d    ##\n",mes[22],2);
+	printf("##      8           |     %d          |       %d    ##\n",mes[23],3);
+	printf("##      9           |     %d          |       %d    ##\n",mes[24],1);
+	printf("##      9           |     %d          |       %d    ##\n",mes[25],2);
+	printf("##      9           |     %d          |       %d    ##\n",mes[26],3);
+	printf("##     10           |     %d          |       %d    ##\n",mes[27],1);
+	printf("##     10           |     %d          |       %d    ##\n",mes[28],2);
+	printf("##     10           |     %d          |       %d    ##\n",mes[29],3);
+	printf("##     11           |     %d          |       %d    ##\n",mes[30],1);
+	printf("##     11           |     %d          |       %d    ##\n",mes[31],2);
+	printf("##     11           |     %d          |       %d    ##\n",mes[32],3);
+	printf("##     12           |     %d          |       %d    ##\n",mes[33],1);
+	printf("##     12           |     %d          |       %d    ##\n",mes[34],2);
+	printf("##     12           |     %d          |       %d    ##\n",mes[35],3);	
+	printf("######################################################\n");
+
+}
+
+void querie6(int mesi,int mesf){
+	double res[2];
+	CalculaTotalVendasEFaturado(fg,mesi,mesf,res);
+	printf("Total de vendas, entre mês %d e mês %d : %d\n",mesi, mesf,(int)res[0] );
+	printf("Total faturado, entre mês %d e mês %d : %f\n",mesi, mesf,res[1] );
+
+
+}
+
 void querie7(){}
 void querie8(char* s,int filial){}
 void querie9(char* s,int filial){}
@@ -129,17 +190,18 @@ void querie6(char c){
 	printf("%i\n",prods.tamanho);
 }*/
 
+
 void printQuerie2(ConjProds prods, int contador, int index){
 	int n = 0, i,c = 0;
 
 	printf("################## GEREVENDAS ##################\n");
-    for (i=0;i < 20 && index < prods.tamanho; i++){
-			printf("# %s                                       #\n",prods.lista[index]);
+    for (i=0;i < 20 && index < retornaTamanhoPro(prods); i++){
+			printf("# %s                                       #\n",retornaElementoPro(prods,index));
 			contador++;
 			index++;
 	}
 	printf("################################################\n");
-	printf("# Número de linhas começadas por '%c': %d     #\n",prods.lista[0][0], prods.tamanho);
+	printf("# Número de linhas começadas por '%c': %d     #\n",retornaPrimeiraLetraPro(prods,0), retornaTamanhoPro(prods));
 	printf("################################################\n");
 	printf("# 1. Continuar.                                #\n");
 	printf("# 2. Retroceder.                               #\n");
@@ -148,11 +210,11 @@ void printQuerie2(ConjProds prods, int contador, int index){
 	printf(">");
 	n = scanf("%d",&c);
 	if(n > 0){
-		if(c == 1 && contador != prods.tamanho){
+		if(c == 1 && contador != retornaTamanhoPro(prods)){
 			printf("\033c");
 			printQuerie2(prods, contador, index++);
 		}
-		else if(c == 1 && contador == prods.tamanho){
+		else if(c == 1 && contador == retornaTamanhoPro(prods)){
 			printf("\033c");
 			printf("Impossível continuar.\n");
 			printQuerie2(prods, contador-20, index-20);
@@ -188,13 +250,13 @@ void printClientesAux(ConjClientes clientes, int contador, int index){
 	int n = 0, i,c = 0;
 
 	printf("################## GEREVENDAS ##################\n");
-    for (i=0;i < 20 && index < clientes.tamanho; i++){
-			printf("# %s                                        #\n",clientes.lista[index]);
+    for (i=0;i < 20 && index < retornaTamanho(clientes); i++){
+			printf("# %s                                        #\n",retornaElemento(clientes,index));
 			contador++;
 			index++;
 	}
 	printf("################################################\n");
-	printf("# Número de linhas começadas por '%c': %d      #\n",clientes.lista[0][0], clientes.tamanho);
+	printf("# Número de linhas começadas por '%c': %d      #\n",retornaPrimeiraLetra(clientes,1), retornaTamanho(clientes));
 	printf("################################################\n");
 	printf("# 1. Continuar.                                #\n");
 	printf("# 2. Retroceder.                               #\n");
@@ -203,11 +265,11 @@ void printClientesAux(ConjClientes clientes, int contador, int index){
 	printf(">");
 	n = scanf("%d",&c);
 	if(n > 0){
-		if(c == 1 && contador != clientes.tamanho){
+		if(c == 1 && contador != retornaTamanho(clientes)){
 			printf("\033c");
 			printClientesAux(clientes, contador, index++);
 		}
-		else if(c == 1 && contador == clientes.tamanho){
+		else if(c == 1 && contador == retornaTamanho(clientes)){
 			printf("\033c");
 			printf("Impossível continuar.\n");
 			printClientesAux(clientes, contador-20, index-20);

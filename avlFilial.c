@@ -63,14 +63,42 @@ typedef struct avl_treeC
 
 
 
-/* Funcao de teste*/
 
-void tol(AvlC a){
-printf("ola:%d\n",a->TotalComprados );
-/*printf("%f\n",a->TotalFaturado );*/
+
+/* Apoio a Queries*/
+
+void calculaVendas(AvlP p, int *mes){
+  int j=0,i=0;
+  if(p!=NULL){
+    while(j<36){  
+       mes[j] +=p->ComprasFilial1[i][NORMAL]+p->ComprasFilial1[i][PROMO];
+       j++;
+       mes[j]+=p->ComprasFilial2[i][NORMAL]+p->ComprasFilial2[i][PROMO];
+       j++;
+       mes[j]+=p->ComprasFilial3[i][NORMAL]+p->ComprasFilial3[i][PROMO];
+       j++;
+       i++;
+     }
+     calculaVendas(p->right,mes);
+     calculaVendas(p->left,mes);
+  }
+
 }
 
+void calculaListaProdutos(Avl_treeC a, int *mes){
+  Avl_treeP prod;
+  AvlC cli;
+  AvlP p;
+  int i;
+  cli = a->root;
 
+
+  for(i=0;i<26;i++){
+       prod= cli->ListaProdutos[i];
+       p=prod->root;
+       calculaVendas(p,mes);
+  }
+}
 /*----------------------*/
 
 

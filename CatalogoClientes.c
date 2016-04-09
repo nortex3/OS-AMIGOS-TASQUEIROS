@@ -12,6 +12,35 @@ struct clientes{
 };
 
 
+struct conjClientes {
+	char** lista;
+	int tamanho;
+};
+
+/* Relacionado com ConjClientes*/
+
+ConjClientes InicializaConjClientes(){
+	ConjClientes tmp = (ConjClientes)malloc(sizeof(struct conjClientes));
+	tmp->lista=NULL;
+	tmp->tamanho=0;
+	return tmp;
+}
+
+int retornaTamanho(ConjClientes cc){
+	return cc->tamanho;
+}
+
+char* retornaElemento(ConjClientes cc,int i){
+
+	return cc->lista[i];
+}
+
+char retornaPrimeiraLetra(ConjClientes cc,int i){
+	char *a= cc->lista[i];
+	char r=a[0];
+	return r;
+}
+
 /*
 Inicia as AVLs dos Clientes
 */
@@ -75,7 +104,7 @@ ConjClientes toArrayClientes(Clientes cli, char c){
    char** aux;
    Avl_tree a;
    Avl b;
-   ConjClientes clientes;
+   ConjClientes clientes=InicializaConjClientes();
    
    n = c-65;
    size = cli->total[n];
@@ -83,7 +112,8 @@ ConjClientes toArrayClientes(Clientes cli, char c){
    a = cli -> AVLClientes[n];
    b = createCharNode(a);
    index=toArrayClientesAux(b, index, aux);
-   clientes.lista=aux;
-   clientes.tamanho=index;
+   clientes->lista=aux;
+   clientes->tamanho=index;
    return clientes;
 }
+

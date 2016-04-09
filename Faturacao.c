@@ -20,6 +20,10 @@ struct FatGlobal {
 
 /* Funçoes de teste */
 
+
+
+/* Apoio Querie 3 */
+
 int TotalVendasTotalFaturadoGlobal(FaturacaoGlobal fg,int mes, char* cod, double array[], int modo ){
     int j=26;
     Avl_tree pro;
@@ -41,6 +45,19 @@ int TotalVendasTotalFaturadoGlobal(FaturacaoGlobal fg,int mes, char* cod, double
     return r;
 }
 
+/* Apoio Querie 6 */
+
+void  CalculaTotalVendasEFaturado(FaturacaoGlobal fg,int mesi,int mesf,double res[]){
+    int i;
+    double totalfaturado=0.0;
+    int totalvendas=0;
+    for(i=(mesi-1);i<=(mesf-1);i++){
+        totalvendas = fg->TotalVendas[i][PROMO] + fg->TotalVendas[i][NORMAL];
+        totalfaturado = fg->TotalFaturado[i][PROMO] + fg->TotalFaturado[i][NORMAL];
+        res[0]+=totalvendas;
+        res[1]+=totalfaturado;
+    }
+}
 
 int VeTotalFG(FaturacaoGlobal p){
 

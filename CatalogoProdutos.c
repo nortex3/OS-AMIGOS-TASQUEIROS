@@ -12,6 +12,37 @@ struct produtos {
 };
 
 
+struct conjProds {
+	char** lista;
+	int tamanho;
+};
+
+
+/* Relacionado com ConjProds*/
+
+ConjProds InicializaConjProds(){
+	ConjProds tmp = (ConjProds)malloc(sizeof(struct conjProds));
+	tmp->lista=NULL;
+	tmp->tamanho=0;
+	return tmp;
+}
+
+int retornaTamanhoPro(ConjProds cc){
+	return cc->tamanho;
+}
+
+char* retornaElementoPro(ConjProds cc,int i){
+
+	return cc->lista[i];
+}
+
+char retornaPrimeiraLetraPro(ConjProds cc,int i){
+	char *a= cc->lista[i];
+	char r=a[0];
+	return r;
+}
+
+
 
 /* Catalogo de produtos */
 int VeTotalP(Produtos p){
@@ -60,13 +91,12 @@ int ExisteProduto(char* cod, Produtos p){
     r=existe(cod,p->AVLProdutos[j]);
     return r;
 }
-
 ConjProds toArrayProdutos(Produtos pro, char c){
    int index = 0, size = 0, n = 0;
    char** aux;
    Avl_tree a;
    Avl b;
-   ConjProds prods;
+   ConjProds prods = InicializaConjProds();
    
    n = c-65;
    size = pro->total[n];
@@ -74,10 +104,11 @@ ConjProds toArrayProdutos(Produtos pro, char c){
    a = pro -> AVLProdutos[n];
    b = createCharNode(a);
    index=toArrayProdutosAux(b, index, aux);
-   prods.lista=aux;
-   prods.tamanho=index;
+   prods->lista=aux;
+   prods->tamanho=index;
    return prods;
 }
+
 
 
 
