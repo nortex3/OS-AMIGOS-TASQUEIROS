@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 
 #include "headers/CatalogoProdutos.h"
@@ -13,12 +12,29 @@
 #include "headers/avlFilial.h"
 #include "headers/leitura.h"
 
-Leitura leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
+struct leitura{
+    int linhasM;
+    int linhasB;
+    int linhasLidas;
+    char* nomeFile;
+};
+
+Leitura inicializaLeitura(){
     Leitura tmp = (Leitura)malloc(sizeof(struct leitura));
+    tmp->linhasM = 0;
+    tmp->linhasB = 0;
+    tmp->linhasLidas = 0;
+    tmp->nomeFile;
+    return tmp;
+}
+
+Leitura leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
+    Leitura tmp = inicializaLeitura();
     char linha[10];
     char *tok;
-    tmp->nomeFile = strdup(filename);
+   
     FILE* file = fopen(filename, "r");
+    tmp->nomeFile = strdup(filename);
     if (file) {
         while (fgets(linha, 10, file)) {
 
@@ -39,11 +55,12 @@ Leitura leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
 }
 
 Leitura leituraCli(Clientes cl,GF gf , char* filename) {
-    Leitura tmp = (Leitura)malloc(sizeof(struct leitura));
+    Leitura tmp = inicializaLeitura();
     char linha[10];
     char *tok;
-    tmp->nomeFile = strdup(filename);
+    
     FILE* file = fopen(filename, "r");
+    tmp->nomeFile = strdup(filename);
     if (file) {
         while (fgets(linha, 10, file)) {
 
@@ -66,23 +83,25 @@ Leitura leituraCli(Clientes cl,GF gf , char* filename) {
 
 /* LEITURA QUE VERIFICAVA AS LINHAS VALIDAS */
 Leitura leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *filename){
-    Leitura tmp = (Leitura)malloc(sizeof(struct leitura));
-    tmp->nomeFile = strdup(filename);
+    Leitura tmp = inicializaLeitura();
+
     FILE* file = fopen(filename, "r");
+    tmp->nomeFile = strdup(filename);
     char *linha=malloc(32*sizeof(char*));
     char *produto, *cliente, *PouN;
     float preco;
     int unidades, mes, filial;
     int erro=0;
     char *linhaValida=malloc(32*sizeof(char*));
+
     if (file) {
        while (fgets(linha, 32, file)) {
             strcpy(linhaValida,linha); 
             erro=0;
+
             produto = strtok(linha, " ");
             if(ExisteProduto(produto,p)==0)erro=1;
           
-            
             preco=atof(strtok(NULL, " "));
             if(preco<0||erro==1) erro=1;
 
@@ -114,4 +133,23 @@ Leitura leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *fi
         fclose(file);
     }
     return tmp;
+}
+
+int getLinhasLidas(Leitura ler){
+    int r = ler->linhasLidas;
+    return r;
+}
+
+int getLinhasMal(Leitura ler){
+    int r = ler->linhasM;
+    return r;
+}
+
+int getLinhasBem(Leitura ler){
+    int r = ler->linhasB;
+    return r;
+}
+
+char* getNomeFile(Leitura ler){
+   return ler->nomeFile;
 }

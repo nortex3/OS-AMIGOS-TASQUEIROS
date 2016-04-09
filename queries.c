@@ -16,30 +16,45 @@ extern Clientes cli;
 extern Produtos pro;
 extern FaturacaoGlobal fg;
 extern GF gf;
-Leitura ler;
+
 void printQuerie2(ConjProds prods, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
 
 void querie1Clientes(){
+	free(cli);
+	free(gf);
+	Leitura ler = inicializaLeitura();
 	cli = InicializaClientes();
 	gf = InicializaGestFil();
 	ler = leituraCli(cli, gf, "Clientes.txt");
-	printf("Número de linhas lidas: %d\n"
-		   "Número de linhas correctas: %d\n"
-		   "Número de linhas erradas: %d\n",ler->linhasLidas, ler->linhasB, ler->linhasM);
+	printf("Nome do ficheiro: %s\n"
+		   " Número de linhas lidas: %d\n"
+		   " Número de linhas correctas: %d\n"
+		   " Número de linhas erradas: %d\n",getNomeFile(ler), getLinhasLidas(ler), getLinhasBem(ler), getLinhasMal(ler));
 	free(ler);
-
 }
 
 void querie1Produtos(){
+	free(fg);
+	free(pro);
+	Leitura ler = inicializaLeitura();
 	fg = InicializaTotalProdutos();
 	pro = InicializaProdutos();
 	ler = leituraPro(fg, pro, "Produtos.txt");
+	printf("Nome do ficheiro: %s\n"
+		   " Número de linhas lidas: %d\n"
+		   " Número de linhas correctas: %d\n"
+		   " Número de linhas erradas: %d\n",getNomeFile(ler), getLinhasLidas(ler), getLinhasBem(ler), getLinhasMal(ler));
 	free(ler);
 }
 
 void querie1Vendas(){
+	Leitura ler = inicializaLeitura();
 	ler = leituraVendas(gf, fg, pro, cli, "Vendas_1M.txt");
+	printf("Nome do ficheiro: %s\n"
+		   " Número de linhas lidas: %d\n"
+		   " Número de linhas correctas: %d\n"
+		   " Número de linhas erradas: %d\n",getNomeFile(ler), getLinhasLidas(ler), getLinhasBem(ler), getLinhasMal(ler));
 	free(ler);
 }
 

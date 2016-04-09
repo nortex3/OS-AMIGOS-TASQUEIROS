@@ -89,16 +89,34 @@ void inicializarMenu(){
 	if(n > 0){
 		switch(r){
 			case 1:
-				printf("\033c");
-				querie1Clientes();
-				initCli = 1;
-				inicializarMenu();
+				if(initVendas == 1){
+					printf("\033c");
+					querie1Clientes();
+					initCli = 1;
+					initVendas = 0;
+					inicializarMenu();
+				}
+				else{
+					printf("\033c");
+					querie1Clientes();
+					initCli = 1;
+					inicializarMenu();
+				}
 				break;
 			case 2:
-				printf("\033c");
-				querie1Produtos();
-				initPro = 1;
-				inicializarMenu();
+				if(initVendas == 1){
+					printf("\033c");
+					querie1Produtos();
+					initPro = 1;
+					initVendas = 0;
+					inicializarMenu();
+				}
+				else{
+					printf("\033c");
+					querie1Produtos();
+					initPro = 1;
+					inicializarMenu();
+				}
 				break;
 			case 3:
 				if(initCli == 0 || initPro == 0){
@@ -107,6 +125,7 @@ void inicializarMenu(){
 					inicializarMenu();					
 				}
 				else{
+					printf("\033c");
 					querie1Vendas();
 					initVendas = 1;
 					inicializarMenu();

@@ -1,5 +1,5 @@
 CC:=gcc
-CFLAGS:=-ansi -O2 -Wall -pedantic 
+CFLAGS:=-ansi -O2
 TARGET:=GEREVENDAS
 
 all: $(TARGET)
