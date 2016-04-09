@@ -30,6 +30,8 @@ int existeFP(char* s, Avl_treeP ptr);
 AvlP createNodeP(char* s,int quantidade,int mes,char tipo, int filial);
 Avl_treeP createTreeP();
 AvlP procuraTreeP(Avl_treeP node, char* cod);
+void calculaListaProdutos(Avl_treeC a, int *tot);
+void calculaVendas(AvlP p, int *tot);
 
 /* Public methods */
 
