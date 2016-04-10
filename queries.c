@@ -111,7 +111,14 @@ void querie3(int mes,char* codPro,int modo){
 void querie4(){}
 void querie5(char *s){}
 void querie6(int mesi,int mesf){}
-void querie7(){}
+
+void querie7(){
+
+
+
+
+
+}
 void querie8(char* s,int filial){}
 void querie9(char* s,int filial){}
 void querie10(){}
