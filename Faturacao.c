@@ -106,18 +106,27 @@ double totaldoproduto(FaturacaoGlobal p){
 /* Apoio Querie 4 */
 
 ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
-   int index = 0, size = 500000,i=0;
+   int index = 0,i=0,size=0;
+   double r;
    char** aux;
+   char** aux2;
    Avl_tree a;
    Avl b;
    ConjProdsF produtos=InicializaConjProdsF();
-   aux = malloc(sizeof(char*)*size);
+   for(i=0;i<26;i++){
+        a = pro -> avl_produtos[i];
+        b = createCharNodeF(a);
+        size=size+total(b);
+       }
+    aux=malloc(sizeof(char*)*size);
     for(i=0;i<26;i++){
     a = pro -> avl_produtos[i];
     b = createCharNodeF(a);
     index=toArrayProdutosAuxNaoVendidos(b, index, aux);    
-   }   
-   produtos->lista=aux;
+   }
+   aux2=malloc(sizeof(char*)*index);
+   memcpy(aux2,aux,sizeof(char*)*index);
+   produtos->lista=aux2;
    produtos->tamanho=index;
    return produtos;
 }

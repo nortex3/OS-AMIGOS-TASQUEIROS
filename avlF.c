@@ -397,6 +397,9 @@ void RecolheInfoNodoFilial(Avl p,int mes, double array[]){
 }
 
 int toArrayProdutosAuxNaoVendidos(Avl produtos, int index, char** aux){
+ 
+
+    
    if(produtos == NULL){
       return index;
    }
