@@ -85,16 +85,15 @@ void calculaVendas(AvlP p, int *mes){
 
 }
 
-void calculaListaProdutos(Avl_treeC a, int *mes){
-  Avl_treeP prod;
+void calculaListaProdutos(AvlC a, int *mes){
   AvlC cli;
+  Avl_treeP prod;
   AvlP p;
   int i;
-  cli = a->root;
-
+ 
 
   for(i=0;i<26;i++){
-       prod= cli->ListaProdutos[i];
+       prod= a->ListaProdutos[i];
        p=prod->root;
        calculaVendas(p,mes);
   }
@@ -219,7 +218,7 @@ AvlP procuraP(AvlP node, char* cod){
 AvlP createNodeP(char* s,int quantidade,int mes,char tipo, int filial){
     AvlP tmp = (AvlP)malloc(sizeof(avlP));
    char* c = (char*)malloc((strlen(s)+1)*sizeof(char));
-   strcpy(c, s);
+   c=strdup(s);
    tmp -> codigo = c;
    tmp->UnidadesVendidas=quantidade; 
 
@@ -396,33 +395,33 @@ int existeC(char* s, Avl_treeC ptr){
 
 
 int avl_actualizaC(char* s,char* pro, Avl_treeC ptr,int quantidade,int mes,char tipo,int filial){
-   AvlC tmp = ptr->root;
-   AvlC p = procuraC(tmp,s);
+  char *c = strdup(s);
+  char *produto = strdup(pro);
+   AvlC p = procuraTreeC(ptr,c);
    Avl_treeP ora;
-   AvlP t,a;    
-   AvlP head;
+   AvlP t,a,head;
 
    int j=26;
    if(!p) return 0;
    else{
 
-   if (pro[0]>=97 && pro[0]<=123) 
-        j = ((int)pro[0])-97;
+   if (produto[0]>=97 && produto[0]<=123) 
+        j = ((int)produto[0])-97;
     else
-        if (pro[0]>=64 && pro[0]<=90) 
-            j = ((int)pro[0])-65;
+        if (produto[0]>=64 && produto[0]<=90) 
+            j = ((int)produto[0])-65;
 
       p->TotalComprados+=quantidade;
 
       ora = p->ListaProdutos[j];
       t=ora->root;
-      a=procuraP(t,pro);
+      a=procuraP(t,produto);
       if(a==NULL){
-      head=createNodeP(pro,quantidade,mes,tipo,filial);
+      head=createNodeP(produto,quantidade,mes,tipo,filial);
       avl_insertP(p->ListaProdutos[j],head); 
       } 
       else
-       avl_actualizaP(pro,p->ListaProdutos[j],quantidade,mes,tipo,filial);
+       avl_actualizaP(produto,p->ListaProdutos[j],quantidade,mes,tipo,filial);
 
      }
    return 1;
@@ -448,23 +447,35 @@ AvlC procuraC(AvlC node, char* cod){
 AvlC createNodeC(char* cli,char* pro,int quantidade,int mes,char tipo, int filial){
     AvlC tmp = (AvlC)malloc(sizeof(avlC));
     AvlP head;
-    int i=0,j=26;
+    int i=0,j=26,k=26;
    char* c = (char*)malloc((strlen(cli)+1)*sizeof(char));
-   strcpy(c, cli);
-
+   char* produto; 
+   c = strdup(cli);
    tmp -> codigo = c;
    tmp->TotalComprados=quantidade; 
 
-   if (cli[0]>=97 && cli[0]<=123) 
-        j = ((int)cli[0])-97;
+   if (c[0]>=97 && c[0]<=123) 
+        j = ((int)c[0])-97;
     else
-        if (cli[0]>=64 && cli[0]<=90) 
-            j = ((int)cli[0])-65;
+        if (c[0]>=64 && c[0]<=90) 
+            j = ((int)c[0])-65;
 
-   if(pro!=NULL){
-       for(i=0;i<26;i++) tmp->ListaProdutos[i]=createTreeP();
-        head=createNodeP(pro,quantidade,mes,tipo,filial);
-        avl_insertP(tmp->ListaProdutos[j],head);
+   if(produto!=NULL){
+      produto= (char*)malloc((strlen(pro)+1)*sizeof(char));
+      produto=strdup(pro);
+
+
+     if (produto[0]>=97 && produto[0]<=123) 
+          k = ((int)produto[0])-97;
+      else
+          if (produto[0]>=64 && produto[0]<=90) 
+              k = ((int)produto[0])-65;
+
+     //for(i=0;i<26;i++) tmp->ListaProdutos[i]=createTreeP();
+
+     head=createNodeP(produto,quantidade,mes,tipo,filial);
+     avl_insertP(tmp->ListaProdutos[k],head);
+
     }else{
       for(i=0;i<26;i++) tmp->ListaProdutos[i]=createTreeP();
     }

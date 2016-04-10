@@ -24,7 +24,7 @@ Leitura inicializaLeitura(){
     tmp->linhasM = 0;
     tmp->linhasB = 0;
     tmp->linhasLidas = 0;
-    tmp->nomeFile;
+    tmp->nomeFile=NULL;
     return tmp;
 }
 
@@ -67,7 +67,7 @@ Leitura leituraCli(Clientes cl,GF gf , char* filename) {
             tok = strtok(linha, "\r\n");
             if(strlen(tok)==5 && isalpha(tok[0]) && isdigit(tok[1])&& isdigit(tok[2])&& isdigit(tok[3])&& isdigit(tok[4])){
                 insereAvlClientes(cl,tok);
-                insereAvlCli(gf,tok,NULL,0,0,'A',0);
+                insereCli(gf,tok,NULL,0,0,'A',0);
                 tmp->linhasB++;
             }else tmp->linhasM++;
             

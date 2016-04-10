@@ -122,57 +122,57 @@ void querie4(char modo){
 }
 
 void querie5(char *s){
-	//int tot[36][3];
-	//int **tot=NULL;
 	int mes[36];
 	int i=0,j=0;
-
+	int Nexiste=0;
 	for(i=0;i<36;i++){
 		mes[i]=0;
 	}
 
-	CalculaTotais(gf,s,mes);
-	printf("######################################################\n");
-	printf("##     Mês          |    Total        | 	Filial  ##\n");
-	printf("######################################################\n");
-	printf("##      1           |     %d          |       %d    ##\n",mes[0],1);
-	printf("##      1           |     %d          |       %d    ##\n",mes[1],2);
-	printf("##      1           |     %d          |       %d    ##\n",mes[2],3);
-	printf("##      2           |     %d          |       %d    ##\n",mes[3],1);
-	printf("##      2           |     %d          |       %d    ##\n",mes[4],2);
-	printf("##      2           |     %d          |       %d    ##\n",mes[5],3);
-	printf("##      3           |     %d          |       %d    ##\n",mes[6],1);
-	printf("##      3           |     %d          |       %d    ##\n",mes[7],2);
-	printf("##      3           |     %d          |       %d    ##\n",mes[8],3);
-	printf("##      4           |     %d          |       %d    ##\n",mes[9],1);
-	printf("##      4           |     %d          |       %d    ##\n",mes[10],2);
-	printf("##      4           |     %d          |       %d    ##\n",mes[11],3);
-	printf("##      5           |     %d          |       %d    ##\n",mes[12],1);
-	printf("##      5           |     %d          |       %d    ##\n",mes[13],2);
-	printf("##      5           |     %d          |       %d    ##\n",mes[14],3);
-	printf("##      6           |     %d          |       %d    ##\n",mes[15],1);
-	printf("##      6           |     %d          |       %d    ##\n",mes[16],2);
-	printf("##      6           |     %d          |       %d    ##\n",mes[17],3);
-	printf("##      7           |     %d          |       %d    ##\n",mes[18],1);
-	printf("##      7           |     %d          |       %d    ##\n",mes[19],2);
-	printf("##      7           |     %d          |       %d    ##\n",mes[20],3);
-	printf("##      8           |     %d          |       %d    ##\n",mes[21],1);
-	printf("##      8           |     %d          |       %d    ##\n",mes[22],2);
-	printf("##      8           |     %d          |       %d    ##\n",mes[23],3);
-	printf("##      9           |     %d          |       %d    ##\n",mes[24],1);
-	printf("##      9           |     %d          |       %d    ##\n",mes[25],2);
-	printf("##      9           |     %d          |       %d    ##\n",mes[26],3);
-	printf("##     10           |     %d          |       %d    ##\n",mes[27],1);
-	printf("##     10           |     %d          |       %d    ##\n",mes[28],2);
-	printf("##     10           |     %d          |       %d    ##\n",mes[29],3);
-	printf("##     11           |     %d          |       %d    ##\n",mes[30],1);
-	printf("##     11           |     %d          |       %d    ##\n",mes[31],2);
-	printf("##     11           |     %d          |       %d    ##\n",mes[32],3);
-	printf("##     12           |     %d          |       %d    ##\n",mes[33],1);
-	printf("##     12           |     %d          |       %d    ##\n",mes[34],2);
-	printf("##     12           |     %d          |       %d    ##\n",mes[35],3);	
-	printf("######################################################\n");
-
+	Nexiste=CalculaTotais(gf,s,mes);
+	if(Nexiste==1) printf("Cliente Inexistente\n");
+	else{
+		printf("##########################################################\n");
+		printf("##     Mês          |    Filial       |     Total      ###\n");
+		printf("##########################################################\n");
+		printf("##      1           |     %d          |       %d       ###\n",1,mes[0]);
+		printf("##      1           |     %d          |       %d       ###\n",2,mes[1]);
+		printf("##      1           |     %d          |       %d       ###\n",3,mes[2]);
+		printf("##      2           |     %d          |       %d       ###\n",1,mes[3]);
+		printf("##      2           |     %d          |       %d       ###\n",2,mes[4]);
+		printf("##      2           |     %d          |       %d       ###\n",3,mes[5]);
+		printf("##      3           |     %d          |       %d       ###\n",1,mes[6]);
+		printf("##      3           |     %d          |       %d       ###\n",2,mes[7]);
+		printf("##      3           |     %d          |       %d       ###\n",3,mes[8]);
+		printf("##      4           |     %d          |       %d       ###\n",1,mes[9]);
+		printf("##      4           |     %d          |       %d       ###\n",2,mes[10]);
+		printf("##      4           |     %d          |       %d       ###\n",3,mes[11]);
+		printf("##      5           |     %d          |       %d       ###\n",1,mes[12]);
+		printf("##      5           |     %d          |       %d       ###\n",2,mes[13]);
+		printf("##      5           |     %d          |       %d       ###\n",3,mes[14]);
+		printf("##      6           |     %d          |       %d       ###\n",1,mes[15]);
+		printf("##      6           |     %d          |       %d       ###\n",2,mes[16]);
+		printf("##      6           |     %d          |       %d       ###\n",3,mes[17]);
+		printf("##      7           |     %d          |       %d       ###\n",1,mes[18]);
+		printf("##      7           |     %d          |       %d       ###\n",2,mes[19]);
+		printf("##      7           |     %d          |       %d       ###\n",3,mes[20]);
+		printf("##      8           |     %d          |       %d       ###\n",1,mes[21]);
+		printf("##      8           |     %d          |       %d       ###\n",2,mes[22]);
+		printf("##      8           |     %d          |       %d       ###\n",3,mes[23]);
+		printf("##      9           |     %d          |       %d       ###\n",1,mes[24]);
+		printf("##      9           |     %d          |       %d       ###\n",2,mes[25]);
+		printf("##      9           |     %d          |       %d       ###\n",3,mes[26]);
+		printf("##     10           |     %d          |       %d       ###\n",1,mes[27]);
+		printf("##     10           |     %d          |       %d       ###\n",2,mes[28]);
+		printf("##     10           |     %d          |       %d       ###\n",3,mes[29]);
+		printf("##     11           |     %d          |       %d       ###\n",1,mes[30]);
+		printf("##     11           |     %d          |       %d       ###\n",2,mes[31]);
+		printf("##     11           |     %d          |       %d       ###\n",3,mes[32]);
+		printf("##     12           |     %d          |       %d       ###\n",1,mes[33]);
+		printf("##     12           |     %d          |       %d       ###\n",2,mes[34]);
+		printf("##     12           |     %d          |       %d       ###\n",3,mes[35]);	
+		printf("##########################################################\n");
+	}
 }
 
 void querie6(int mesi,int mesf){

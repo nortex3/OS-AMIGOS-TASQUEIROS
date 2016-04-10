@@ -299,6 +299,7 @@ void imprimirMenuQueries(){
 	int modo=0;
 	char c = '0';
 	char s[6];
+	char cliente[5];
 	printf("################## GEREVENDAS ##################################################################\n"
 		   "# 1.  Querie1 - Leitura dos ficheiros.                                                         #\n"
 		   "# 2.  Querie2 - Lista de todos os produtos por determinada letra com navegação.                #\n"
