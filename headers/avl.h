@@ -19,10 +19,6 @@
 typedef struct avl_tree* Avl_tree;
 typedef struct avl* Avl;
 
-typedef struct list{
-	char* name;
-	struct list* next;
-}list;
 
 int existe(char* s, Avl_tree ptr);
 Avl createNode(char* s);
