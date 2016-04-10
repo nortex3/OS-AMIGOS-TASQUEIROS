@@ -332,6 +332,7 @@ void imprimirMenuQueries(){
 				break;
 			case 2:
 				if(initPro == 1){
+					printf("\033c");
 					printf("Insira uma letra maiúscula: ");
 					aux = scanf("%c",&c);
 					if(aux > 0){
@@ -352,19 +353,18 @@ void imprimirMenuQueries(){
 				break;
 			case 3:
 				if(initPro == 1 || initVendas==1){
+					printf("\033c");
 					printf("Insira um código de um produto: \n");
 					aux = scanf("%s",s);
 					printf("Insira um mês: \n");
 					aux = scanf("%d",&mes);
 				    printf("Insira 1 para resultados globais, Insira 2 para resultados filial a filial: \n");
 				    aux = scanf("%d",&modo);
-				    if(!isalpha(s[0])) printf("Insira código do produto no formato pedido\n");
-				    else
-				   	 if(mes<1||mes>12){
-				    	printf("Insira um mês entre 1 e 12\n");
-				    }else
-					if(modo==1 || modo==2) {
-						querie3(mes,s,modo);
+					    if(!isalpha(s[0])) printf("Insira código do produto no formato pedido\n");
+					    else if(mes<1||mes>12){
+					    	printf("Insira um mês entre 1 e 12\n");
+					    }else if(modo==1 || modo==2) {
+							querie3(mes,s,modo);
 					}  
 					else {
 						printf("\033c");
@@ -380,6 +380,7 @@ void imprimirMenuQueries(){
 				break;
 			case 4:
 				if(initPro == 1 || initVendas==1){
+					printf("\033c");
                     printf("Insira 1 para resultados globais, Insira 2 para resultados filial a filial: \n");
 				    aux = scanf("%d",&modo);
                     if(modo==1 || modo==2) {
@@ -398,10 +399,11 @@ void imprimirMenuQueries(){
 				break;
 			case 5:
 				if(initCli==1 || initPro == 1 || initVendas==1){
+					printf("\033c");
 					printf("Insira um código de um cliente: \n");
 					aux = scanf("%s",s);
 					querie5(s);        
-                    }
+                }
 				else{
 					printf("\033c");
 					printf("Produtos, clientes e vendas nao inicializados.\n");
@@ -410,6 +412,7 @@ void imprimirMenuQueries(){
 				break;
 			case 6:
 				if(initPro == 1 || initVendas==1){
+					printf("\033c");
 					printf("Insira mes inicial: \n");
 					aux = scanf("%d",&mesI);
 					printf("Insira mês final: \n");
@@ -420,7 +423,7 @@ void imprimirMenuQueries(){
 						printf("\033c");
 						printf("Conjunto de meses incorrectos.\n");
 						}
-                   }
+                }
 				else{
 					printf("\033c");
 					printf("Produtos e vendas nao inicializados.\n");
@@ -429,8 +432,9 @@ void imprimirMenuQueries(){
 				break;
 			case 7:
 				if(initCli==1 || initPro == 1 || initVendas==1){
+					printf("\033c");
 					querie7();        
-                    }
+                }
 				else{
 					printf("\033c");
 					printf("Produtos, clientes e vendas nao inicializados.\n");

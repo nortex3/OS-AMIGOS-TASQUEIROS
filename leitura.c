@@ -30,11 +30,13 @@ Leitura inicializaLeitura(){
 
 Leitura leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
     Leitura tmp = inicializaLeitura();
+    tmp->nomeFile = (char*)malloc(strlen(filename)+1*sizeof(char));
+    strcpy(tmp->nomeFile, filename);
+
     char linha[10];
     char *tok;
-   
     FILE* file = fopen(filename, "r");
-    tmp->nomeFile = strdup(filename);
+    
     if (file) {
         while (fgets(linha, 10, file)) {
 
@@ -56,11 +58,13 @@ Leitura leituraPro(FaturacaoGlobal fb,Produtos pro, char* filename) {
 
 Leitura leituraCli(Clientes cl,GF gf , char* filename) {
     Leitura tmp = inicializaLeitura();
+    tmp->nomeFile = (char*)malloc(strlen(filename)+1*sizeof(char));
+    strcpy(tmp->nomeFile, filename);
+
     char linha[10];
     char *tok;
-    
     FILE* file = fopen(filename, "r");
-    tmp->nomeFile = strdup(filename);
+    
     if (file) {
         while (fgets(linha, 10, file)) {
 
@@ -84,9 +88,10 @@ Leitura leituraCli(Clientes cl,GF gf , char* filename) {
 /* LEITURA QUE VERIFICAVA AS LINHAS VALIDAS */
 Leitura leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *filename){
     Leitura tmp = inicializaLeitura();
+    tmp->nomeFile = (char*)malloc(strlen(filename)+1*sizeof(char));
+    strcpy(tmp->nomeFile, filename);
 
     FILE* file = fopen(filename, "r");
-    tmp->nomeFile = strdup(filename);
     char *linha=malloc(32*sizeof(char*));
     char *produto, *cliente, *PouN;
     float preco;

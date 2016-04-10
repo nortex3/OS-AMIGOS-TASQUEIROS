@@ -218,7 +218,7 @@ AvlP procuraP(AvlP node, char* cod){
 AvlP createNodeP(char* s,int quantidade,int mes,char tipo, int filial){
     AvlP tmp = (AvlP)malloc(sizeof(avlP));
    char* c = (char*)malloc((strlen(s)+1)*sizeof(char));
-   c=strdup(s);
+   strcpy(c,s);
    tmp -> codigo = c;
    tmp->UnidadesVendidas=quantidade; 
 
@@ -395,8 +395,13 @@ int existeC(char* s, Avl_treeC ptr){
 
 
 int avl_actualizaC(char* s,char* pro, Avl_treeC ptr,int quantidade,int mes,char tipo,int filial){
-  char *c = strdup(s);
-  char *produto = strdup(pro);
+  char *c;
+  char *produto;
+  c = (char*)malloc(strlen(s)+1*sizeof(char));
+  strcpy(c, s);
+  produto = (char*)malloc(strlen(pro)+1*sizeof(char));
+  strcpy(produto, pro);
+
    AvlC p = procuraTreeC(ptr,c);
    Avl_treeP ora;
    AvlP t,a,head;
@@ -450,7 +455,7 @@ AvlC createNodeC(char* cli,char* pro,int quantidade,int mes,char tipo, int filia
     int i=0,j=26,k=26;
    char* c = (char*)malloc((strlen(cli)+1)*sizeof(char));
    char* produto; 
-   c = strdup(cli);
+   strcpy(c, cli);
    tmp -> codigo = c;
    tmp->TotalComprados=quantidade; 
 
@@ -462,7 +467,7 @@ AvlC createNodeC(char* cli,char* pro,int quantidade,int mes,char tipo, int filia
 
    if(produto!=NULL){
       produto= (char*)malloc((strlen(pro)+1)*sizeof(char));
-      produto=strdup(pro);
+      strcpy(produto,pro);
 
 
      if (produto[0]>=97 && produto[0]<=123) 

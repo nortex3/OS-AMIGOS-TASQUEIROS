@@ -109,19 +109,6 @@ void querie3(int mes,char* codPro,int modo){
 
 
 }
-<<<<<<< HEAD
-void querie4(){}
-void querie5(char *s){}
-void querie6(int mesi,int mesf){}
-
-void querie7(){
-
-
-
-
-
-}
-=======
 void querie4(char modo){
     if(modo==1){
     int aux = 0;
@@ -198,7 +185,6 @@ void querie6(int mesi,int mesf){
 }
 
 void querie7(){}
->>>>>>> ea5d4e737556537478dfb79b5a921ce512629d70
 void querie8(char* s,int filial){}
 void querie9(char* s,int filial){}
 void querie10(){}
