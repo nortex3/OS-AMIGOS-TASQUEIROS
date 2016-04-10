@@ -211,3 +211,4 @@ int toArrayProdutosAux(Avl produtos, int index, char** aux){
       index = toArrayClientesAux(produtos->right,index,aux);
    return index;  
 }
+

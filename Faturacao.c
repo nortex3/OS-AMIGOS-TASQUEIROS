@@ -18,8 +18,36 @@ struct FatGlobal {
     Avl_tree avl_produtos[26];
 };
 
-/* Funçoes de teste */
 
+struct conjProdsF {
+	char** lista;
+	int tamanho;
+};
+
+
+/* Relacionado com ConjProds*/
+
+ConjProdsF InicializaConjProdsF(){
+	ConjProdsF tmp = (ConjProdsF)malloc(sizeof(struct conjProdsF));
+	tmp->lista=NULL;
+	tmp->tamanho=0;
+	return tmp;
+}
+
+int retornaTamanhoProF(ConjProdsF cc){
+	return cc->tamanho;
+}
+
+char* retornaElementoProF(ConjProdsF cc,int i){
+
+	return cc->lista[i];
+}
+
+char retornaPrimeiraLetraProF(ConjProdsF cc,int i){
+	char *a= cc->lista[i];
+	char r=a[0];
+	return r;
+}
 
 
 /* Apoio Querie 3 */
@@ -75,6 +103,26 @@ double totaldoproduto(FaturacaoGlobal p){
 
 /*---------------------------------------------*/
 
+/* Apoio Querie 4 */
+
+ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
+   int index = 0, size = 500000,i=0;
+   char** aux;
+   Avl_tree a;
+   Avl b;
+   ConjProdsF produtos=InicializaConjProdsF();
+   aux = malloc(sizeof(char*)*size);
+    for(i=0;i<26;i++){
+    a = pro -> avl_produtos[i];
+    b = createCharNodeF(a);
+    index=toArrayProdutosAuxNaoVendidos(b, index, aux);    
+   }   
+   produtos->lista=aux;
+   produtos->tamanho=index;
+   return produtos;
+}
+
+/*------------------------------------------------*/
 
 FaturacaoGlobal InicializaTotalProdutos() {
     int i, j,k;

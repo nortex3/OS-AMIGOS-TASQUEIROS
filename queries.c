@@ -18,6 +18,7 @@ extern FaturacaoGlobal fg;
 extern GF gf;
 
 void printQuerie2(ConjProds prods, int contador, int index);
+void printQuerie4(ConjProdsF prods, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
 
 void querie1Clientes(){
@@ -108,7 +109,18 @@ void querie3(int mes,char* codPro,int modo){
 
 
 }
-void querie4(){}
+void querie4(char modo){
+    if(modo==1){
+    int aux = 0;
+    ConjProdsF prods = toArrayProdutosNaoVendidos(fg);
+	printf("\033c");
+    printQuerie4(prods, aux, aux);
+    }
+    else {
+        printf("Em desenvolvimento....\n");
+    }
+}
+
 void querie5(char *s){
 	//int tot[36][3];
 	//int **tot=NULL;
@@ -235,6 +247,54 @@ void printQuerie2(ConjProds prods, int contador, int index){
 			printf("\033c");
 			printf("Comando inválido\n");
 			printQuerie2(prods, contador-20, index-20);
+		}
+	}
+}
+
+void printQuerie4(ConjProdsF prods, int contador, int index){
+	int n = 0, i,c = 0;
+
+	printf("################## GEREVENDAS ##################\n");
+    for (i=0;i < 20 && index < retornaTamanhoProF(prods); i++){
+			printf("# %s                                       #\n",retornaElementoProF(prods,index));
+			contador++;
+			index++;
+	}
+	printf("################################################\n");
+	printf("# Total de Produtos nao vendidos: %d          #\n", retornaTamanhoProF(prods));
+	printf("################################################\n");
+	printf("# 1. Continuar.                                #\n");
+	printf("# 2. Retroceder.                               #\n");
+	printf("# 0. Sair.                                     #\n");
+	printf("################################################\n");
+	printf(">");
+	n = scanf("%d",&c);
+	if(n > 0){
+		if(c == 1 && contador != retornaTamanhoProF(prods)){
+			printf("\033c");
+			printQuerie4(prods, contador, index++);
+		}
+		else if(c == 1 && contador == retornaTamanhoProF(prods)){
+			printf("\033c");
+			printf("Impossível continuar.\n");
+			printQuerie4(prods, contador-20, index-20);
+		}
+		else if(c == 2 && (contador-40) >= 0){
+			printf("\033c");
+			printQuerie4(prods, contador-40, index-40);
+		}
+		else if(c == 2 && (contador-40) <= 0){
+			printf("\033c");
+			printf("Impossível retroceder.\n");
+			printQuerie4(prods, contador-20, index-20);
+		}
+		else if(c == 0){
+			printf("\033c");
+		}
+		else{
+			printf("\033c");
+			printf("Comando inválido\n");
+			printQuerie4(prods, contador-20, index-20);
 		}
 	}
 }

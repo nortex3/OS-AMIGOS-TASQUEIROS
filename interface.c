@@ -379,7 +379,15 @@ void imprimirMenuQueries(){
 				break;
 			case 4:
 				if(initPro == 1 || initVendas==1){
-					querie4();                         
+                    printf("Insira 1 para resultados globais, Insira 2 para resultados filial a filial: \n");
+				    aux = scanf("%d",&modo);
+                    if(modo==1 || modo==2) {
+						querie4(modo);
+					}  
+					else {
+						printf("\033c");
+						printf("Inseriu valor diferente 1 e 2.\n");
+					}                        
                 }
                 else{
 					printf("\033c");

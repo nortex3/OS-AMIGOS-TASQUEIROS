@@ -31,6 +31,7 @@ Avl createCharNode(Avl_tree a);
 int toArrayClientesAux(Avl clientes, int index, char** aux);
 int toArrayProdutosAux(Avl produtos, int index, char** aux);
 
+
 /* Public methods */
 
 /* Insert element a into the AVL tree t

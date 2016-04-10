@@ -91,6 +91,7 @@ int ExisteProduto(char* cod, Produtos p){
     r=existe(cod,p->AVLProdutos[j]);
     return r;
 }
+
 ConjProds toArrayProdutos(Produtos pro, char c){
    int index = 0, size = 0, n = 0;
    char** aux;
@@ -108,6 +109,8 @@ ConjProds toArrayProdutos(Produtos pro, char c){
    prods->tamanho=index;
    return prods;
 }
+
+
 
 
 
