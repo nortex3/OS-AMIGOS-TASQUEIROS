@@ -471,7 +471,7 @@ AvlC createNodeC(char* cli,char* pro,int quantidade,int mes,char tipo, int filia
           if (produto[0]>=64 && produto[0]<=90) 
               k = ((int)produto[0])-65;
 
-     //for(i=0;i<26;i++) tmp->ListaProdutos[i]=createTreeP();
+     /*for(i=0;i<26;i++) tmp->ListaProdutos[i]=createTreeP();*/
 
      head=createNodeP(produto,quantidade,mes,tipo,filial);
      avl_insertP(tmp->ListaProdutos[k],head);
