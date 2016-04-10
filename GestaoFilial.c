@@ -19,13 +19,25 @@ struct GestFil {
 
 
 
-/*
-void tot(GF p){
-    Avl_treeC b = p->avlClientes[5]; 
-    AvlC a = procuraTreeC(b,"F2916");
-    tol(a);
-     
-}*/
+/*Apoio Querie 5 */
+
+int CalculaTotais(GF gf,char* cod,int *mes){
+
+    int j=26;
+    Avl_treeC cli;
+    AvlC cliente;
+    int Nexiste=0;
+    if (cod[0]>=97 && cod[0]<=123) 
+        j = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            j = ((int)cod[0])-65;
+    cli=gf->avlClientes[j];
+    cliente = procuraTreeC(cli, cod);
+    if(cliente==NULL) Nexiste=1;
+    else calculaListaProdutos(cliente,mes);
+return Nexiste;
+}
 
 
 
@@ -68,6 +80,20 @@ void insereAvlProd(GF c,char *cod,int quantidade,int mes,char tipo, int filial){
     
 }
 
+/*Insere na avl de clientes*/
+
+void insereCli(GF c,char *cod,char* prod,int quantidade,int mes,char tipo, int filial){
+    int j=26;
+    AvlC node;
+    if (cod[0]>=97 && cod[0]<=123) 
+        j = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            j = ((int)cod[0])-65;
+
+     node = createNodeC(cod,NULL,quantidade,mes,tipo,filial);
+     avl_insertC(c -> avlClientes[j], node);  
+}
 
 
 /*
@@ -82,14 +108,7 @@ void insereAvlCli(GF c,char *cod,char* prod,int quantidade,int mes,char tipo, in
         if (cod[0]>=64 && cod[0]<=90) 
             j = ((int)cod[0])-65;
 
-    if(existeC(cod, c-> avlClientes[j])== 0){
-            node = createNodeC(cod,prod,quantidade,mes,tipo,filial);
-
-            avl_insertC(c -> avlClientes[j], node);
-
-    }else{
       avl_actualizaC(cod,prod,c->avlClientes[j],quantidade,mes,tipo,filial);
       
-    }
     
 }

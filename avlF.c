@@ -190,6 +190,12 @@ Avl procura(Avl node, char* cod){
     else return procura(node->right, cod);
 }
 
+Avl createCharNodeF(Avl_tree a){
+   Avl b;
+   b = a->root;
+   return b;
+}
+
 Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipo, int filial){
     Avl tmp = (Avl)malloc(sizeof(avl));
    char* c = (char*)malloc((strlen(s)+1)*sizeof(char));
@@ -388,6 +394,28 @@ void RecolheInfoNodoFilial(Avl p,int mes, double array[]){
     array[11]= faturadoNormaisF3;
   
 
+}
+
+int toArrayProdutosAuxNaoVendidos(Avl produtos, int index, char** aux){
+ 
+
+    
+   if(produtos == NULL){
+      return index;
+   }
+   if (produtos->left)
+      index = toArrayProdutosAuxNaoVendidos(produtos->left,index,aux);
+    
+   if(produtos->TotalVendidas==0){
+   aux[index] = produtos->codigo;
+   index++;
+   }
+   
+
+
+   if (produtos->right)
+      index = toArrayProdutosAuxNaoVendidos(produtos->right,index,aux);
+   return index;  
 }
 
 

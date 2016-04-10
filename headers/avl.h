@@ -19,10 +19,6 @@
 typedef struct avl_tree* Avl_tree;
 typedef struct avl* Avl;
 
-typedef struct list{
-	char* name;
-	struct list* next;
-}list;
 
 int existe(char* s, Avl_tree ptr);
 Avl createNode(char* s);
@@ -30,6 +26,7 @@ Avl_tree createTree();
 Avl createCharNode(Avl_tree a);
 int toArrayClientesAux(Avl clientes, int index, char** aux);
 int toArrayProdutosAux(Avl produtos, int index, char** aux);
+
 
 /* Public methods */
 

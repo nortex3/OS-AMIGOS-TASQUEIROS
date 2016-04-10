@@ -3,10 +3,7 @@
 
 
 typedef struct clientes* Clientes;
-typedef struct conjClientes {
-	char** lista;
-	int tamanho;
-}ConjClientes;
+typedef struct conjClientes* ConjClientes;
 
 /* Funções */
 Clientes InicializaClientes();
@@ -15,4 +12,8 @@ int VeTotalC(Clientes c);
 void insereAvlClientes(Clientes p,char *cod);
 ConjClientes toArrayClientes(Clientes cli, char c);
 
+ConjClientes InicializaConjClientes();
+int retornaTamanho(ConjClientes cc);
+char retornaPrimeiraLetra(ConjClientes cc,int i);
+char* retornaElemento(ConjClientes cc,int i);
 #endif

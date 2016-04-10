@@ -27,8 +27,11 @@ int existeF(char* s, Avl_tree ptr);
 Avl createNodeF(char* s,double preco,int quantidade,int mes,char tipom,int filial);
 Avl_tree createTreeF();
 Avl procuraTree(Avl_tree node, char* cod);
+Avl createCharNodeF(Avl_tree a);
 void RecolheInfoNodo(Avl p,int mes, double array[]);
 void RecolheInfoNodoFilial(Avl p,int mes, double array[]);
+int toArrayProdutosAuxNaoVendidos(Avl produtos, int index, char** aux);
+
 
 /* Public methods */
 

@@ -18,7 +18,39 @@ struct FatGlobal {
     Avl_tree avl_produtos[26];
 };
 
-/* Funçoes de teste */
+
+struct conjProdsF {
+	char** lista;
+	int tamanho;
+};
+
+
+/* Relacionado com ConjProds*/
+
+ConjProdsF InicializaConjProdsF(){
+	ConjProdsF tmp = (ConjProdsF)malloc(sizeof(struct conjProdsF));
+	tmp->lista=NULL;
+	tmp->tamanho=0;
+	return tmp;
+}
+
+int retornaTamanhoProF(ConjProdsF cc){
+	return cc->tamanho;
+}
+
+char* retornaElementoProF(ConjProdsF cc,int i){
+
+	return cc->lista[i];
+}
+
+char retornaPrimeiraLetraProF(ConjProdsF cc,int i){
+	char *a= cc->lista[i];
+	char r=a[0];
+	return r;
+}
+
+
+/* Apoio Querie 3 */
 
 int TotalVendasTotalFaturadoGlobal(FaturacaoGlobal fg,int mes, char* cod, double array[], int modo ){
     int j=26;
@@ -41,6 +73,19 @@ int TotalVendasTotalFaturadoGlobal(FaturacaoGlobal fg,int mes, char* cod, double
     return r;
 }
 
+/* Apoio Querie 6 */
+
+void  CalculaTotalVendasEFaturado(FaturacaoGlobal fg,int mesi,int mesf,double res[]){
+    int i;
+    double totalfaturado=0.0;
+    int totalvendas=0;
+    for(i=(mesi-1);i<=(mesf-1);i++){
+        totalvendas = fg->TotalVendas[i][PROMO] + fg->TotalVendas[i][NORMAL];
+        totalfaturado = fg->TotalFaturado[i][PROMO] + fg->TotalFaturado[i][NORMAL];
+        res[0]+=totalvendas;
+        res[1]+=totalfaturado;
+    }
+}
 
 int VeTotalFG(FaturacaoGlobal p){
 
@@ -58,6 +103,35 @@ double totaldoproduto(FaturacaoGlobal p){
 
 /*---------------------------------------------*/
 
+/* Apoio Querie 4 */
+
+ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
+   int index = 0,i=0,size=0;
+   double r;
+   char** aux;
+   char** aux2;
+   Avl_tree a;
+   Avl b;
+   ConjProdsF produtos=InicializaConjProdsF();
+   for(i=0;i<26;i++){
+        a = pro -> avl_produtos[i];
+        b = createCharNodeF(a);
+        size=size+total(b);
+       }
+    aux=malloc(sizeof(char*)*size);
+    for(i=0;i<26;i++){
+    a = pro -> avl_produtos[i];
+    b = createCharNodeF(a);
+    index=toArrayProdutosAuxNaoVendidos(b, index, aux);    
+   }
+   aux2=malloc(sizeof(char*)*index);
+   memcpy(aux2,aux,sizeof(char*)*index);
+   produtos->lista=aux2;
+   produtos->tamanho=index;
+   return produtos;
+}
+
+/*------------------------------------------------*/
 
 FaturacaoGlobal InicializaTotalProdutos() {
     int i, j,k;
