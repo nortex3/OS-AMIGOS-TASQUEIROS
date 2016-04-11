@@ -67,6 +67,19 @@ typedef struct avl_treeC
 
 /* Apoio a Queries*/
 
+void percorreClientesAux(AvlC c){
+  int i;
+  Avl_treeP tmp;
+  for(i=0;i<26;i++){
+    tmp = c -> ListaProdutos[i];
+    comprasFiliaisTodas(tmp);
+  }
+}
+
+void comprasFiliaisTodas(AvlP p){
+  
+}
+
 void calculaVendas(AvlP p, int *mes){
   int j=0,i=0;
   if(p!=NULL){

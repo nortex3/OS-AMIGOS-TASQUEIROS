@@ -21,6 +21,14 @@ struct GestFil {
 
 /*Apoio Querie 5 */
 
+void percorreClientes(GF gf){
+    int i;
+    for(i=0;i<26;i++){
+        Avl_treeC tmp = gf->avlClientes[i];
+        percorreClientesAux(tmp);
+    }
+}
+
 int CalculaTotais(GF gf,char* cod,int *mes){
 
     int j=26;
