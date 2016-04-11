@@ -184,7 +184,10 @@ void querie6(int mesi,int mesf){
 
 }
 
-void querie7(){}
+void querie7(){
+	percorreClientes(gf);
+
+}
 void querie8(char* s,int filial){}
 void querie9(char* s,int filial){}
 void querie10(){}

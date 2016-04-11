@@ -60,7 +60,7 @@ typedef struct avl_treeC
 } avl_treeC;
 
 /* Private methods */
-
+AvlP createNodePro(Avl_treeP p);
 
 
 
@@ -68,16 +68,67 @@ typedef struct avl_treeC
 /* Apoio a Queries*/
 
 void percorreClientesAux(AvlC c){
-  int i;
+  int i, r = 0;
   Avl_treeP tmp;
   for(i=0;i<26;i++){
     tmp = c -> ListaProdutos[i];
-    comprasFiliaisTodas(tmp);
+    r = percorreProdutos(tmp, r);
   }
 }
 
-void comprasFiliaisTodas(AvlP p){
-  
+int percorreProdutos(Avl_treeP pro, int r){
+  if(pro == NULL){
+    return r;
+  }
+  AvlP p;
+  p = createNodePro(pro);
+   if (p->left)
+      r = comprasFiliaisTodas(p->left);
+
+   r = comprasFiliaisTodas(p);
+
+   if (p->right)
+      r = comprasFiliaisTodas(p->right);
+   return r;  
+}
+
+int comprasFiliaisTodas(AvlP p){
+  int i, j, r;
+  for(i = 0; i < 2; i++){
+    for(j = 0; j < 12; j++){
+      r = p->ComprasFilial1[j][i];
+      if(r > 0){
+        r += 1;
+        i=2;
+        j=12;
+      }
+    }
+  }
+
+  for(i = 0; i < 2; i++){
+    for(j = 0; j < 12; j++){
+      r = p->ComprasFilial2[j][i];
+      if(r > 0){
+        r += 1;
+        i=2;
+        j=12;
+      }
+    }
+  }
+
+  for(i = 0; i < 2; i++){
+    for(j = 0; j < 12; j++){
+      r = p->ComprasFilial3[j][i];
+      if(r > 0){
+        r += 1;
+        i=2;
+        j=12;
+      }
+    }
+  }
+
+  return r;
+
 }
 
 void calculaVendas(AvlP p, int *mes){
@@ -226,6 +277,12 @@ AvlP procuraP(AvlP node, char* cod){
    if (strcmp(cod,node->codigo) == 0) return node;
     else if (strcmp(cod,node->codigo) < 0) return procuraP(node->left, cod);
     else return procuraP(node->right, cod);
+}
+
+AvlP createNodePro(Avl_treeP p){
+  AvlP tmp;
+  tmp = p->root;
+  return tmp;
 }
 
 AvlP createNodeP(char* s,int quantidade,int mes,char tipo, int filial){
