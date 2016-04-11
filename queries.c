@@ -111,15 +111,36 @@ void querie3(int mes,char* codPro,int modo){
 
 
 }
-void querie4(char modo){
-    if(modo==1){
+void querie4(char modo,char filial){
     int aux = 0;
-    ConjProdsF prods = toArrayProdutosNaoVendidos(fg);
+    ConjProdsF prods;
+    if (modo==1){
+    prods = toArrayProdutosNaoVendidos(fg);
 	printf("\033c");
     printQuerie4(prods, aux, aux);
     }
     else {
-        printf("Em desenvolvimento....\n");
+        switch(filial){
+			case 1:
+				prods = toArrayProdutosNaoVendidosF1(fg);
+                printf("\033c");
+                printQuerie4(prods, aux, aux);
+				break;
+			case 2:
+                prods = toArrayProdutosNaoVendidosF2(fg);
+                printf("\033c");
+                printQuerie4(prods, aux, aux);
+				break;
+            case 3:
+                prods = toArrayProdutosNaoVendidosF3(fg);
+                printf("\033c");
+                printQuerie4(prods, aux, aux);
+				break;
+            default:
+				printf("\033c");
+				printf("Opção inválida.\n");
+				querie4(modo,filial);
+		}
     }
 }
 

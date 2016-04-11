@@ -414,6 +414,80 @@ int toArrayProdutosAuxNaoVendidos(Avl produtos, int index, char** aux){
    return index;  
 }
 
+int toArrayProdutosAuxNaoVendidosF1(Avl produtos, int index, char** aux){
+    int i=0;
+    double total=0;
+    
+   if(produtos == NULL){
+      return index;
+   }
+   if (produtos->left)
+      index = toArrayProdutosAuxNaoVendidosF1(produtos->left,index,aux);
+    
+   for(i=0,total=0;i<12;i++){
+        total=total+(produtos->TotalUniFilial1[i][NORMAL]+produtos->TotalUniFilial1[i][PROMO]);
+   }
+    
+    if(total==0){
+    aux[index] = produtos->codigo;
+    index++;
+    }
+    
+   
+   if (produtos->right)
+      index = toArrayProdutosAuxNaoVendidosF1(produtos->right,index,aux);
+   return index;  
+}
+
+int toArrayProdutosAuxNaoVendidosF2(Avl produtos, int index, char** aux){
+    int i=0;
+    double total;
+    
+   if(produtos == NULL){
+      return index;
+   }
+   if (produtos->left)
+      index = toArrayProdutosAuxNaoVendidosF2(produtos->left,index,aux);
+    
+   for(i=0,total=0;i<12;i++){
+     total=total+(produtos->TotalUniFilial2[i][NORMAL]+produtos->TotalUniFilial2[i][PROMO]);
+   }
+    
+    if(total==0){
+    aux[index] = produtos->codigo;
+    index++;
+    }
+    
+   
+   if (produtos->right)
+      index = toArrayProdutosAuxNaoVendidosF2(produtos->right,index,aux);
+   return index;  
+}
+
+int toArrayProdutosAuxNaoVendidosF3(Avl produtos, int index, char** aux){
+    int i=0;
+    double total=0;
+    
+   if(produtos == NULL){
+      return index;
+   }
+   if (produtos->left)
+      index = toArrayProdutosAuxNaoVendidosF3(produtos->left,index,aux);
+    
+   for(i=0,total=0;i<12;i++){
+    total=total+(produtos->TotalUniFilial3[i][NORMAL]+produtos->TotalUniFilial3[i][PROMO]);
+   }
+    
+    if(total==0){
+    aux[index] = produtos->codigo;
+    index++;
+    }
+    
+   
+   if (produtos->right)
+      index = toArrayProdutosAuxNaoVendidosF3(produtos->right,index,aux);
+   return index;  
+}
 
 
 

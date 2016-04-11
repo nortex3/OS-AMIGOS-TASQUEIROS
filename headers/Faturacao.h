@@ -15,5 +15,8 @@ double totaldoproduto(FaturacaoGlobal p);
 int TotalVendasTotalFaturadoGlobal(FaturacaoGlobal fg,int mes, char* cod,double array[],int modo );
 void  CalculaTotalVendasEFaturado(FaturacaoGlobal fg,int mesi,int mesf,double res[]);
 ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro);
+ConjProdsF toArrayProdutosNaoVendidosF1(FaturacaoGlobal pro);
+ConjProdsF toArrayProdutosNaoVendidosF2(FaturacaoGlobal pro);
+ConjProdsF toArrayProdutosNaoVendidosF3(FaturacaoGlobal pro);
 
 #endif

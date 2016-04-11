@@ -6,7 +6,7 @@ void querie1Produtos();
 void querie1Vendas();
 void querie2(char c);
 void querie3(int mes,char* codPro,int modo);
-void querie4(char c);
+void querie4(char c,int filial);
 void querie5(char *s);
 void querie6(int mesi,int mesf);
 void querie7();

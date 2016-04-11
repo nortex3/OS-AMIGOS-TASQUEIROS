@@ -32,6 +32,9 @@ Avl createCharNodeF(Avl_tree a);
 void RecolheInfoNodo(Avl p,int mes, double array[]);
 void RecolheInfoNodoFilial(Avl p,int mes, double array[]);
 int toArrayProdutosAuxNaoVendidos(Avl produtos, int index, char** aux);
+int toArrayProdutosAuxNaoVendidosF1(Avl produtos, int index, char** aux);
+int toArrayProdutosAuxNaoVendidosF2(Avl produtos, int index, char** aux);
+int toArrayProdutosAuxNaoVendidosF3(Avl produtos, int index, char** aux);
 
 
 /* Public methods */

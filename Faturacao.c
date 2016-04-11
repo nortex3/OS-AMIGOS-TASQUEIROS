@@ -92,6 +92,8 @@ void  CalculaTotalVendasEFaturado(FaturacaoGlobal fg,int mesi,int mesf,double re
 
 /* Apoio Querie 4 */
 
+/* RESULTADOS GLOBAIS */
+
 ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
    int index = 0,i=0, size=0;
    char** aux;
@@ -117,6 +119,94 @@ ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
    produtos->tamanho=index;
    return produtos;
 }
+
+/* RESULTADOS FILIAL 1*/
+
+ConjProdsF toArrayProdutosNaoVendidosF1(FaturacaoGlobal pro){
+   int index = 0,i=0, size=0;
+   char** aux;
+   char** aux2;
+   Avl_tree a;
+   Avl b;
+   ConjProdsF produtos=InicializaConjProdsF();
+   for(i=0;i<26;i++){
+     a = pro -> avl_produtos[i];
+     b = createCharNodeF(a);
+     size=size+contaNodos(b);
+   }
+    aux=malloc(sizeof(char*)*size);
+    for(i=0;i<26;i++){
+    a = pro -> avl_produtos[i];
+    b = createCharNodeF(a);
+    index=toArrayProdutosAuxNaoVendidosF1(b, index, aux);    
+   }
+   aux2=malloc(sizeof(char*)*index); 
+   memcpy(aux2,aux,sizeof(char*)*index);
+   free(aux);
+   produtos->lista=aux2;
+   produtos->tamanho=index;
+   free(aux2);
+   return produtos;
+}
+
+/* RESULTADOS FILIAL 2*/
+
+ConjProdsF toArrayProdutosNaoVendidosF2(FaturacaoGlobal pro){
+   int index = 0,i=0, size=0;
+   char** aux;
+   char** aux2;
+   Avl_tree a;
+   Avl b;
+   ConjProdsF produtos=InicializaConjProdsF();
+   for(i=0;i<26;i++){
+     a = pro -> avl_produtos[i];
+     b = createCharNodeF(a);
+     size=size+contaNodos(b);
+   }
+    aux=malloc(sizeof(char*)*size);
+    for(i=0;i<26;i++){
+    a = pro -> avl_produtos[i];
+    b = createCharNodeF(a);
+    index=toArrayProdutosAuxNaoVendidosF2(b, index, aux);    
+   }
+   aux2=malloc(sizeof(char*)*index); 
+   memcpy(aux2,aux,sizeof(char*)*index);
+   free(aux);
+   produtos->lista=aux2;
+   produtos->tamanho=index;
+     free(aux2);
+   return produtos;
+}
+
+/* RESULTADOS FILIAL 3*/
+
+ConjProdsF toArrayProdutosNaoVendidosF3(FaturacaoGlobal pro){
+   int index = 0,i=0, size=0;
+   char** aux;
+   char** aux2;
+   Avl_tree a;
+   Avl b;
+   ConjProdsF produtos=InicializaConjProdsF();
+   for(i=0;i<26;i++){
+     a = pro -> avl_produtos[i];
+     b = createCharNodeF(a);
+     size=size+contaNodos(b);
+   }
+    aux=malloc(sizeof(char*)*size);
+    for(i=0;i<26;i++){
+    a = pro -> avl_produtos[i];
+    b = createCharNodeF(a);
+    index=toArrayProdutosAuxNaoVendidosF3(b, index, aux);    
+   }
+   aux2=malloc(sizeof(char*)*index); 
+   memcpy(aux2,aux,sizeof(char*)*index);
+   free(aux);
+   produtos->lista=aux2;
+   produtos->tamanho=index;
+     free(aux2);
+   return produtos;
+}
+
 
 /*------------------------------------------------*/
 

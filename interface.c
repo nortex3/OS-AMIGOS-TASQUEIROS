@@ -383,9 +383,16 @@ void imprimirMenuQueries(){
 					printf("\033c");
                     printf("Insira 1 para resultados globais, Insira 2 para resultados filial a filial: \n");
 				    aux = scanf("%d",&modo);
-                    if(modo==1 || modo==2) {
-						querie4(modo);
-					}  
+                    if(modo==1 || modo==2){
+                        if(modo==2){
+                            printf("Insira a filial que pretende consultar: \n");
+                            aux = scanf("%d",&filial);
+                                if(filial!=1 && filial!=2 && filial!=3){
+                                    printf("Filial incorrecta, introduza 1,2 ou 3.\n");
+                                }
+                            }
+                        querie4(modo,filial);    
+                    }
 					else {
 						printf("\033c");
 						printf("Inseriu valor diferente 1 e 2.\n");
