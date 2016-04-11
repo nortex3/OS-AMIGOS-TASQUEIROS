@@ -19,7 +19,9 @@ extern GF gf;
 
 void printQuerie2(ConjProds prods, int contador, int index);
 void printQuerie4(ConjProdsF prods, int contador, int index);
+void printQuerie7(ConjClisGF cligf, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
+
 
 void querie1Clientes(){
 	free(cli);
@@ -185,7 +187,10 @@ void querie6(int mesi,int mesf){
 }
 
 void querie7(){
-	percorreClientes(gf);
+	int aux = 0;
+	printf("\033c");
+	ConjClisGF tmp = percorreClientes(gf);
+	printQuerie7(tmp, aux, aux);
 
 }
 void querie8(char* s,int filial){}
@@ -298,6 +303,54 @@ void printQuerie4(ConjProdsF prods, int contador, int index){
 			printf("\033c");
 			printf("Comando inválido\n");
 			printQuerie4(prods, contador-20, index-20);
+		}
+	}
+}
+
+void printQuerie7(ConjClisGF cligf, int contador, int index){
+	int n = 0, i,c = 0;
+
+	printf("################## GEREVENDAS ##################\n");
+    for (i=0;i < 20 && index < retornaTamanhoConjClisGF(cligf); i++){
+			printf("# %s                                       #\n",retornaElementoConjClisGF(cligf,index));
+			contador++;
+			index++;
+	}
+	printf("################################################################\n");
+	printf("# Número de clientes que compraram em todas as filiais: %d     #\n", retornaTamanhoConjClisGF(cligf));
+	printf("################################################################\n");
+	printf("# 1. Continuar.                                                #\n");
+	printf("# 2. Retroceder.                                               #\n");
+	printf("# 0. Sair.                                                     #\n");
+	printf("################################################################\n");
+	printf(">");
+	n = scanf("%d",&c);
+	if(n > 0){
+		if(c == 1 && contador != retornaTamanhoConjClisGF(cligf)){
+			printf("\033c");
+			printQuerie7(cligf, contador, index++);
+		}
+		else if(c == 1 && contador == retornaTamanhoConjClisGF(cligf)){
+			printf("\033c");
+			printf("Impossível continuar.\n");
+			printQuerie7(cligf, contador-20, index-20);
+		}
+		else if(c == 2 && (contador-40) >= 0){
+			printf("\033c");
+			printQuerie7(cligf, contador-40, index-40);
+		}
+		else if(c == 2 && (contador-40) <= 0){
+			printf("\033c");
+			printf("Impossível retroceder.\n");
+			printQuerie7(cligf, contador-20, index-20);
+		}
+		else if(c == 0){
+			printf("\033c");
+		}
+		else{
+			printf("\033c");
+			printf("Comando inválido\n");
+			printQuerie7(cligf, contador-20, index-20);
 		}
 	}
 }

@@ -126,6 +126,7 @@ ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
    }
    aux2=malloc(sizeof(char*)*index);
    memcpy(aux2,aux,sizeof(char*)*index);
+   free(aux);
    produtos->lista=aux2;
    produtos->tamanho=index;
    return produtos;

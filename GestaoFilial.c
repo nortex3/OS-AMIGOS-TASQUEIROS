@@ -17,16 +17,53 @@ struct GestFil {
 	Avl_treeC avlClientes[26];
 };
 
+struct conjClisGF {
+    char** lista;
+    int tamanho;
+};
+
+
+/* Relacionado com ConjClisGF*/
+
+ConjClisGF InicializaConjClisGF(){
+    ConjClisGF tmp = (ConjClisGF)malloc(sizeof(struct conjClisGF));
+    tmp->lista=NULL;
+    tmp->tamanho=0;
+    return tmp;
+}
+
+int retornaTamanhoConjClisGF(ConjClisGF cc){
+    return cc->tamanho;
+}
+
+char* retornaElementoConjClisGF(ConjClisGF cc,int i){
+
+    return cc->lista[i];
+}
 
 
 /*Apoio Querie 5 */
 
-void percorreClientes(GF gf){
-    int i;
+ConjClisGF percorreClientes(GF gf){
+    int i, index=0;
+    int r[3];
+    AvlC cli;
+    char** aux;
+    char** aux2;
+    ConjClisGF clientes = InicializaConjClisGF();
+    aux=malloc(sizeof(char*)*16384);
     for(i=0;i<26;i++){
         Avl_treeC tmp = gf->avlClientes[i];
-        percorreClientesAux(tmp);
+        cli = createNodeCli(tmp);
+        index=percorreClientesAux(cli,r, aux, index);
     }
+    aux2=malloc(sizeof(char*)*index);
+    memcpy(aux2,aux,sizeof(char*)*index);
+    free(aux);
+    clientes -> lista = aux2;
+    clientes -> tamanho = index;
+    return clientes;
+
 }
 
 int CalculaTotais(GF gf,char* cod,int *mes){
