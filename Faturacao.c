@@ -116,7 +116,7 @@ ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
     b = createCharNodeF(a);
     index=toArrayProdutosAuxNaoVendidos(b, index, aux);    
    }
-   produtos->lista=aux2;
+   produtos->lista=aux;
    produtos->tamanho=index;
    return produtos;
 }
