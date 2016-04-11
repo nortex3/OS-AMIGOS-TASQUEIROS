@@ -466,7 +466,7 @@ int toArrayProdutosAuxNaoVendidosF2(Avl produtos, int index, char** aux){
 
 int toArrayProdutosAuxNaoVendidosF3(Avl produtos, int index, char** aux){
     int i=0;
-    double total=0;
+    int total=0;
     
    if(produtos == NULL){
       return index;

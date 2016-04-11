@@ -139,7 +139,6 @@ void querie4(char modo,char filial){
             default:
 				printf("\033c");
 				printf("Opção inválida.\n");
-				querie4(modo,filial);
 		}
     }
 }
