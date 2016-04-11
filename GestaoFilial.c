@@ -45,13 +45,18 @@ char* retornaElementoConjClisGF(ConjClisGF cc,int i){
 /*Apoio Querie 5 */
 
 ConjClisGF percorreClientes(GF gf){
-    int i, index=0;
+    int i, index=0, size=0;
     int r[3];
     AvlC cli;
     char** aux;
     char** aux2;
     ConjClisGF clientes = InicializaConjClisGF();
-    aux=malloc(sizeof(char*)*16384);
+    for(i=0;i<26;i++){
+        Avl_treeC tmp = gf->avlClientes[i];
+        cli = createNodeCli(tmp);
+        size=size+contaNodosGF(cli);
+    }
+    aux=malloc(sizeof(char*)*size);
     for(i=0;i<26;i++){
         Avl_treeC tmp = gf->avlClientes[i];
         cli = createNodeCli(tmp);

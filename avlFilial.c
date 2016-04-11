@@ -182,6 +182,14 @@ void calculaListaProdutos(AvlC a, int *mes){
        calculaVendas(p,mes);
   }
 }
+
+int contaNodosGF(AvlC a){ 
+    int count=0;
+    if (a!=NULL){
+    count = 1+contaNodosGF(a->left)+contaNodosGF(a->right);
+    }
+    return count;
+}
 /*----------------------*/
 
 

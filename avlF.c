@@ -171,16 +171,13 @@ Avl procuraTree(Avl_tree p, char* cod){
     else return procura(node->right, cod);
 }
 
-/* Funcao de teste*/
-
-double total(Avl a){
-  double r = a->TotalFatFilial2[7][PROMO];
-printf("%d\n",a->TotalVendidas );
-printf("%f\n",a->TotalFaturado );
-   return r;
+int contaNodos(Avl a){ 
+    int count=0;
+    if (a!=NULL){
+    count = 1+contaNodos(a->left)+contaNodos(a->right);
+    }
+    return count;
 }
-
-/*----------------------*/
 
 
 Avl procura(Avl node, char* cod){

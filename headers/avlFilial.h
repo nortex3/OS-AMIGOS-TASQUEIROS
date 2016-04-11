@@ -28,6 +28,7 @@ int avl_actualizaP(char* s, Avl_treeP ptr,int quantidade,int mes,char tipo,int f
 int existeFP(char* s, Avl_treeP ptr);
 AvlP createNodeP(char* s,int quantidade,int mes,char tipo, int filial);
 Avl_treeP createTreeP();
+int contaNodosGF(AvlC a);
 AvlP procuraTreeP(Avl_treeP node, char* cod);
 void calculaListaProdutos(AvlC a, int *mes);
 void calculaVendas(AvlP p, int *tot);
