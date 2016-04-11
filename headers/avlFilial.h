@@ -31,6 +31,9 @@ Avl_treeP createTreeP();
 AvlP procuraTreeP(Avl_treeP node, char* cod);
 void calculaListaProdutos(AvlC a, int *mes);
 void calculaVendas(AvlP p, int *tot);
+int percorreClientesAux(AvlC cli,int r[], char** aux, int index);
+AvlP createNodePro(Avl_treeP p);
+AvlC createNodeCli(Avl_treeC c);
 
 /* Public methods */
 
