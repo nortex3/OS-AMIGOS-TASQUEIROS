@@ -87,30 +87,18 @@ void  CalculaTotalVendasEFaturado(FaturacaoGlobal fg,int mesi,int mesf,double re
     }
 }
 
-int VeTotalFG(FaturacaoGlobal p){
-
-    int r=p->TotalVendas[1][1]; 
-    return r;
-}
-
-double totaldoproduto(FaturacaoGlobal p){
-    Avl_tree b = p->avl_produtos[13]; 
-    double r;
-    Avl a = procuraTree(b,"NR1091");
-    r= total(a);
-    return r;
-}
 
 /*---------------------------------------------*/
 
 /* Apoio Querie 4 */
 
 ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
-   int index = 0,i=0,size=0;
+   int index = 0,i=0;
    char** aux;
    Avl_tree a;
    Avl b;
    ConjProdsF produtos=InicializaConjProdsF();
+   aux=(char**)malloc(sizeof(char*));
     for(i=0;i<26;i++){
     a = pro -> avl_produtos[i];
     b = createCharNodeF(a);
