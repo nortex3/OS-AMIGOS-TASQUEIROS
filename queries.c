@@ -154,46 +154,23 @@ void querie5(char *s){
 	Nexiste=CalculaTotais(gf,s,mes);
 	if(Nexiste==1) printf("Cliente Inexistente\n");
 	else{
-		printf("##########################################################\n");
-		printf("##     Mês          |    Filial       |     Total      ###\n");
-		printf("##########################################################\n");
-		printf("##      1           |     %d          |       %d       ###\n",1,mes[0]);
-		printf("##      1           |     %d          |       %d       ###\n",2,mes[1]);
-		printf("##      1           |     %d          |       %d       ###\n",3,mes[2]);
-		printf("##      2           |     %d          |       %d       ###\n",1,mes[3]);
-		printf("##      2           |     %d          |       %d       ###\n",2,mes[4]);
-		printf("##      2           |     %d          |       %d       ###\n",3,mes[5]);
-		printf("##      3           |     %d          |       %d       ###\n",1,mes[6]);
-		printf("##      3           |     %d          |       %d       ###\n",2,mes[7]);
-		printf("##      3           |     %d          |       %d       ###\n",3,mes[8]);
-		printf("##      4           |     %d          |       %d       ###\n",1,mes[9]);
-		printf("##      4           |     %d          |       %d       ###\n",2,mes[10]);
-		printf("##      4           |     %d          |       %d       ###\n",3,mes[11]);
-		printf("##      5           |     %d          |       %d       ###\n",1,mes[12]);
-		printf("##      5           |     %d          |       %d       ###\n",2,mes[13]);
-		printf("##      5           |     %d          |       %d       ###\n",3,mes[14]);
-		printf("##      6           |     %d          |       %d       ###\n",1,mes[15]);
-		printf("##      6           |     %d          |       %d       ###\n",2,mes[16]);
-		printf("##      6           |     %d          |       %d       ###\n",3,mes[17]);
-		printf("##      7           |     %d          |       %d       ###\n",1,mes[18]);
-		printf("##      7           |     %d          |       %d       ###\n",2,mes[19]);
-		printf("##      7           |     %d          |       %d       ###\n",3,mes[20]);
-		printf("##      8           |     %d          |       %d       ###\n",1,mes[21]);
-		printf("##      8           |     %d          |       %d       ###\n",2,mes[22]);
-		printf("##      8           |     %d          |       %d       ###\n",3,mes[23]);
-		printf("##      9           |     %d          |       %d       ###\n",1,mes[24]);
-		printf("##      9           |     %d          |       %d       ###\n",2,mes[25]);
-		printf("##      9           |     %d          |       %d       ###\n",3,mes[26]);
-		printf("##     10           |     %d          |       %d       ###\n",1,mes[27]);
-		printf("##     10           |     %d          |       %d       ###\n",2,mes[28]);
-		printf("##     10           |     %d          |       %d       ###\n",3,mes[29]);
-		printf("##     11           |     %d          |       %d       ###\n",1,mes[30]);
-		printf("##     11           |     %d          |       %d       ###\n",2,mes[31]);
-		printf("##     11           |     %d          |       %d       ###\n",3,mes[32]);
-		printf("##     12           |     %d          |       %d       ###\n",1,mes[33]);
-		printf("##     12           |     %d          |       %d       ###\n",2,mes[34]);
-		printf("##     12           |     %d          |       %d       ###\n",3,mes[35]);	
-		printf("##########################################################\n");
+		printf("###############    Produtos comprados pelo cliente %s    ############\n", s);
+		printf("########################################################################\n");
+		printf("##     Mês       |    Filial 1      |    Filial 2    |    Filial 3    ##\n");
+		printf("########################################################################\n");
+		printf("##      1        |      %d          |       %d       |      %d        ##\n",mes[0],mes[1],mes[2]);
+		printf("##      2        |      %d          |       %d       |      %d        ##\n",mes[3],mes[4],mes[5]);
+		printf("##      3        |      %d          |       %d       |      %d        ##\n",mes[6],mes[7],mes[8]);
+		printf("##      4        |      %d          |       %d       |      %d        ##\n",mes[9],mes[10],mes[11]);
+		printf("##      5        |      %d          |       %d       |      %d        ##\n",mes[12],mes[13],mes[14]);
+		printf("##      6        |      %d          |       %d       |      %d        ##\n",mes[15],mes[16],mes[17]);
+		printf("##      7        |      %d          |       %d       |      %d        ##\n",mes[18],mes[19],mes[20]);
+		printf("##      8        |      %d          |       %d       |      %d        ##\n",mes[21],mes[22],mes[23]);
+		printf("##      9        |      %d          |       %d       |      %d        ##\n",mes[24],mes[25],mes[26]);
+		printf("##      10       |      %d          |       %d       |      %d        ##\n",mes[27],mes[28],mes[29]);
+		printf("##      11       |      %d          |       %d       |      %d        ##\n",mes[30],mes[31],mes[32]);
+		printf("##      12       |      %d          |       %d       |      %d        ##\n",mes[33],mes[34],mes[35]);
+		printf("########################################################################\n");
 	}
 }
 
@@ -213,22 +190,14 @@ void querie7(){
 	printQuerie7(tmp, aux, aux);
 
 }
-void querie8(char* s,int filial){}
+void querie8(char* s,int filial){
+
+
+}
 void querie9(char* s,int filial){}
 void querie10(){}
 void querie11(char *s){}
 void querie12(){}
-/*
-void querie6(char c){
-	int i;
-	ConjProds prods = (toArrayProdutos(pro,c));
-	
-	for (i=0;i<(prods.tamanho);i++)
-	{
-		printf("%s\n",prods.lista[i]);
-	}
-	printf("%i\n",prods.tamanho);
-}*/
 
 
 void printQuerie2(ConjProds prods, int contador, int index){
