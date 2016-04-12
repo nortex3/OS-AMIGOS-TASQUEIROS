@@ -132,6 +132,7 @@ void inicializarMenu(){
 				}
 				break;
 			case 4:
+				printf("\033c");
 				querie1Clientes();
 				initCli = 1;
 				querie1Produtos();

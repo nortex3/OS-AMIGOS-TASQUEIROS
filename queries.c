@@ -144,6 +144,7 @@ void querie4(char modo,char filial){
 }
 
 void querie5(char *s){
+	char aux;
 	int mes[36];
 	int i=0,j=0;
 	int Nexiste=0;
@@ -154,23 +155,33 @@ void querie5(char *s){
 	Nexiste=CalculaTotais(gf,s,mes);
 	if(Nexiste==1) printf("Cliente Inexistente\n");
 	else{
-		printf("###############    Produtos comprados pelo cliente %s    ############\n", s);
-		printf("########################################################################\n");
-		printf("##     Mês       |    Filial 1      |    Filial 2    |    Filial 3    ##\n");
-		printf("########################################################################\n");
-		printf("##      1        |      %d          |       %d       |      %d        ##\n",mes[0],mes[1],mes[2]);
-		printf("##      2        |      %d          |       %d       |      %d        ##\n",mes[3],mes[4],mes[5]);
-		printf("##      3        |      %d          |       %d       |      %d        ##\n",mes[6],mes[7],mes[8]);
-		printf("##      4        |      %d          |       %d       |      %d        ##\n",mes[9],mes[10],mes[11]);
-		printf("##      5        |      %d          |       %d       |      %d        ##\n",mes[12],mes[13],mes[14]);
-		printf("##      6        |      %d          |       %d       |      %d        ##\n",mes[15],mes[16],mes[17]);
-		printf("##      7        |      %d          |       %d       |      %d        ##\n",mes[18],mes[19],mes[20]);
-		printf("##      8        |      %d          |       %d       |      %d        ##\n",mes[21],mes[22],mes[23]);
-		printf("##      9        |      %d          |       %d       |      %d        ##\n",mes[24],mes[25],mes[26]);
-		printf("##      10       |      %d          |       %d       |      %d        ##\n",mes[27],mes[28],mes[29]);
-		printf("##      11       |      %d          |       %d       |      %d        ##\n",mes[30],mes[31],mes[32]);
-		printf("##      12       |      %d          |       %d       |      %d        ##\n",mes[33],mes[34],mes[35]);
-		printf("########################################################################\n");
+		printf("###########    Produtos comprados pelo cliente %s   ###########\n", s);
+		printf("##################################################################\n");
+		printf("##\tMês\t|    Filial 1   |   Filial 2    |   Filial 3    ##\n");
+		printf("##################################################################\n");
+		printf("##\t1\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[0],mes[1],mes[2]);
+		printf("##\t2\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[3],mes[4],mes[5]);
+		printf("##\t3\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[6],mes[7],mes[8]);
+		printf("##\t4\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[9],mes[10],mes[11]);
+		printf("##\t5\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[12],mes[13],mes[14]);
+		printf("##\t6\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[15],mes[16],mes[17]);
+		printf("##\t7\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[18],mes[19],mes[20]);
+		printf("##\t8\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[21],mes[22],mes[23]);
+		printf("##\t9\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[24],mes[25],mes[26]);
+		printf("##\t10\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[27],mes[28],mes[29]);
+		printf("##\t11\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[30],mes[31],mes[32]);
+		printf("##\t12\t|\t%d\t|\t%d\t|\t%d\t##\n",mes[33],mes[34],mes[35]);
+		printf("##################################################################\n");
+		printf("Prima 'Enter' para sair.\n");
+		getchar();
+		j = scanf("%c",&aux);
+		if(aux== '\n'){
+			printf("\033c");
+		}
+		else{
+			printf("\033c");
+			querie5(s);
+		}
 	}
 }
 
@@ -299,14 +310,14 @@ void printQuerie4(ConjProdsF prods, int contador, int index){
 void printQuerie7(ConjClisGF cligf, int contador, int index){
 	int n = 0, i,c = 0;
 
-	printf("################## GEREVENDAS ##################\n");
+	printf("################## GEREVENDAS ##################################\n");
     for (i=0;i < 20 && index < retornaTamanhoConjClisGF(cligf); i++){
-			printf("# %s                                       #\n",retornaElementoConjClisGF(cligf,index));
+			printf("# %s                                                        #\n",retornaElementoConjClisGF(cligf,index));
 			contador++;
 			index++;
 	}
 	printf("################################################################\n");
-	printf("# Número de clientes que compraram em todas as filiais: %d     #\n", retornaTamanhoConjClisGF(cligf));
+	printf("# Número de clientes que compraram em todas as filiais: %d  #\n", retornaTamanhoConjClisGF(cligf));
 	printf("################################################################\n");
 	printf("# 1. Continuar.                                                #\n");
 	printf("# 2. Retroceder.                                               #\n");
