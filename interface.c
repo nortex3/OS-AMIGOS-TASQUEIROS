@@ -469,7 +469,10 @@ void imprimirMenuQueries(){
 					aux = scanf("%s",s);
 					printf("Insira um mês: \n");
 					aux = scanf("%d",&mes);
-					querie9(s,mes);        
+					if(mes<1||mes>12){
+						printf("\033c");
+						printf("Mes incorrecto\n");
+					}else querie9(s,mes);        
                     }
 				else{
 					printf("\033c");

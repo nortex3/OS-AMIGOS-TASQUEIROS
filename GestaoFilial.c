@@ -41,6 +41,42 @@ char* retornaElementoConjClisGF(ConjClisGF cc,int i){
     return cc->lista[i];
 }
 
+/* Apoio Querie 9 */
+
+
+
+ConjClisGF percorreClientes9(GF gf, int mes, char* cod){
+    int i, index=0,n, tamanhoMaximo;
+    AvlC cli, cliente;
+    char** aux;
+    char** aux2;
+    ConjClisGF clientes = InicializaConjClisGF();
+    
+    if (cod[0]>=97 && cod[0]<=123) 
+        n = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            n = ((int)cod[0])-65;
+
+    Avl_treeC tmp = gf->avlClientes[n];
+    cli = createNodeCli(tmp);
+    cliente= procuraC(cli,cod);
+    if(cliente!=NULL){
+        tamanhoMaximo= totalProdsComprados(cliente);
+        aux=malloc(sizeof(char*)*tamanhoMaximo);
+
+        index=percorreProdutosClientes9(cliente,mes, aux);
+        
+        aux2=malloc(sizeof(char*)*index);
+        memcpy(aux2,aux,sizeof(char*)*index);
+        free(aux);
+        clientes -> lista = aux2;
+        clientes -> tamanho = index;
+        free(aux2);
+        return clientes;
+    }
+    return NULL;
+}
 
 /*Apoio Querie 5 */
 

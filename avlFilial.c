@@ -63,7 +63,134 @@ typedef struct avl_treeC
 int percorreProdutosClientes(AvlC c, int r[], char** aux, int index);
 void percorreProdutos(AvlP pro, int r[]);
 void comprasFiliaisTodas(AvlP p, int r[]);
+int percorreProdutosClientes9(AvlC c, int mes, char** aux);
+int percorreProdutos9(AvlP p, int mes, char** codigos, int* quantidades,int j);
+int calculaValores(AvlP p,int mes,char** codigos,int* quantidades, int j);
+void insereOrdem(int total,char** codigos,int* quantidades,int j);
+void TrocaPosQuant(int* arrayTot,int origem,int destino);
+void TrocaPosCod(char** arrayProd,int origem,int destino);
 
+
+/* Apoio a Query9  */
+
+int percorreClientesAux9(AvlC cli,int mes, char** aux, int index){
+ 
+
+    index = percorreProdutosClientes9(cli, mes,aux);
+
+  
+  return index;
+
+}
+
+int percorreProdutosClientes9(AvlC c, int mes, char** aux){
+  int i,k, tamanho;
+  Avl_treeP tmp;
+  AvlP p;
+  char** codigos=NULL;
+  int* quantidades;
+  int index=0;
+
+  tamanho = c->TotalComprados;
+  quantidades=(int*) malloc(tamanho*sizeof(int));
+  codigos=(char**) malloc(tamanho*sizeof(char*));
+  
+ for(i=0;i<26;i++){
+
+    tmp = c -> ListaProdutos[i];
+    p = createNodePro(tmp);
+    index=percorreProdutos9(p, mes,codigos,quantidades,index);
+   
+  }
+/*MAnda pra lista*/
+  for(k=0;codigos[k]!=NULL;k++){
+    aux[k] =codigos[k];
+  }
+  return k;
+}
+
+int percorreProdutos9(AvlP p, int mes, char** codigos, int* quantidades,int pos){
+  if(p == NULL){
+    return pos;
+  }
+   if (p->left)
+      pos=percorreProdutos9(p->left,mes,codigos,quantidades,pos);
+
+   pos=calculaValores(p,mes,codigos,quantidades,pos);
+
+   if (p->right)
+      pos=percorreProdutos9(p->right,mes,codigos,quantidades,pos); 
+  return pos;
+ 
+}
+
+
+
+int calculaValores(AvlP p,int mes,char** codigos,int* quantidades, int pos){
+  int i, tamanho = 1;
+  int compradosNormais=0;
+  int compradosPromo=0;
+  int total=0;
+  char* c;
+  if(p!=NULL){
+
+    compradosPromo=p->ComprasFilial1[mes-1][PROMO]+p->ComprasFilial2[mes-1][PROMO]+p->ComprasFilial3[mes-1][PROMO];
+    compradosNormais=p->ComprasFilial1[mes-1][NORMAL]+p->ComprasFilial2[mes-1][NORMAL]+p->ComprasFilial3[mes-1][NORMAL];
+    total=compradosNormais+compradosPromo;
+
+    if(total>0){
+      codigos[pos] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+      strcpy(codigos[pos], p->codigo);
+      quantidades[pos]=total;      
+      insereOrdem(total,codigos,quantidades,pos+1);
+      pos++;
+      
+    }
+  }
+  return pos;
+}
+
+void insereOrdem(int total,char** codigos,int* quantidades,int pos){
+
+  int aux=pos-1;
+    while(aux>0){
+        if(total>quantidades[aux-1]){
+            TrocaPosQuant(quantidades,aux,aux-1);
+            TrocaPosCod(codigos,aux,aux-1);
+            aux--;
+        }
+        else{
+            aux=0;
+        }
+    }   
+
+}
+
+void TrocaPosQuant(int* quantidades,int origem,int destino){
+    
+    int aux;
+    aux=quantidades[origem];
+    quantidades[origem]=quantidades[destino];
+    quantidades[destino]=aux;
+}
+
+void TrocaPosCod(char** codigos,int origem,int destino){
+    char* aux;
+    if(codigos[destino]!=NULL){
+     
+        aux= (char*)malloc((strlen(codigos[origem])+1)*sizeof(char));
+        strcpy(aux,codigos[origem]);
+        strcpy(codigos[origem],codigos[destino]);
+        strcpy(codigos[destino],aux);
+    }else{
+        strcpy(codigos[destino],codigos[origem]);
+        codigos[origem]=NULL;
+    }
+}
+
+int totalProdsComprados(AvlC c){
+  return c->TotalComprados;
+}
 
 
 /* Apoio a Queries*/
