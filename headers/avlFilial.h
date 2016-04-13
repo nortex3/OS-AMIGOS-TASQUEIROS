@@ -33,6 +33,8 @@ AvlP procuraTreeP(Avl_treeP node, char* cod);
 void calculaListaProdutos(AvlC a, int *mes);
 void calculaVendas(AvlP p, int *tot);
 int percorreClientesAux(AvlC cli,int r[], char** aux, int index);
+int percorreClientesAux9(AvlC cli,int mes, char** aux, int index);
+
 AvlP createNodePro(Avl_treeP p);
 AvlC createNodeCli(Avl_treeC c);
 
@@ -53,6 +55,7 @@ int existeC(char* s, Avl_treeC ptr);
 AvlC createNodeC(char* cli,char* pro,int quantidade,int mes,char tipo, int filial);
 Avl_treeC createTreeC();
 AvlC procuraTreeC(Avl_treeC node, char* cod);
+int totalProdsComprados(AvlC c);
 
 /* Public methods */
 

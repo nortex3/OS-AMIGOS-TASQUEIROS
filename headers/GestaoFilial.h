@@ -8,6 +8,7 @@ ConjClisGF InicializaConjClisGF();
 int retornaTamanhoConjClisGF(ConjClisGF cc);
 char* retornaElementoConjClisGF(ConjClisGF cc,int i);
 ConjClisGF percorreClientes(GF gf);
+ConjClisGF percorreClientes9(GF gf, int mes, char* cod);
 GF InicializaGestFil();
 int retornaTamanhoConjClisGF(ConjClisGF cc);
 char* retornaElementoConjClisGF(ConjClisGF cc,int i);
