@@ -69,7 +69,7 @@ int calculaValores(AvlP p,int mes,char** codigos,int* quantidades, int j);
 void insereOrdem(int total,char** codigos,int* quantidades,int j);
 void TrocaPosQuant(int* arrayTot,int origem,int destino);
 void TrocaPosCod(char** arrayProd,int origem,int destino);
-int percorreProdutos8(AvlC c,char* cod,int index, char** aux);
+int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux);
 
 
 /* Apoio a Query9  */
@@ -86,22 +86,21 @@ int percorreClientesAux9(AvlC cli,int mes, char** aux, int index){
 
 /* Apoio Query 8 */
 
-int percorreProdutosClientes8(AvlC clientes, char* cod, int index, char** aux){
-     int flag=0;
+int percorreProdutosClientes8(AvlC clientes, char* cod, int index,int flag, char** aux){
      int i;
     
       if(clientes == NULL){
       return index;
    }
    if (clientes->left)
-      index = percorreProdutosClientes8(clientes->left,cod,index,aux);
+      index = percorreProdutosClientes8(clientes->left,cod,index,flag,aux);
     
    
-     index = percorreProdutos8(clientes,cod,index,aux);
+     index = percorreProdutos8(clientes,cod,index,flag,aux);
 
 
    if (clientes->right)
-      index = percorreProdutosClientes8(clientes->right,cod,index,aux);
+      index = percorreProdutosClientes8(clientes->right,cod,index,flag,aux);
     
    return index;  
 }
@@ -109,8 +108,8 @@ int percorreProdutosClientes8(AvlC clientes, char* cod, int index, char** aux){
   
 
     
-int percorreProdutos8(AvlC c,char* cod,int index, char** aux){
-    int i=0,flag=0,n=0;
+int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
+    int i=0,n=0;
      if (cod[0]>=97 && cod[0]<=123) 
         n = ((int)cod[0])-97;
     else
