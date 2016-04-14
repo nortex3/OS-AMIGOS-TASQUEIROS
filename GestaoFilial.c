@@ -41,6 +41,51 @@ char* retornaElementoConjClisGF(ConjClisGF cc,int i){
     return cc->lista[i];
 }
 
+/* Apoio Query 8 */
+
+
+ConjClisGF percorreClientes8(GF gf, char* cod){
+    
+    int i, index=0, size=0,n=0;
+    AvlC cli;
+    AvlP produto,pro;
+    char** aux;
+    char** aux2;
+    ConjClisGF clientes = InicializaConjClisGF();
+    
+      if (cod[0]>=97 && cod[0]<=123) 
+        n = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            n = ((int)cod[0])-65;
+    
+    Avl_treeP tmp = gf->avlProdutos[n];
+    pro = createNodePro(tmp);
+    produto= procuraP(pro,cod);
+    
+    for(i=0;i<26;i++){
+        Avl_treeC tmp = gf->avlClientes[i];
+        cli = createNodeCli(tmp);
+        size=size+contaNodosGF(cli);
+    }
+    aux=malloc(sizeof(char*)*size);
+    for(i=0;i<26;i++){
+        Avl_treeC tmp = gf->avlClientes[i];
+        cli = createNodeCli(tmp);
+        index=percorreProdutosClientes8(cli,cod,index,aux);
+    }
+     if(produto!=NULL){
+    aux2=malloc(sizeof(char*)*index);
+    memcpy(aux2,aux,sizeof(char*)*index);
+    free(aux);
+    clientes -> lista = aux2;
+    clientes -> tamanho = index;
+    return clientes;
+    }
+    else return NULL;
+}
+
+
 /* Apoio Querie 9 */
 
 
@@ -92,6 +137,7 @@ ConjClisGF percorreClientes(GF gf){
         cli = createNodeCli(tmp);
         size=size+contaNodosGF(cli);
     }
+    
     aux=malloc(sizeof(char*)*size);
     for(i=0;i<26;i++){
         Avl_treeC tmp = gf->avlClientes[i];

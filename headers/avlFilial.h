@@ -32,6 +32,10 @@ int contaNodosGF(AvlC a);
 AvlP procuraTreeP(Avl_treeP node, char* cod);
 void calculaListaProdutos(AvlC a, int *mes);
 void calculaVendas(AvlP p, int *tot);
+int totalProdsVendidos(AvlP p);
+int percorreProdutosClientes8(AvlC clientes, char* cod, int index, char** aux);
+int percorreProdutos8(AvlC c,char* cod,int index, char** aux);
+int percorre8(AvlP p, char* cod ,int flag);
 int percorreClientesAux(AvlC cli,int r[], char** aux, int index);
 int percorreClientesAux9(AvlC cli,int mes, char** aux, int index);
 

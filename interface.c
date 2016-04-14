@@ -388,16 +388,19 @@ void imprimirMenuQueries(){
                         if(modo==2){
                             printf("Insira a filial que pretende consultar: \n");
                             aux = scanf("%d",&filial);
-                                if(filial!=1 && filial!=2 && filial!=3){
+                                while(filial!=1 && filial!=2 && filial!=3){
                                     printf("Filial incorrecta, introduza 1,2 ou 3.\n");
+                                    aux = scanf("%d",&filial);
                                 }
                             }
-                        querie4(modo,filial);    
+                            querie4(modo,filial); 
+                        
                     }
 					else {
 						printf("\033c");
 						printf("Inseriu valor diferente 1 e 2.\n");
-					}                        
+					} 
+           
                 }
                 else{
 					printf("\033c");
@@ -453,8 +456,14 @@ void imprimirMenuQueries(){
 				if(initPro == 1 || initVendas==1){
 					printf("Insira um código de um produto: \n");
 					aux = scanf("%s",s);
+                    /*
 					printf("Insira uma filial: \n");
 					aux = scanf("%d",&filial);
+                    while(filial!=1 && filial!=2 && filial!=3){
+                                    printf("Filial incorrecta, introduza 1,2 ou 3.\n");
+                                    aux = scanf("%d",&filial);
+                                }
+                    */
 					querie8(s,filial);        
                     }
 				else{

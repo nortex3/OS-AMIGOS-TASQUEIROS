@@ -69,6 +69,7 @@ int calculaValores(AvlP p,int mes,char** codigos,int* quantidades, int j);
 void insereOrdem(int total,char** codigos,int* quantidades,int j);
 void TrocaPosQuant(int* arrayTot,int origem,int destino);
 void TrocaPosCod(char** arrayProd,int origem,int destino);
+int percorreProdutos8(AvlC c,char* cod,int index, char** aux);
 
 
 /* Apoio a Query9  */
@@ -82,6 +83,72 @@ int percorreClientesAux9(AvlC cli,int mes, char** aux, int index){
   return index;
 
 }
+
+/* Apoio Query 8 */
+
+int percorreProdutosClientes8(AvlC clientes, char* cod, int index, char** aux){
+     int flag=0;
+     int i;
+    
+      if(clientes == NULL){
+      return index;
+   }
+   if (clientes->left)
+      index = percorreProdutosClientes8(clientes->left,cod,index,aux);
+    
+   
+     index = percorreProdutos8(clientes,cod,index,aux);
+
+
+   if (clientes->right)
+      index = percorreProdutosClientes8(clientes->right,cod,index,aux);
+    
+   return index;  
+}
+ 
+  
+
+    
+int percorreProdutos8(AvlC c,char* cod,int index, char** aux){
+    int i=0,flag=0,n=0;
+     if (cod[0]>=97 && cod[0]<=123) 
+        n = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            n = ((int)cod[0])-65;
+  Avl_treeP tmp;
+  AvlP p;
+    tmp = c -> ListaProdutos[n];
+    p = createNodePro(tmp);
+    flag=percorre8(p, cod,flag);
+
+    if (flag==1){
+        aux[index]=c->codigo;
+        index++;
+    }
+    
+    
+  return index;
+}
+  
+
+int percorre8(AvlP p, char* cod,int flag){
+    
+  if(p == NULL){
+    flag=0;
+  }
+   if (p->left)
+      percorre8(p->left,cod,flag);
+
+   if(strcmp(p->codigo,cod)==0) {flag=1;}
+
+   if (p->right)
+      percorre8(p->right,cod,flag);  
+    
+    return flag;
+    
+}
+
 
 int percorreProdutosClientes9(AvlC c, int mes, char** aux){
   int i,k, tamanho;
@@ -188,6 +255,10 @@ void TrocaPosCod(char** codigos,int origem,int destino){
     }
 }
 
+int totalProdsVendidos(AvlP p){
+  return p->UnidadesVendidas;
+}
+
 int totalProdsComprados(AvlC c){
   return c->TotalComprados;
 }
@@ -210,6 +281,7 @@ int percorreClientesAux(AvlC cli,int r[], char** aux, int index){
   return index;
 
 }
+    
 int percorreProdutosClientes(AvlC c, int r[], char** aux, int index){
   int i;
   Avl_treeP tmp;
