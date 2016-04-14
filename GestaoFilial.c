@@ -13,7 +13,7 @@
 
 
 struct GestFil {
-	Avl_treeP avlProdutos[26];
+	Avl_treeP avlProdutos[26]; /* Inutil- nao tem informacao*/
 	Avl_treeC avlClientes[26];
 };
 
