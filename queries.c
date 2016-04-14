@@ -20,6 +20,7 @@ extern GF gf;
 void printQuerie2(ConjProds prods, int contador, int index);
 void printQuerie4(ConjProdsF prods, int contador, int index);
 void printQuerie7(ConjClisGF cligf, int contador, int index);
+void printQuerie8(ConjClisGF cligf, int contador, int index);
 void printQuerie9(ConjClisGF cligf, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
 
@@ -206,8 +207,8 @@ void querie8(char* s,int filial){
     int aux =0;
     printf("\033c");
     ConjClisGF tmp = percorreClientes8(gf,s);
-    if(tmp!=NULL)
-		printQuerie9(tmp, aux, aux);
+    if(tmp!=NULL){
+		printQuerie8(tmp, aux, aux);}
 	else{
 	 printf("\033c");
 	 printf("Produto Inexistente.\n");
@@ -423,6 +424,53 @@ void printQuerie9(ConjClisGF cligf, int contador, int index){
 	}
 }
 
+void printQuerie8(ConjClisGF cligf, int contador, int index){
+	int n = 0, i,c = 0;
+
+	printf("################## GEREVENDAS ##################\n");
+    for (i=0;i < 20 && index < retornaTamanhoConjClisGF(cligf); i++){
+			printf("# %s                                       #\n",retornaElementoConjClisGF(cligf,index));
+			contador++;
+			index++;
+	}
+	printf("################################################################\n");
+	printf("# Número de clientes que compraram o produto: %d                          #\n", retornaTamanhoConjClisGF(cligf));
+	printf("################################################################\n");
+	printf("# 1. Continuar.                                                #\n");
+	printf("# 2. Retroceder.                                               #\n");
+	printf("# 0. Sair.                                                     #\n");
+	printf("################################################################\n");
+	printf(">");
+	n = scanf("%d",&c);
+	if(n > 0){
+		if(c == 1 && contador != retornaTamanhoConjClisGF(cligf)){
+			printf("\033c");
+			printQuerie9(cligf, contador, index++);
+		}
+		else if(c == 1 && contador == retornaTamanhoConjClisGF(cligf)){
+			printf("\033c");
+			printf("Impossível continuar.\n");
+			printQuerie9(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
+		}
+		else if(c == 2 && (contador-40) >= 0){
+			printf("\033c");
+			printQuerie9(cligf, contador-40, index-40);
+		}
+		else if(c == 2 && (contador-40) <= 0){
+			printf("\033c");
+			printf("Impossível retroceder.\n");
+			printQuerie9(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
+		}
+		else if(c == 0){
+			printf("\033c");
+		}
+		else{
+			printf("\033c");
+			printf("Comando inválido\n");
+			printQuerie9(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
+		}
+	}
+}
 
 void printClientes(char c){
     int aux = 0;

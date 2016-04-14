@@ -45,7 +45,6 @@ char* retornaElementoConjClisGF(ConjClisGF cc,int i){
 
 
 ConjClisGF percorreClientes8(GF gf, char* cod){
-    
     int i, index=0, size=0,n=0,flag=0;
     AvlC cli;
     AvlP produto,pro;
@@ -59,9 +58,11 @@ ConjClisGF percorreClientes8(GF gf, char* cod){
         if (cod[0]>=64 && cod[0]<=90) 
             n = ((int)cod[0])-65;
     
-    Avl_treeP tmp = gf->avlProdutos[n];
-    produto= procuraTreeP(tmp,cod);
-    
+    /*Avl_treeP tmp = gf->avlProdutos[n];
+    pro=createNodePro(tmp);
+    produto= procuraP(pro,cod);
+   int a= totalProdsVendidos(produto);
+    printf("%d\n", a);*/
     for(i=0;i<26;i++){
         Avl_treeC tmp = gf->avlClientes[i];
         cli = createNodeCli(tmp);
@@ -73,7 +74,7 @@ ConjClisGF percorreClientes8(GF gf, char* cod){
         cli = createNodeCli(tmp);
         index=percorreProdutosClientes8(cli,cod,index,flag,aux);
     }
-     if(produto==NULL){
+     if(index!=0){
     aux2=malloc(sizeof(char*)*index);
     memcpy(aux2,aux,sizeof(char*)*index);
     free(aux);

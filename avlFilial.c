@@ -72,17 +72,6 @@ void TrocaPosCod(char** arrayProd,int origem,int destino);
 int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux);
 
 
-/* Apoio a Query9  */
-
-int percorreClientesAux9(AvlC cli,int mes, char** aux, int index){
- 
-
-    index = percorreProdutosClientes9(cli, mes,aux);
-
-  
-  return index;
-
-}
 
 /* Apoio Query 8 */
 
@@ -116,8 +105,8 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
     else
         if (cod[0]>=64 && cod[0]<=90) 
             n = ((int)cod[0])-65;
-  Avl_treeP tmp;
-  AvlP p;
+    Avl_treeP tmp;
+    AvlP p;
     tmp = c -> ListaProdutos[n];
     p = createNodePro(tmp);
     flag=percorre8(p, cod,flag);
@@ -134,19 +123,21 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
 int percorre8(AvlP p, char* cod,int flag){
     
   if(p == NULL){
-    return 0;
+    flag=0;
+    return flag;
   }
    if (p->left)
-      percorre8(p->left,cod,flag);
+      flag=percorre8(p->left,cod,flag);
 
-   if(strcmp(p->codigo,cod)==0) {return 1;}
+   if(strcmp(p->codigo,cod)==0) {flag=1;}
 
    if (p->right)
-      percorre8(p->right,cod,flag);  
+      flag=percorre8(p->right,cod,flag);  
     
+return flag;
 }
 
-
+/*Apoio Query 9 */
 int percorreProdutosClientes9(AvlC c, int mes, char** aux){
   int i,k, tamanho;
   Avl_treeP tmp;
