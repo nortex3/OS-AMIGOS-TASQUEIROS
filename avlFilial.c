@@ -110,6 +110,7 @@ int percorreProdutosClientes8(AvlC clientes, char* cod, int index,int flag, char
     
 int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
     int i=0,n=0;
+    flag = 0;
      if (cod[0]>=97 && cod[0]<=123) 
         n = ((int)cod[0])-97;
     else
@@ -120,7 +121,6 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
     tmp = c -> ListaProdutos[n];
     p = createNodePro(tmp);
     flag=percorre8(p, cod,flag);
-
     if (flag==1){
         aux[index]=c->codigo;
         index++;
@@ -134,17 +134,15 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
 int percorre8(AvlP p, char* cod,int flag){
     
   if(p == NULL){
-    flag=0;
+    return 0;
   }
    if (p->left)
       percorre8(p->left,cod,flag);
 
-   if(strcmp(p->codigo,cod)==0) {flag=1;}
+   if(strcmp(p->codigo,cod)==0) {return 1;}
 
    if (p->right)
       percorre8(p->right,cod,flag);  
-    
-    return flag;
     
 }
 

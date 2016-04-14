@@ -203,7 +203,6 @@ void querie7(){
 
 }
 void querie8(char* s,int filial){
-    
     int aux =0;
     printf("\033c");
     ConjClisGF tmp = percorreClientes8(gf,s);

@@ -60,8 +60,7 @@ ConjClisGF percorreClientes8(GF gf, char* cod){
             n = ((int)cod[0])-65;
     
     Avl_treeP tmp = gf->avlProdutos[n];
-    pro = createNodePro(tmp);
-    produto= procuraP(pro,cod);
+    produto= procuraTreeP(tmp,cod);
     
     for(i=0;i<26;i++){
         Avl_treeC tmp = gf->avlClientes[i];
@@ -74,7 +73,7 @@ ConjClisGF percorreClientes8(GF gf, char* cod){
         cli = createNodeCli(tmp);
         index=percorreProdutosClientes8(cli,cod,index,flag,aux);
     }
-     if(produto!=NULL){
+     if(produto==NULL){
     aux2=malloc(sizeof(char*)*index);
     memcpy(aux2,aux,sizeof(char*)*index);
     free(aux);
