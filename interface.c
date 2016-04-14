@@ -413,7 +413,13 @@ void imprimirMenuQueries(){
 					printf("\033c");
 					printf("Insira um código de um cliente: \n");
 					aux = scanf("%s",s);
-					querie5(s);        
+					if(isalpha(s[0])!=0){
+						querie5(s);        
+					}
+					else{
+						printf("\033c");
+						printf("Cliente inválido.\n");
+					}
                 }
 				else{
 					printf("\033c");
@@ -476,13 +482,20 @@ void imprimirMenuQueries(){
 				if(initCli==1||initPro == 1 || initVendas==1){
 					printf("Insira um código de um cliente: \n");
 					aux = scanf("%s",s);
-					printf("Insira um mês: \n");
-					aux = scanf("%d",&mes);
-					if(mes<1||mes>12){
+					if(isalpha(s[0])!=0){
+						printf("Insira um mês: \n");
+						aux = scanf("%d",&mes);
+						if(mes<1||mes>12){
+							printf("\033c");
+							printf("Mes incorrecto\n");
+						}
+						else querie9(s,mes);
+					}
+					else{
 						printf("\033c");
-						printf("Mes incorrecto\n");
-					}else querie9(s,mes);        
-                    }
+						printf("Cliente inválido.\n");
+					}       
+                }
 				else{
 					printf("\033c");
 					printf("Clientes,produtos e vendas nao inicializados.\n");
