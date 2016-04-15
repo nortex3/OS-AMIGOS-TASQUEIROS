@@ -440,14 +440,14 @@ void printQuerie9(ConjClisGF cligf, int contador, int index){
 void printQuerie8(ConjClisGF cligf, int contador, int index){
 	int n = 0, i,c = 0;
 
-	printf("################## GEREVENDAS ##################\n");
+	printf("########################## GEREVENDAS ##########################\n");
     for (i=0;i < 20 && index < retornaTamanhoConjClisGF(cligf); i++){
-			printf("# %s                                       #\n",retornaElementoConjClisGF(cligf,index));
+			printf("# %s                                                        #\n",retornaElementoConjClisGF(cligf,index));
 			contador++;
 			index++;
 	}
 	printf("################################################################\n");
-	printf("# Número de clientes que compraram o produto: %d                          #\n", retornaTamanhoConjClisGF(cligf));
+	printf("# Número de clientes que compraram o produto: %d                #\n", retornaTamanhoConjClisGF(cligf));
 	printf("################################################################\n");
 	printf("# 1. Continuar.                                                #\n");
 	printf("# 2. Retroceder.                                               #\n");
@@ -496,10 +496,10 @@ void printQuerie11(ConjClisGF cligf, int contador, int index){
 			contador++;
 			index++;
 	}
-	printf("################################################################\n");
-	printf("################################################################\n");
-	printf("# 0. Sair.                                                     #\n");
-	printf("################################################################\n");
+	printf("################################################\n");
+	printf("################################################\n");
+	printf("# 0. Sair.                                     #\n");
+	printf("################################################\n");
 	printf(">");
 	n = scanf("%d",&c);
 	if(n > 0){
