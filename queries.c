@@ -203,15 +203,15 @@ void querie7(){
 	printQuerie7(tmp, aux, aux);
 
 }
-void querie8(char* s,int filial){
+void querie8(char* s,int filial,char tipo){
     int aux =0;
     printf("\033c");
-    ConjClisGF tmp = percorreClientes8(gf,s);
+    ConjClisGF tmp = percorreClientes8(gf,s,filial,tipo);
     if(tmp!=NULL){
 		printQuerie8(tmp, aux, aux);}
 	else{
 	 printf("\033c");
-	 printf("Produto Inexistente.\n");
+	 printf("Produto Inexistente ou Nao vendido com os dados inseridos.\n");
 	}
 
 }

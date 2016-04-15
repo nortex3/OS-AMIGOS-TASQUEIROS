@@ -301,6 +301,7 @@ void imprimirMenuQueries(){
 	char c = '0';
 	char s[6];
 	char cliente[5];
+    char tipo = '0';
 	printf("################## GEREVENDAS ##################################################################\n"
 		   "# 1.  Querie1 - Leitura dos ficheiros.                                                         #\n"
 		   "# 2.  Querie2 - Lista de todos os produtos por determinada letra com navegação.                #\n"
@@ -462,15 +463,20 @@ void imprimirMenuQueries(){
 				if(initPro == 1 || initVendas==1){
 					printf("Insira um código de um produto: \n");
 					aux = scanf("%s",s);
-                    /*
 					printf("Insira uma filial: \n");
 					aux = scanf("%d",&filial);
                     while(filial!=1 && filial!=2 && filial!=3){
                                     printf("Filial incorrecta, introduza 1,2 ou 3.\n");
                                     aux = scanf("%d",&filial);
-                                }
-                    */
-					querie8(s,filial);        
+                    }
+                    printf("Normal(N/n) ou Promocao(P/p): \n");
+					aux = scanf(" %c",&tipo);
+                    while(tipo!='N' && tipo!='n' && tipo!='P' && tipo!='p'){
+                                        printf("Tipo incorrecto, introduza n/N ou p/P\n");
+                                        aux = scanf("%c",&tipo);
+                    }
+                
+					querie8(s,filial,tipo);        
                     }
 				else{
 					printf("\033c");

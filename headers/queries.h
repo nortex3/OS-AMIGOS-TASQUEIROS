@@ -10,7 +10,7 @@ void querie4(char c,int filial);
 void querie5(char *s);
 void querie6(int mesi,int mesf);
 void querie7();
-void querie8(char* s,int filial);
+void querie8(char* s,int filial,char tipo);
 void querie9(char* s,int filial);
 void querie10();
 void querie11(char *s);

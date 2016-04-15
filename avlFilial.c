@@ -69,27 +69,27 @@ int calculaValores(AvlP p,int mes,char** codigos,int* quantidades, int j);
 void insereOrdem(int total,char** codigos,int* quantidades,int j);
 void TrocaPosQuant(int* arrayTot,int origem,int destino);
 void TrocaPosCod(char** arrayProd,int origem,int destino);
-int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux);
+int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux,int filial,char tipo);
 
 
 
 /* Apoio Query 8 */
 
-int percorreProdutosClientes8(AvlC clientes, char* cod, int index,int flag, char** aux){
+int percorreProdutosClientes8(AvlC clientes, char* cod, int index,int flag, char** aux, int filial, char tipo){
      int i;
     
       if(clientes == NULL){
       return index;
    }
    if (clientes->left)
-      index = percorreProdutosClientes8(clientes->left,cod,index,flag,aux);
+      index = percorreProdutosClientes8(clientes->left,cod,index,flag,aux,filial,tipo);
     
    
-     index = percorreProdutos8(clientes,cod,index,flag,aux);
+     index = percorreProdutos8(clientes,cod,index,flag,aux,filial,tipo);
 
 
    if (clientes->right)
-      index = percorreProdutosClientes8(clientes->right,cod,index,flag,aux);
+      index = percorreProdutosClientes8(clientes->right,cod,index,flag,aux,filial,tipo);
     
    return index;  
 }
@@ -97,7 +97,7 @@ int percorreProdutosClientes8(AvlC clientes, char* cod, int index,int flag, char
   
 
     
-int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
+int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux, int filial, char tipo){
     int i=0,n=0;
     flag = 0;
      if (cod[0]>=97 && cod[0]<=123) 
@@ -109,7 +109,7 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
     AvlP p;
     tmp = c -> ListaProdutos[n];
     p = createNodePro(tmp);
-    flag=percorre8(p, cod,flag);
+    flag=percorre8(p, cod,flag,filial,tipo);
     if (flag==1){
         aux[index]=c->codigo;
         index++;
@@ -120,22 +120,177 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux){
 }
   
 
-int percorre8(AvlP p, char* cod,int flag){
+int percorre8(AvlP p, char* cod,int flag,int filial,char tipo){
+     switch(filial){
+			case 1:
+             if(tipo=='N' || tipo=='n')
+				flag=percorre8F1Normal(p,cod,flag);
+             else
+                flag=percorre8F1Promo(p,cod,flag);
+				break;
+			case 2:
+                 if(tipo=='N' || tipo=='n')
+				flag=percorre8F2Normal(p,cod,flag);
+             else
+                flag=percorre8F2Promo(p,cod,flag);
+				break;
+            case 3:
+                if(tipo=='N' || tipo=='n')
+				flag=percorre8F3Normal(p,cod,flag);
+             else
+                flag=percorre8F3Promo(p,cod,flag);
+				break;
+            default:;
+     }
+    return flag;
+}
+
+int percorre8F1Normal(AvlP p, char* cod, int flag){
+    int comprasfilial=0; 
+    int i=0;
     
   if(p == NULL){
     flag=0;
     return flag;
   }
    if (p->left)
-      flag=percorre8(p->left,cod,flag);
+      flag=percorre8F1Normal(p->left,cod,flag);
+    
+    for (i=0,comprasfilial=0;i<12;i++){
+        comprasfilial=comprasfilial+p->ComprasFilial1[i][NORMAL];
+    }
+    
 
-   if(strcmp(p->codigo,cod)==0) {flag=1;}
+   if(strcmp(p->codigo,cod)==0 && comprasfilial!=0) {flag=1;}
 
    if (p->right)
-      flag=percorre8(p->right,cod,flag);  
+      flag=percorre8F1Normal(p->right,cod,flag);  
     
 return flag;
 }
+
+int percorre8F1Promo(AvlP p, char* cod, int flag){
+    int comprasfilial=0; 
+    int i=0;
+    
+  if(p == NULL){
+    flag=0;
+    return flag;
+  }
+   if (p->left)
+      flag=percorre8F1Promo(p->left,cod,flag);
+    
+    for (i=0,comprasfilial=0;i<12;i++){
+        comprasfilial=comprasfilial+p->ComprasFilial1[i][PROMO];
+    }
+    
+
+   if(strcmp(p->codigo,cod)==0 && comprasfilial!=0) {flag=1;}
+
+   if (p->right)
+      flag=percorre8F1Promo(p->right,cod,flag);  
+    
+return flag;
+}
+
+int percorre8F2Normal(AvlP p, char* cod, int flag){
+    int comprasfilial=0; 
+    int i=0;
+    
+  if(p == NULL){
+    flag=0;
+    return flag;
+  }
+   if (p->left)
+      flag=percorre8F2Normal(p->left,cod,flag);
+    
+    for (i=0,comprasfilial=0;i<12;i++){
+        comprasfilial=comprasfilial+p->ComprasFilial2[i][NORMAL];
+    }
+    
+
+   if(strcmp(p->codigo,cod)==0 && comprasfilial!=0) {flag=1;}
+
+   if (p->right)
+      flag=percorre8F2Normal(p->right,cod,flag);  
+    
+return flag;
+}
+
+int percorre8F2Promo(AvlP p, char* cod, int flag){
+    int comprasfilial=0; 
+    int i=0;
+    
+  if(p == NULL){
+    flag=0;
+    return flag;
+  }
+   if (p->left)
+      flag=percorre8F2Promo(p->left,cod,flag);
+    
+    for (i=0,comprasfilial=0;i<12;i++){
+        comprasfilial=comprasfilial+p->ComprasFilial2[i][PROMO];
+    }
+    
+
+   if(strcmp(p->codigo,cod)==0 && comprasfilial!=0) {flag=1;}
+
+   if (p->right)
+      flag=percorre8F2Promo(p->right,cod,flag);  
+    
+return flag;
+}
+
+
+int percorre8F3Normal(AvlP p, char* cod, int flag){
+    int comprasfilial=0; 
+    int i=0;
+    
+  if(p == NULL){
+    flag=0;
+    return flag;
+  }
+   if (p->left)
+      flag=percorre8F3Normal(p->left,cod,flag);
+    
+    for (i=0,comprasfilial=0;i<12;i++){
+        comprasfilial=comprasfilial+p->ComprasFilial3[i][NORMAL];
+    }
+    
+
+   if(strcmp(p->codigo,cod)==0 && comprasfilial!=0) {flag=1;}
+
+   if (p->right)
+      flag=percorre8F3Normal(p->right,cod,flag);  
+    
+return flag;
+}
+
+
+int percorre8F3Promo(AvlP p, char* cod, int flag){
+    int comprasfilial=0; 
+    int i=0;
+    
+  if(p == NULL){
+    flag=0;
+    return flag;
+  }
+   if (p->left)
+      flag=percorre8F3Promo(p->left,cod,flag);
+    
+    for (i=0,comprasfilial=0;i<12;i++){
+        comprasfilial=comprasfilial+p->ComprasFilial3[i][PROMO];
+    }
+    
+
+   if(strcmp(p->codigo,cod)==0 && comprasfilial!=0) {flag=1;}
+
+   if (p->right)
+      flag=percorre8F3Promo(p->right,cod,flag);  
+    
+return flag;
+}
+
 
 /*Apoio Query 9 */
 int percorreProdutosClientes9(AvlC c, int mes, char** aux){
