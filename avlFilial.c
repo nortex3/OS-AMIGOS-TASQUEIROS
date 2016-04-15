@@ -75,7 +75,33 @@ int percorreProdutos11(AvlP p, char** codigos, double* quantidades,int j);
 int calculaValores11(AvlP p,char** codigos,double* quantidades, int j);
 void insereOrdem11(int total,char** codigos,double* quantidades,int j);
 void TrocaPosQuant11(double* arrayTot,int origem,int destino);
+AvlP produtoMaisVendido(AvlP p, int max);
 
+/* Apoio Query 10 */
+AvlP percorreProdutos10(AvlP p, int max){
+  if(p == NULL){
+    return;
+  }
+   if (p->left)
+      p = percorreProdutos(p->left, max);
+
+    p = produtoMaisVendido(p, max);
+
+   if (p->right)
+      p = percorreProdutos(p->right, max);
+
+  return p;  
+}
+
+AvlP produtoMaisVendido(AvlP p, int max){
+  if(max > p->UnidadesVendidas){
+    max = p->UnidadesVendidas;
+    return p;
+  }
+  if(max == p->UnidadesVendidas){
+    
+  }
+}
 
 /* Apoio Query 8 */
 

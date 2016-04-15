@@ -38,6 +38,7 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux,int filial
 int percorre8(AvlP p, char* cod ,int flag,int filial,char tipo);
 int percorreClientesAux(AvlC cli,int r[], char** aux, int index);
 int percorreClientesAux9(AvlC cli,int mes, char** aux, int index);
+AvlP percorreProdutos10(Avl_treeP p);
 int percorreProdutosCliente11(AvlC c, char** aux);
 
 AvlP createNodePro(Avl_treeP p);

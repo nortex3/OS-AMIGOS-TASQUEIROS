@@ -228,7 +228,11 @@ void querie9(char* s,int mes){
 	 printf("Cliente Inexistente.\n");
 	}
 }
-void querie10(){}
+void querie10(int N){
+	
+}
+
+
 void querie11(char *s){
 
 	int aux = 0;

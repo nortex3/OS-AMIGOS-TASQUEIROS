@@ -129,6 +129,7 @@ Leitura leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *fi
             if(erro==0){
                 insereAvlFaturacao(fb,produto,preco,unidades,mes,PouN[0],filial);
                 insereAvlCli(gf,cliente,produto,unidades,preco,mes,PouN[0], filial);
+                insereAvlProd(gf,produto,unidades,preco, mes,PouN[0], filial);
                 tmp->linhasB++;;
 
             }else tmp->linhasM++;

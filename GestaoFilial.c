@@ -22,6 +22,9 @@ struct conjClisGF {
     int tamanho;
 };
 
+struct conjProdsGF {
+    Avl_treeP avlProdutos10[26];
+};
 
 /* Relacionado com ConjClisGF*/
 
@@ -39,6 +42,23 @@ int retornaTamanhoConjClisGF(ConjClisGF cc){
 char* retornaElementoConjClisGF(ConjClisGF cc,int i){
 
     return cc->lista[i];
+}
+
+/* Apoio Query 10 */
+
+ConjProdsGF nProdutosMaisVendidos(GF gf, int N){
+    int i;
+    AvlP pro;
+    for(i=0;i<26;i++){
+        Avl_treeP tmp = gf->avlProdutos[i];
+        pro = createNodePro(tmp);
+        size=size+contaNodosGF(pro);
+    }
+    for(i = 0; i<N; i++){
+        Avl_treeP tmp = gf->avlProdutos[i];
+        createNodePro(tmp);
+        pro = percorreProdutos10(tmp, 0);
+    }
 }
 
 /* Apoio Query 8 */
@@ -214,8 +234,8 @@ GF InicializaGestFil() {
 
 /*
 Insere na Avl de Produtos
-*//*
-void insereAvlProd(GF c,char *cod,int quantidade,int mes,char tipo, int filial){
+*/
+void insereAvlProd(GF c,char *cod,int quantidade,double preco,int mes,char tipo, int filial){
     int j=26;
     AvlP node;
     if (cod[0]>=97 && cod[0]<=123) 
@@ -225,16 +245,16 @@ void insereAvlProd(GF c,char *cod,int quantidade,int mes,char tipo, int filial){
             j = ((int)cod[0])-65;
 
     if(existeFP(cod, c-> avlProdutos[j])== 0){
-            node = createNodeP(cod,quantidade,mes,tipo,filial);
+            node = createNodeP(cod,preco,quantidade,mes,tipo,filial);
             avl_insertP(c -> avlProdutos[j], node);
            
     }else{
 
-      avl_actualizaP(cod,c->avlProdutos[j],quantidade,mes,tipo,filial);
+      avl_actualizaP(cod,c->avlProdutos[j],quantidade,preco,mes,tipo,filial);
       
     }
     
-}*/
+}
 
 /*Insere na avl de clientes*/
 
