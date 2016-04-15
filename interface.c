@@ -475,9 +475,13 @@ void imprimirMenuQueries(){
                                         printf("Tipo incorrecto, introduza n/N ou p/P\n");
                                         aux = scanf("%c",&tipo);
                     }
-                
-					querie8(s,filial,tipo);        
+                	if(isalpha(s[0])!=0){
+						querie8(s,filial,tipo);        
+                    }else{
+                    	printf("\033c");
+						printf("Insira produto no formato correto.\n");
                     }
+                }
 				else{
 					printf("\033c");
 					printf("Produtos e vendas nao inicializados.\n");
@@ -522,8 +526,13 @@ void imprimirMenuQueries(){
 				if(initCli==1||initPro == 1 || initVendas==1){
 					printf("Insira um código de um cliente: \n");
 					aux = scanf("%s",s);
-					querie11(s);        
+					if(isalpha(s[0])!=0){
+						querie11(s);        
+                    }else{
+                    	printf("\033c");
+						printf("Cliente inválido\n");
                     }
+                }
 				else{
 					printf("\033c");
 					printf("Clientes,produtos e vendas nao inicializados.\n");

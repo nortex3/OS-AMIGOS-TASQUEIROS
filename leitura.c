@@ -71,7 +71,7 @@ Leitura leituraCli(Clientes cl,GF gf , char* filename) {
             tok = strtok(linha, "\r\n");
             if(strlen(tok)==5 && isalpha(tok[0]) && isdigit(tok[1])&& isdigit(tok[2])&& isdigit(tok[3])&& isdigit(tok[4])){
                 insereAvlClientes(cl,tok);
-                insereCli(gf,tok,NULL,0,0,'A',0);
+                insereCli(gf,tok,NULL,0,0.0,0,'A',0);
                 tmp->linhasB++;
             }else tmp->linhasM++;
             
@@ -128,7 +128,7 @@ Leitura leituraVendas(GF gf,FaturacaoGlobal fb, Produtos p, Clientes c, char *fi
 
             if(erro==0){
                 insereAvlFaturacao(fb,produto,preco,unidades,mes,PouN[0],filial);
-                insereAvlCli(gf,cliente,produto,unidades,mes,PouN[0], filial);
+                insereAvlCli(gf,cliente,produto,unidades,preco,mes,PouN[0], filial);
                 tmp->linhasB++;;
 
             }else tmp->linhasM++;

@@ -29,6 +29,7 @@ typedef struct avlP  /* Avl dos Produtos*/
 {
    char* codigo;
    int UnidadesVendidas;
+   double TotalPago;
    int ComprasFilial1[12][2];
    int ComprasFilial2[12][2];
    int ComprasFilial3[12][2];
@@ -70,7 +71,10 @@ void insereOrdem(int total,char** codigos,int* quantidades,int j);
 void TrocaPosQuant(int* arrayTot,int origem,int destino);
 void TrocaPosCod(char** arrayProd,int origem,int destino);
 int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux,int filial,char tipo);
-
+int percorreProdutos11(AvlP p, char** codigos, double* quantidades,int j);
+int calculaValores11(AvlP p,char** codigos,double* quantidades, int j);
+void insereOrdem11(int total,char** codigos,double* quantidades,int j);
+void TrocaPosQuant11(double* arrayTot,int origem,int destino);
 
 
 /* Apoio Query 8 */
@@ -407,6 +411,101 @@ int totalProdsComprados(AvlC c){
 }
 
 
+
+/* Apoio Query 11 */
+
+
+int percorreProdutosCliente11(AvlC c, char** aux){
+  int i,k, tamanho;
+  Avl_treeP tmp;
+  AvlP p;
+  char** codigos=NULL;
+  double* valores;
+  int index=0;
+  tamanho = c->TotalComprados;
+
+  valores=(double*) malloc(tamanho*sizeof(double));
+  codigos=(char**) malloc(tamanho*sizeof(char*));
+  
+ for(i=0;i<26;i++){
+
+    tmp = c -> ListaProdutos[i];
+    p = createNodePro(tmp);
+    index=percorreProdutos11(p, codigos,valores,index);
+   
+  }
+/*MAnda pra lista*/
+  for(k=0;k<3;k++){
+    aux[k] =codigos[k];
+  }
+  free(codigos);
+  free(valores);
+  return k;
+}
+
+
+
+int percorreProdutos11(AvlP p, char** codigos, double* valores,int pos){
+  if(p == NULL){
+    return pos;
+  }
+   if (p->left)
+      pos=percorreProdutos11(p->left,codigos,valores,pos);
+
+   pos=calculaValores11(p,codigos,valores,pos);
+
+   if (p->right)
+      pos=percorreProdutos11(p->right,codigos,valores,pos); 
+  return pos;
+ 
+}
+
+
+
+int calculaValores11(AvlP p,char** codigos,double* valores, int pos){
+  
+  char* c;
+  if(p!=NULL){
+      codigos[pos] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+      strcpy(codigos[pos], p->codigo);
+      valores[pos]=p->TotalPago;      
+      insereOrdem11(p->TotalPago,codigos,valores,pos+1);
+      pos++;
+      
+    }
+    
+  return pos;
+}
+
+
+
+
+void insereOrdem11(int total,char** codigos,double* valores,int pos){
+
+  int aux=pos-1;
+    while(aux>0){
+        if(total>valores[aux-1]){
+            TrocaPosQuant11(valores,aux,aux-1);
+            TrocaPosCod(codigos,aux,aux-1);
+            aux--;
+        }
+        else{
+            aux=0;
+        }
+    }   
+
+}
+
+void TrocaPosQuant11(double* valores,int origem,int destino){
+    
+    int aux;
+    aux=valores[origem];
+    valores[origem]=valores[destino];
+    valores[destino]=aux;
+}
+
+
+
 /* Apoio a Queries*/
 
 int percorreClientesAux(AvlC cli,int r[], char** aux, int index){
@@ -587,14 +686,14 @@ int existeFP(char* s, Avl_treeP ptr){
    return 0;
 }
 
-int avl_actualizaP(char* s, Avl_treeP ptr,int quantidade,int mes,char tipo,int filial){
+int avl_actualizaP(char* s, Avl_treeP ptr,int quantidade,int preco,int mes,char tipo,int filial){
    AvlP tmp = ptr->root;
    AvlP p = procuraP(tmp,s);
    if(!p) return 0;
    else{
 
       p->UnidadesVendidas+=quantidade;
-      
+      p->TotalPago+=preco*quantidade;
       if(tipo=='N'){
          if(filial==1){
             p->ComprasFilial1[mes-1][NORMAL] +=quantidade;
@@ -661,12 +760,13 @@ AvlC createNodeCli(Avl_treeC c){
   return tmp;
 }
 
-AvlP createNodeP(char* s,int quantidade,int mes,char tipo, int filial){
+AvlP createNodeP(char* s,int quantidade,double preco,int mes,char tipo, int filial){
     AvlP tmp = (AvlP)malloc(sizeof(avlP));
    char* c = (char*)malloc((strlen(s)+1)*sizeof(char));
    strcpy(c,s);
    tmp -> codigo = c;
    tmp->UnidadesVendidas=quantidade; 
+   tmp->TotalPago= preco*quantidade;
 
    if(tipo=='N'){
 
@@ -840,7 +940,7 @@ int existeC(char* s, Avl_treeC ptr){
 }
 
 
-int avl_actualizaC(char* s,char* pro, Avl_treeC ptr,int quantidade,int mes,char tipo,int filial){
+int avl_actualizaC(char* s,char* pro, Avl_treeC ptr,int quantidade,double preco,int mes,char tipo,int filial){
   char *c;
   char *produto;
   c = (char*)malloc(strlen(s)+1*sizeof(char));
@@ -868,11 +968,11 @@ int avl_actualizaC(char* s,char* pro, Avl_treeC ptr,int quantidade,int mes,char 
       t=ora->root;
       a=procuraP(t,produto);
       if(a==NULL){
-      head=createNodeP(produto,quantidade,mes,tipo,filial);
+      head=createNodeP(produto,quantidade,preco,mes,tipo,filial);
       avl_insertP(p->ListaProdutos[j],head); 
       } 
       else
-       avl_actualizaP(produto,p->ListaProdutos[j],quantidade,mes,tipo,filial);
+       avl_actualizaP(produto,p->ListaProdutos[j],quantidade,preco,mes,tipo,filial);
 
      }
    return 1;
@@ -895,7 +995,7 @@ AvlC procuraC(AvlC node, char* cod){
     else return procuraC(node->right, cod);
 }
 
-AvlC createNodeC(char* cli,char* pro,int quantidade,int mes,char tipo, int filial){
+AvlC createNodeC(char* cli,char* pro,int quantidade,double preco,int mes,char tipo, int filial){
     AvlC tmp = (AvlC)malloc(sizeof(avlC));
     AvlP head;
     int i=0,j=26,k=26;
@@ -924,7 +1024,7 @@ AvlC createNodeC(char* cli,char* pro,int quantidade,int mes,char tipo, int filia
 
      /*for(i=0;i<26;i++) tmp->ListaProdutos[i]=createTreeP();*/
 
-     head=createNodeP(produto,quantidade,mes,tipo,filial);
+     head=createNodeP(produto,quantidade,preco,mes,tipo,filial);
      avl_insertP(tmp->ListaProdutos[k],head);
 
     }else{

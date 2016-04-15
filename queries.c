@@ -22,6 +22,7 @@ void printQuerie4(ConjProdsF prods, int contador, int index);
 void printQuerie7(ConjClisGF cligf, int contador, int index);
 void printQuerie8(ConjClisGF cligf, int contador, int index);
 void printQuerie9(ConjClisGF cligf, int contador, int index);
+void printQuerie11(ConjClisGF cligf, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
 
 
@@ -228,7 +229,19 @@ void querie9(char* s,int mes){
 	}
 }
 void querie10(){}
-void querie11(char *s){}
+void querie11(char *s){
+
+	int aux = 0;
+	printf("\033c");
+	ConjClisGF tmp = percorreClientes11(gf,s);
+	if(tmp!=NULL)
+		printQuerie11(tmp, aux, aux);
+	else{
+	 printf("\033c");
+	 printf("Cliente Inexistente.\n");
+	}
+}
+
 void querie12(){}
 
 
@@ -472,6 +485,35 @@ void printQuerie8(ConjClisGF cligf, int contador, int index){
 	}
 }
 
+
+
+void printQuerie11(ConjClisGF cligf, int contador, int index){
+	int n = 0, i,c = 0;
+
+	printf("################## GEREVENDAS ##################\n");
+    for (i=0;i < 20 && index < retornaTamanhoConjClisGF(cligf); i++){
+			printf("# %s                                       #\n",retornaElementoConjClisGF(cligf,index));
+			contador++;
+			index++;
+	}
+	printf("################################################################\n");
+	printf("################################################################\n");
+	printf("# 0. Sair.                                                     #\n");
+	printf("################################################################\n");
+	printf(">");
+	n = scanf("%d",&c);
+	if(n > 0){
+		
+		if(c == 0){
+			printf("\033c");
+		}
+		else{
+			printf("\033c");
+			printf("Comando inválido\n");
+			printQuerie11(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
+		}
+	}
+}
 void printClientes(char c){
     int aux = 0;
     ConjClientes clientes = toArrayClientes(cli, c);

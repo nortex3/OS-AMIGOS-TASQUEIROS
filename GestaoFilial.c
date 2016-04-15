@@ -118,7 +118,7 @@ ConjClisGF percorreClientes9(GF gf, int mes, char* cod){
     return NULL;
 }
 
-/*Apoio Querie 5 */
+/*Apoio Query 5 */
 
 ConjClisGF percorreClientes(GF gf){
     int i, index=0, size=0;
@@ -168,6 +168,36 @@ return Nexiste;
 
 
 
+/* Apoio Query 11 */
+
+ConjClisGF percorreClientes11(GF gf, char* cod){
+    int i, index=0,n, tamanhoMaximo=3;
+    AvlC cli, cliente;
+    char** aux;
+    char** aux2;
+    ConjClisGF clientes = InicializaConjClisGF();
+    
+    if (cod[0]>=97 && cod[0]<=123) 
+        n = ((int)cod[0])-97;
+    else
+        if (cod[0]>=64 && cod[0]<=90) 
+            n = ((int)cod[0])-65;
+
+    Avl_treeC tmp = gf->avlClientes[n];
+    cliente= procuraTreeC(tmp,cod);
+    if(cliente!=NULL){
+
+        aux=malloc(sizeof(char*)*tamanhoMaximo);
+
+        index=percorreProdutosCliente11(cliente, aux);
+        
+        clientes -> lista = aux;
+        clientes -> tamanho = index;
+        free(aux2);
+        return clientes;
+    }
+    return NULL;
+}
 
 GF InicializaGestFil() {
     int k;
@@ -182,10 +212,9 @@ GF InicializaGestFil() {
     return res;
 }
 
-
 /*
 Insere na Avl de Produtos
-*/
+*//*
 void insereAvlProd(GF c,char *cod,int quantidade,int mes,char tipo, int filial){
     int j=26;
     AvlP node;
@@ -205,11 +234,11 @@ void insereAvlProd(GF c,char *cod,int quantidade,int mes,char tipo, int filial){
       
     }
     
-}
+}*/
 
 /*Insere na avl de clientes*/
 
-void insereCli(GF c,char *cod,char* prod,int quantidade,int mes,char tipo, int filial){
+void insereCli(GF c,char *cod,char* prod,int quantidade,double preco,int mes,char tipo, int filial){
     int j=26;
     AvlC node;
     if (cod[0]>=97 && cod[0]<=123) 
@@ -218,7 +247,7 @@ void insereCli(GF c,char *cod,char* prod,int quantidade,int mes,char tipo, int f
         if (cod[0]>=64 && cod[0]<=90) 
             j = ((int)cod[0])-65;
 
-     node = createNodeC(cod,NULL,quantidade,mes,tipo,filial);
+     node = createNodeC(cod,NULL,quantidade,preco,mes,tipo,filial);
      avl_insertC(c -> avlClientes[j], node);  
 }
 
@@ -226,7 +255,7 @@ void insereCli(GF c,char *cod,char* prod,int quantidade,int mes,char tipo, int f
 /*
 Insere na Avl de Clientes
 */
-void insereAvlCli(GF c,char *cod,char* prod,int quantidade,int mes,char tipo, int filial){
+void insereAvlCli(GF c,char *cod,char* prod,int quantidade,double preco,int mes,char tipo, int filial){
     int j=26;
     AvlC node;
     if (cod[0]>=97 && cod[0]<=123) 
@@ -235,7 +264,7 @@ void insereAvlCli(GF c,char *cod,char* prod,int quantidade,int mes,char tipo, in
         if (cod[0]>=64 && cod[0]<=90) 
             j = ((int)cod[0])-65;
 
-      avl_actualizaC(cod,prod,c->avlClientes[j],quantidade,mes,tipo,filial);
+      avl_actualizaC(cod,prod,c->avlClientes[j],quantidade,preco,mes,tipo,filial);
       
     
 }
