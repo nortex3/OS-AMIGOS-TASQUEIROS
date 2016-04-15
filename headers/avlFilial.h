@@ -24,9 +24,9 @@ typedef struct avlC* AvlC;
 
 
 AvlP procuraP(AvlP p, char* cod);
-int avl_actualizaP(char* s, Avl_treeP ptr,int quantidade,int mes,char tipo,int filial);
+int avl_actualizaP(char* s, Avl_treeP ptr,int quantidade,int preco,int mes,char tipo,int filial);
 int existeFP(char* s, Avl_treeP ptr);
-AvlP createNodeP(char* s,int quantidade,int mes,char tipo, int filial);
+AvlP createNodeP(char* s,int quantidade,double preco,int mes,char tipo, int filial);
 Avl_treeP createTreeP();
 int contaNodosGF(AvlC a);
 AvlP procuraTreeP(Avl_treeP node, char* cod);
@@ -38,6 +38,7 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux,int filial
 int percorre8(AvlP p, char* cod ,int flag,int filial,char tipo);
 int percorreClientesAux(AvlC cli,int r[], char** aux, int index);
 int percorreClientesAux9(AvlC cli,int mes, char** aux, int index);
+int percorreProdutosCliente11(AvlC c, char** aux);
 
 AvlP createNodePro(Avl_treeP p);
 AvlC createNodeCli(Avl_treeC c);
@@ -54,9 +55,9 @@ int avl_insertP(Avl_treeP t,AvlP a);
 
 
 AvlC procuraC(AvlC p, char* cod);
-int avl_actualizaC(char* s,char* pro, Avl_treeC ptr,int quantidade,int mes,char tipo,int filial);
+int avl_actualizaC(char* s,char* pro, Avl_treeC ptr,int quantidade,double preco,int mes,char tipo,int filial);
 int existeC(char* s, Avl_treeC ptr);
-AvlC createNodeC(char* cli,char* pro,int quantidade,int mes,char tipo, int filial);
+AvlC createNodeC(char* cli,char* pro,int quantidade,double preco,int mes,char tipo, int filial);
 Avl_treeC createTreeC();
 AvlC procuraTreeC(Avl_treeC node, char* cod);
 int totalProdsComprados(AvlC c);
