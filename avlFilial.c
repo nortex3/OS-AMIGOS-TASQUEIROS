@@ -75,32 +75,53 @@ int percorreProdutos11(AvlP p, char** codigos, double* quantidades,int j);
 int calculaValores11(AvlP p,char** codigos,double* quantidades, int j);
 void insereOrdem11(int total,char** codigos,double* quantidades,int j);
 void TrocaPosQuant11(double* arrayTot,int origem,int destino);
-AvlP produtoMaisVendido(AvlP p, int max);
+int produtoMaisVendido(AvlP p, char** lista, int uv[], int index, int n);
 
 /* Apoio Query 10 */
-AvlP percorreProdutos10(AvlP p, int max){
-  if(p == NULL){
-    return;
+int percorreProdutos10F1(AvlP p, char** lista, int uv[], int index, int n){
+  if(p == NULL || index == n){
+    return index;
   }
    if (p->left)
-      p = percorreProdutos(p->left, max);
+      index = percorreProdutos10F1(p->left, lista, uv, index, n);
 
-    p = produtoMaisVendido(p, max);
+    index = produtoMaisVendidoF1(p, lista, uv, index, n);
 
    if (p->right)
-      p = percorreProdutos(p->right, max);
+      index = percorreProdutos10F1(p->right, lista, uv, index, n);
 
-  return p;  
+  return index;  
 }
 
-AvlP produtoMaisVendido(AvlP p, int max){
-  if(max > p->UnidadesVendidas){
-    max = p->UnidadesVendidas;
-    return p;
+int produtoMaisVendidoF1(AvlP p, char** lista, int uv[], int index, int n){
+  int i,j, aux=0, indice = 0;
+  int l, s, uvindex, flag = 0;
+  for(i = 0; i < 2; i++){
+    for(j = 0; j < 12; j++){
+      aux = aux + p->ComprasFilial1[j][i];
+    }
   }
-  if(max == p->UnidadesVendidas){
-    
+  for(l = 0; l < index && index != n; l++){
+    s = strcmp(lista[l], p->codigo);
+    if(s == 0){
+      flag = 1;
+      break;
+    }
   }
+  if(flag == 0 && index != n){
+    for(uvindex = 0; uvindex < n; uvindex++){
+      if(aux > uv[uvindex]){
+        indice = uvindex;
+      }
+    }
+  }
+  if(indice != 0){
+    lista[index] = p->codigo;
+        uv[index] = aux;
+        index++;
+        printf("%d: %d\n", index, uv[index]);
+  }
+  return index; 
 }
 
 /* Apoio Query 8 */
@@ -654,6 +675,14 @@ int contaNodosGF(AvlC a){
     int count=0;
     if (a!=NULL){
     count = 1+contaNodosGF(a->left)+contaNodosGF(a->right);
+    }
+    return count;
+}
+
+int contaNodosPGF(AvlP a){ 
+    int count=0;
+    if (a!=NULL){
+    count = 1+contaNodosPGF(a->left)+contaNodosPGF(a->right);
     }
     return count;
 }

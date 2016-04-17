@@ -22,14 +22,19 @@ typedef struct avl_treeC* Avl_treeC;
 typedef struct avlP* AvlP;
 typedef struct avlC* AvlC;
 
-
+/* Funções auxiliares das arvores */
 AvlP procuraP(AvlP p, char* cod);
 int avl_actualizaP(char* s, Avl_treeP ptr,int quantidade,int preco,int mes,char tipo,int filial);
 int existeFP(char* s, Avl_treeP ptr);
 AvlP createNodeP(char* s,int quantidade,double preco,int mes,char tipo, int filial);
 Avl_treeP createTreeP();
 int contaNodosGF(AvlC a);
+int contaNodosPGF(AvlP a);
 AvlP procuraTreeP(Avl_treeP node, char* cod);
+AvlP createNodePro(Avl_treeP p);
+AvlC createNodeCli(Avl_treeC c);
+
+/*Queries*/
 void calculaListaProdutos(AvlC a, int *mes);
 void calculaVendas(AvlP p, int *tot);
 int totalProdsVendidos(AvlP p);
@@ -38,11 +43,8 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux,int filial
 int percorre8(AvlP p, char* cod ,int flag,int filial,char tipo);
 int percorreClientesAux(AvlC cli,int r[], char** aux, int index);
 int percorreClientesAux9(AvlC cli,int mes, char** aux, int index);
-AvlP percorreProdutos10(Avl_treeP p);
+int percorreProdutos10F1(AvlP p, char** lista, int uv[], int index, int n);
 int percorreProdutosCliente11(AvlC c, char** aux);
-
-AvlP createNodePro(Avl_treeP p);
-AvlC createNodeCli(Avl_treeC c);
 
 /* Public methods */
 

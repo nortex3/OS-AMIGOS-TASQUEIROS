@@ -23,7 +23,12 @@ struct conjClisGF {
 };
 
 struct conjProdsGF {
-    Avl_treeP avlProdutos10[26];
+    char** listaF1;
+    char** listaF2;
+    char** listaF3;
+    int* unidadesF1;
+    int* unidadesF2;
+    int* unidadesF3;
 };
 
 /* Relacionado com ConjClisGF*/
@@ -44,21 +49,77 @@ char* retornaElementoConjClisGF(ConjClisGF cc,int i){
     return cc->lista[i];
 }
 
+/* Relacionado com ConjProdsGF */
+
+ConjProdsGF InicializaConjProdsGF(){
+    ConjProdsGF tmp = (ConjProdsGF)malloc(sizeof(struct conjProdsGF));
+    tmp->listaF1=NULL;
+    tmp->listaF2=NULL;
+    tmp->listaF3=NULL;
+    tmp->unidadesF1=NULL;
+    tmp->unidadesF2=NULL;
+    tmp->unidadesF3=NULL;
+    return tmp;
+}
+
+int retornaUnidadesF1(ConjProdsGF cp, int i){
+    return cp->unidadesF1[i];
+}
+
+int retornaUnidadesF2(ConjProdsGF cp, int i){
+    return cp->unidadesF2[i];
+}
+
+int retornaUnidadesF3(ConjProdsGF cp, int i){
+    return cp->unidadesF3[i];
+}
+
+char* retornaListaF1(ConjProdsGF cp, int i){
+    return cp->listaF1[i];
+}
+
+char* retornaListaF2(ConjProdsGF cp, int i){
+    return cp->listaF2[i];
+}
+
+char* retornaListaF3(ConjProdsGF cp, int i){
+    return cp->listaF3[i];
+}
+
 /* Apoio Query 10 */
 
 ConjProdsGF nProdutosMaisVendidos(GF gf, int N){
-    int i;
+    int i, index = 0, size = 0;
     AvlP pro;
+    char** aux;
+    char** aux2;
+    int unidadesVendidas[N];
+    for(i=0; i < N; i++){
+        unidadesVendidas[i] = 0;
+    }
+    ConjProdsGF produtos = InicializaConjProdsGF();
     for(i=0;i<26;i++){
         Avl_treeP tmp = gf->avlProdutos[i];
         pro = createNodePro(tmp);
-        size=size+contaNodosGF(pro);
+        size=size+contaNodosPGF(pro);
     }
-    for(i = 0; i<N; i++){
+    aux=malloc(sizeof(char*)*size);
+    for(i = 0; i<26; i++){
+        index = 0;
         Avl_treeP tmp = gf->avlProdutos[i];
-        createNodePro(tmp);
-        pro = percorreProdutos10(tmp, 0);
+        pro = createNodePro(tmp);
+        index = percorreProdutos10F1(pro,aux,unidadesVendidas, index, N);
     }
+    if(index!=0){
+        aux2=malloc(sizeof(char*)*index);
+        memcpy(aux2,aux,sizeof(char*)*index);
+        free(aux);
+        produtos -> listaF1 = aux2;
+        produtos -> unidadesF1 = unidadesVendidas;
+        printf("FAK\n");
+        return produtos;
+    }
+    else return NULL;
 }
 
 /* Apoio Query 8 */

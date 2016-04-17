@@ -22,6 +22,7 @@ void printQuerie4(ConjProdsF prods, int contador, int index);
 void printQuerie7(ConjClisGF cligf, int contador, int index);
 void printQuerie8(ConjClisGF cligf, int contador, int index);
 void printQuerie9(ConjClisGF cligf, int contador, int index);
+void printQuerie10(ConjProdsGF progf, int n);
 void printQuerie11(ConjClisGF cligf, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
 
@@ -229,7 +230,12 @@ void querie9(char* s,int mes){
 	}
 }
 void querie10(int N){
-	
+	ConjProdsGF tmp = nProdutosMaisVendidos(gf, N);
+	if(tmp!=NULL)
+		printQuerie10(tmp, N);
+	else{
+	 printf("Cliente Inexistente.\n");
+	}
 }
 
 
@@ -486,6 +492,30 @@ void printQuerie8(ConjClisGF cligf, int contador, int index){
 			printf("Comando inválido\n");
 			printQuerie9(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
 		}
+	}
+}
+
+void printQuerie10(ConjProdsGF progf, int n){
+	int j,i;
+	char aux;
+
+	printf("###########    %d produtos mais comprados por filial   #################\n", n);
+	printf("########################################################################\n");
+	printf("##       Filial 1       |       Filial 2       |       Filial 3       ##\n");
+	printf("########################################################################\n");
+	for(i=0; i < n ; i++){
+		printf("# %s: %d                                                           #\n", retornaListaF1(progf,i), retornaUnidadesF1(progf,i));
+	}
+	printf("########################################################################\n");
+	printf("Prima 'Enter' para sair.\n");
+	getchar();
+	j = scanf("%c",&aux);
+	if(aux== '\n'){
+		printf("\033c");
+	}
+	else{
+		printf("\033c");
+		printQuerie10(progf, n);
 	}
 }
 

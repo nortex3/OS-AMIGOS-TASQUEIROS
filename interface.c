@@ -514,8 +514,10 @@ void imprimirMenuQueries(){
 				break;
 			case 10:
 				if(initCli==1||initPro == 1 || initVendas==1){
-					querie10();        
-                    }
+					printf("Insira o número de produtos: \n");
+					aux = scanf("%d", &modo);
+					querie10(modo);        
+                }
 				else{
 					printf("\033c");
 					printf("Clientes,produtos e vendas nao inicializados.\n");
