@@ -112,14 +112,28 @@ int produtoMaisVendidoF1(AvlP p, char** lista, int uv[], int index, int n){
     for(uvindex = 0; uvindex < n; uvindex++){
       if(aux > uv[uvindex]){
         indice = uvindex;
+        flag = 0;
+        break;
+      }
+      else{
+        flag = 1;
       }
     }
   }
-  if(indice != 0){
-    lista[index] = p->codigo;
-        uv[index] = aux;
-        index++;
-        printf("%d: %d\n", index, uv[index]);
+  if(flag == 0){
+    if(lista[indice]!=NULL){
+      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+      lista[indice] = strcpy(lista[indice], p->codigo);
+      printf("1: %s\n",lista[indice] );
+      uv[indice] = aux;
+    }
+    else{
+      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+      lista[indice] = strcpy(lista[indice], p->codigo);
+      printf("2: %s\n",lista[indice] );
+      uv[indice] = aux;
+      index++;
+    }
   }
   return index; 
 }

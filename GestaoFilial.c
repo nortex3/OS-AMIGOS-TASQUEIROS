@@ -104,22 +104,21 @@ ConjProdsGF nProdutosMaisVendidos(GF gf, int N){
         size=size+contaNodosPGF(pro);
     }
     aux=malloc(sizeof(char*)*size);
+    for(i=0; i<N;i++){
+        aux[i] = NULL;
+    }
     for(i = 0; i<26; i++){
         index = 0;
         Avl_treeP tmp = gf->avlProdutos[i];
         pro = createNodePro(tmp);
         index = percorreProdutos10F1(pro,aux,unidadesVendidas, index, N);
     }
-    if(index!=0){
-        aux2=malloc(sizeof(char*)*index);
-        memcpy(aux2,aux,sizeof(char*)*index);
-        free(aux);
-        produtos -> listaF1 = aux2;
-        produtos -> unidadesF1 = unidadesVendidas;
-        printf("FAK\n");
-        return produtos;
-    }
-    else return NULL;
+    aux2=malloc(sizeof(char*)*N);
+    memcpy(aux2,aux,sizeof(char*)*N);
+    free(aux);
+    produtos -> listaF1 = aux2;
+    produtos -> unidadesF1 = unidadesVendidas;
+    return produtos;
 }
 
 /* Apoio Query 8 */
