@@ -44,6 +44,8 @@ int percorre8(AvlP p, char* cod ,int flag,int filial,char tipo);
 int percorreClientesAux(AvlC cli,int r[], char** aux, int index);
 int percorreClientesAux9(AvlC cli,int mes, char** aux, int index);
 int percorreProdutos10F1(AvlP p, char** lista, int uv[], int index, int n);
+int percorreProdutos10F2(AvlP p, char** lista, int uv[], int index, int n);
+int percorreProdutos10F3(AvlP p, char** lista, int uv[], int index, int n);
 int percorreProdutosCliente11(AvlC c, char** aux);
 
 /* Public methods */

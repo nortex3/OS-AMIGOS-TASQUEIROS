@@ -23,12 +23,8 @@ struct conjClisGF {
 };
 
 struct conjProdsGF {
-    char** listaF1;
-    char** listaF2;
-    char** listaF3;
-    int* unidadesF1;
-    int* unidadesF2;
-    int* unidadesF3;
+    char** lista;
+    int* unidades;
 };
 
 /* Relacionado com ConjClisGF*/
@@ -51,61 +47,33 @@ char* retornaElementoConjClisGF(ConjClisGF cc,int i){
 
 /* Relacionado com ConjProdsGF */
 
-ConjProdsGF InicializaConjProdsGF(){
+ConjProdsGF InicializaConjProdsGF(int N){
     ConjProdsGF tmp = (ConjProdsGF)malloc(sizeof(struct conjProdsGF));
-    tmp->listaF1=NULL;
-    tmp->listaF2=NULL;
-    tmp->listaF3=NULL;
-    tmp->unidadesF1=NULL;
-    tmp->unidadesF2=NULL;
-    tmp->unidadesF3=NULL;
+    tmp->lista=NULL;
+    tmp->unidades=malloc(sizeof(int)*N);
     return tmp;
 }
 
-int retornaUnidadesF1(ConjProdsGF cp, int i){
-    return cp->unidadesF1[i];
+int retornaUnidades(ConjProdsGF cp, int i){
+    return cp->unidades[i];
 }
-
-int retornaUnidadesF2(ConjProdsGF cp, int i){
-    return cp->unidadesF2[i];
-}
-
-int retornaUnidadesF3(ConjProdsGF cp, int i){
-    return cp->unidadesF3[i];
-}
-
-char* retornaListaF1(ConjProdsGF cp, int i){
-    return cp->listaF1[i];
-}
-
-char* retornaListaF2(ConjProdsGF cp, int i){
-    return cp->listaF2[i];
-}
-
-char* retornaListaF3(ConjProdsGF cp, int i){
-    return cp->listaF3[i];
+char* retornaLista(ConjProdsGF cp, int i){
+    return cp->lista[i];
 }
 
 /* Apoio Query 10 */
 
-ConjProdsGF nProdutosMaisVendidos(GF gf, int N){
-    int i, index = 0, size = 0;
+ConjProdsGF nProdutosMaisVendidosF1(GF gf, int N, int unidadesVendidas[]){
+    int i, index = 0;
     AvlP pro;
     char** aux;
-    char** aux2;
-    int unidadesVendidas[N];
     for(i=0; i < N; i++){
         unidadesVendidas[i] = 0;
     }
-    ConjProdsGF produtos = InicializaConjProdsGF();
-    for(i=0;i<26;i++){
-        Avl_treeP tmp = gf->avlProdutos[i];
-        pro = createNodePro(tmp);
-        size=size+contaNodosPGF(pro);
-    }
-    aux=malloc(sizeof(char*)*size);
+    ConjProdsGF produtos = InicializaConjProdsGF(N);
+    aux=malloc(sizeof(char*)*N);
     for(i=0; i<N;i++){
-        aux[i] = NULL;
+        aux[i] = "";
     }
     for(i = 0; i<26; i++){
         index = 0;
@@ -113,11 +81,54 @@ ConjProdsGF nProdutosMaisVendidos(GF gf, int N){
         pro = createNodePro(tmp);
         index = percorreProdutos10F1(pro,aux,unidadesVendidas, index, N);
     }
-    aux2=malloc(sizeof(char*)*N);
-    memcpy(aux2,aux,sizeof(char*)*N);
-    free(aux);
-    produtos -> listaF1 = aux2;
-    produtos -> unidadesF1 = unidadesVendidas;
+    produtos -> lista = aux;
+    produtos -> unidades = unidadesVendidas;
+    return produtos;
+}
+
+ConjProdsGF nProdutosMaisVendidosF2(GF gf, int N, int unidadesVendidas[]){
+    int i, index = 0;
+    AvlP pro;
+    char** aux;
+    for(i=0; i < N; i++){
+        unidadesVendidas[i] = 0;
+    }
+    ConjProdsGF produtos = InicializaConjProdsGF(N);
+    aux=malloc(sizeof(char*)*N);
+    for(i=0; i<N;i++){
+        aux[i] = "";
+    }
+    for(i = 0; i<26; i++){
+        index = 0;
+        Avl_treeP tmp = gf->avlProdutos[i];
+        pro = createNodePro(tmp);
+        index = percorreProdutos10F2(pro,aux,unidadesVendidas, index, N);
+    }
+    produtos -> lista = aux;
+    produtos -> unidades = unidadesVendidas;
+    return produtos;
+}
+
+ConjProdsGF nProdutosMaisVendidosF3(GF gf, int N, int unidadesVendidas[]){
+    int i, index = 0;
+    AvlP pro;
+    char** aux;
+    for(i=0; i < N; i++){
+        unidadesVendidas[i] = 0;
+    }
+    ConjProdsGF produtos = InicializaConjProdsGF(N);
+    aux=malloc(sizeof(char*)*N);
+    for(i=0; i<N;i++){
+        aux[i] = "";
+    }
+    for(i = 0; i<26; i++){
+        index = 0;
+        Avl_treeP tmp = gf->avlProdutos[i];
+        pro = createNodePro(tmp);
+        index = percorreProdutos10F3(pro,aux,unidadesVendidas, index, N);
+    }
+    produtos -> lista = aux;
+    produtos -> unidades = unidadesVendidas;
     return produtos;
 }
 

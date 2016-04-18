@@ -13,9 +13,12 @@ ConjClisGF percorreClientes8(GF gf, char* cod,int filia,char tipo);
 ConjClisGF percorreClientes9(GF gf, int mes, char* cod);
 ConjClisGF percorreClientes11(GF gf, char* cod);
 
-ConjProdsGF nProdutosMaisVendidos(GF gf, int N);
-char* retornaListaF1(ConjProdsGF cp, int i);
-int retornaUnidadesF1(ConjProdsGF cp, int i);
+ConjProdsGF InicializaConjProdsGF();
+ConjProdsGF nProdutosMaisVendidosF1(GF gf, int N, int unidadesVendidas[]);
+ConjProdsGF nProdutosMaisVendidosF2(GF gf, int N, int unidadesVendidas[]);
+ConjProdsGF nProdutosMaisVendidosF3(GF gf, int N, int unidadesVendidas[]);
+char* retornaLista(ConjProdsGF cp, int i);
+int retornaUnidades(ConjProdsGF cp, int i);
 
 GF InicializaGestFil();
 int retornaTamanhoConjClisGF(ConjClisGF cc);

@@ -75,11 +75,13 @@ int percorreProdutos11(AvlP p, char** codigos, double* quantidades,int j);
 int calculaValores11(AvlP p,char** codigos,double* quantidades, int j);
 void insereOrdem11(int total,char** codigos,double* quantidades,int j);
 void TrocaPosQuant11(double* arrayTot,int origem,int destino);
-int produtoMaisVendido(AvlP p, char** lista, int uv[], int index, int n);
+int produtoMaisVendidoF1(AvlP p, char** lista, int uv[], int index, int n);
+int produtoMaisVendidoF2(AvlP p, char** lista, int uv[], int index, int n);
+int produtoMaisVendidoF3(AvlP p, char** lista, int uv[], int index, int n);
 
 /* Apoio Query 10 */
 int percorreProdutos10F1(AvlP p, char** lista, int uv[], int index, int n){
-  if(p == NULL || index == n){
+  if(p == NULL){
     return index;
   }
    if (p->left)
@@ -124,13 +126,127 @@ int produtoMaisVendidoF1(AvlP p, char** lista, int uv[], int index, int n){
     if(lista[indice]!=NULL){
       lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
       lista[indice] = strcpy(lista[indice], p->codigo);
-      printf("1: %s\n",lista[indice] );
       uv[indice] = aux;
     }
     else{
       lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
       lista[indice] = strcpy(lista[indice], p->codigo);
-      printf("2: %s\n",lista[indice] );
+      uv[indice] = aux;
+      index++;
+    }
+  }
+  return index; 
+}
+
+int percorreProdutos10F2(AvlP p, char** lista, int uv[], int index, int n){
+  if(p == NULL){
+    return index;
+  }
+   if (p->left)
+      index = percorreProdutos10F2(p->left, lista, uv, index, n);
+
+    index = produtoMaisVendidoF2(p, lista, uv, index, n);
+
+   if (p->right)
+      index = percorreProdutos10F2(p->right, lista, uv, index, n);
+
+  return index;  
+}
+
+int produtoMaisVendidoF2(AvlP p, char** lista, int uv[], int index, int n){
+  int i,j, aux=0, indice = 0;
+  int l, s, uvindex, flag = 0;
+  for(i = 0; i < 2; i++){
+    for(j = 0; j < 12; j++){
+      aux = aux + p->ComprasFilial2[j][i];
+    }
+  }
+  for(l = 0; l < index && index != n; l++){
+    s = strcmp(lista[l], p->codigo);
+    if(s == 0){
+      flag = 1;
+      break;
+    }
+  }
+  if(flag == 0 && index != n){
+    for(uvindex = 0; uvindex < n; uvindex++){
+      if(aux > uv[uvindex]){
+        indice = uvindex;
+        flag = 0;
+        break;
+      }
+      else{
+        flag = 1;
+      }
+    }
+  }
+  if(flag == 0){
+    if(lista[indice]!=NULL){
+      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+      lista[indice] = strcpy(lista[indice], p->codigo);
+      uv[indice] = aux;
+    }
+    else{
+      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+      lista[indice] = strcpy(lista[indice], p->codigo);
+      uv[indice] = aux;
+      index++;
+    }
+  }
+  return index; 
+}
+
+int percorreProdutos10F3(AvlP p, char** lista, int uv[], int index, int n){
+  if(p == NULL){
+    return index;
+  }
+   if (p->left)
+      index = percorreProdutos10F3(p->left, lista, uv, index, n);
+
+    index = produtoMaisVendidoF3(p, lista, uv, index, n);
+
+   if (p->right)
+      index = percorreProdutos10F3(p->right, lista, uv, index, n);
+
+  return index;  
+}
+
+int produtoMaisVendidoF3(AvlP p, char** lista, int uv[], int index, int n){
+  int i,j, aux=0, indice = 0;
+  int l, s, uvindex, flag = 0;
+  for(i = 0; i < 2; i++){
+    for(j = 0; j < 12; j++){
+      aux = aux + p->ComprasFilial3[j][i];
+    }
+  }
+  for(l = 0; l < index && index != n; l++){
+    s = strcmp(lista[l], p->codigo);
+    if(s == 0){
+      flag = 1;
+      break;
+    }
+  }
+  if(flag == 0 && index != n){
+    for(uvindex = 0; uvindex < n; uvindex++){
+      if(aux > uv[uvindex]){
+        indice = uvindex;
+        flag = 0;
+        break;
+      }
+      else{
+        flag = 1;
+      }
+    }
+  }
+  if(flag == 0){
+    if(lista[indice]!=NULL){
+      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+      lista[indice] = strcpy(lista[indice], p->codigo);
+      uv[indice] = aux;
+    }
+    else{
+      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+      lista[indice] = strcpy(lista[indice], p->codigo);
       uv[indice] = aux;
       index++;
     }

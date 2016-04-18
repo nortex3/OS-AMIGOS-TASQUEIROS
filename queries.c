@@ -22,7 +22,7 @@ void printQuerie4(ConjProdsF prods, int contador, int index);
 void printQuerie7(ConjClisGF cligf, int contador, int index);
 void printQuerie8(ConjClisGF cligf, int contador, int index);
 void printQuerie9(ConjClisGF cligf, int contador, int index);
-void printQuerie10(ConjProdsGF progf, int n);
+void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n);
 void printQuerie11(ConjClisGF cligf, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
 
@@ -230,12 +230,13 @@ void querie9(char* s,int mes){
 	}
 }
 void querie10(int N){
-	ConjProdsGF tmp = nProdutosMaisVendidos(gf, N);
-	if(tmp!=NULL)
-		printQuerie10(tmp, N);
-	else{
-	 printf("Cliente Inexistente.\n");
-	}
+	int uvF1[N];
+	int uvF2[N];
+	int uvF3[N];
+	ConjProdsGF F1 = nProdutosMaisVendidosF1(gf, N, uvF1);
+	ConjProdsGF F2 = nProdutosMaisVendidosF2(gf, N, uvF2);
+	ConjProdsGF F3 = nProdutosMaisVendidosF3(gf, N, uvF3);
+	printQuerie10(F1, F2, F3, N);
 }
 
 
@@ -495,7 +496,7 @@ void printQuerie8(ConjClisGF cligf, int contador, int index){
 	}
 }
 
-void printQuerie10(ConjProdsGF progf, int n){
+void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n){
 	int j,i;
 	char aux;
 
@@ -504,7 +505,7 @@ void printQuerie10(ConjProdsGF progf, int n){
 	printf("##       Filial 1       |       Filial 2       |       Filial 3       ##\n");
 	printf("########################################################################\n");
 	for(i=0; i < n ; i++){
-		printf("# %s: %d                                                           #\n", retornaListaF1(progf,i), retornaUnidadesF1(progf,i));
+		printf("# %s: %d                %s: %d                %s: %d#\n", retornaLista(F1,i), retornaUnidades(F1,i), retornaLista(F2,i), retornaUnidades(F2,i), retornaLista(F3,i), retornaUnidades(F3,i));
 	}
 	printf("########################################################################\n");
 	printf("Prima 'Enter' para sair.\n");
@@ -515,7 +516,7 @@ void printQuerie10(ConjProdsGF progf, int n){
 	}
 	else{
 		printf("\033c");
-		printQuerie10(progf, n);
+		printQuerie10(F1, F2, F3, n);
 	}
 }
 
