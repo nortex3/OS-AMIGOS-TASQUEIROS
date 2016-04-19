@@ -25,6 +25,7 @@ struct conjClisGF {
 struct conjProdsGF {
     char** lista;
     int* unidades;
+    int tamanho;
 };
 
 /* Relacionado com ConjClisGF*/
@@ -51,6 +52,7 @@ ConjProdsGF InicializaConjProdsGF(int N){
     ConjProdsGF tmp = (ConjProdsGF)malloc(sizeof(struct conjProdsGF));
     tmp->lista=NULL;
     tmp->unidades=malloc(sizeof(int)*N);
+    tmp->tamanho=0;
     return tmp;
 }
 
@@ -59,6 +61,10 @@ int retornaUnidades(ConjProdsGF cp, int i){
 }
 char* retornaLista(ConjProdsGF cp, int i){
     return cp->lista[i];
+}
+
+int retornaTamanhoConjProdsGF(ConjProdsGF cp){
+    return cp->tamanho;
 }
 
 /* Apoio Query 10 */
@@ -176,13 +182,16 @@ ConjClisGF percorreClientes8(GF gf, char* cod, int filial, char tipo){
 
 
 
-ConjClisGF percorreClientes9(GF gf, int mes, char* cod){
+ConjProdsGF percorreClientes9(GF gf, int mes, char* cod){
     int i, index=0,n, tamanhoMaximo;
     AvlC cli, cliente;
     char** aux;
     char** aux2;
-    ConjClisGF clientes = InicializaConjClisGF();
-    
+    int* quant;    
+    int* quant2;
+
+    ConjProdsGF produtos; 
+
     if (cod[0]>=97 && cod[0]<=123) 
         n = ((int)cod[0])-97;
     else
@@ -194,17 +203,26 @@ ConjClisGF percorreClientes9(GF gf, int mes, char* cod){
     cliente= procuraC(cli,cod);
     if(cliente!=NULL){
         tamanhoMaximo= totalProdsComprados(cliente);
-        aux=malloc(sizeof(char*)*tamanhoMaximo);
+        produtos = InicializaConjProdsGF(tamanhoMaximo);
 
-        index=percorreProdutosClientes9(cliente,mes, aux);
-        
+        aux=malloc(sizeof(char*)*tamanhoMaximo);
+        quant=malloc(sizeof(int)*tamanhoMaximo);
+
+        index=percorreProdutosClientes9(cliente,mes, aux,quant);
+
         aux2=malloc(sizeof(char*)*index);
+        quant2=malloc(sizeof(int)*index);
+
         memcpy(aux2,aux,sizeof(char*)*index);
         free(aux);
-        clientes -> lista = aux2;
-        clientes -> tamanho = index;
+        memcpy(quant2,quant,sizeof(int)*index);
+        free(quant);
+
+        produtos->lista=aux2;
+        produtos->unidades=quant2;
+        produtos->tamanho=index;
         free(aux2);
-        return clientes;
+        return produtos;
     }
     return NULL;
 }
@@ -289,6 +307,26 @@ ConjClisGF percorreClientes11(GF gf, char* cod){
     }
     return NULL;
 }
+
+
+/* Apoio query 12 */
+
+int percorreClientes12(GF gf){
+    int i, total=0, naoCompraram=0;
+    AvlC clientes ;
+
+    for(i=0;i<26;i++){
+        clientes = createNodeCli(gf->avlClientes[i]);
+        total=calculaNaoCompraram(clientes,total);
+    }
+    return total;
+}
+
+
+
+
+/*---------------------------------------*/
+
 
 GF InicializaGestFil() {
     int k;

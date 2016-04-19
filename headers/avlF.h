@@ -35,6 +35,7 @@ int toArrayProdutosAuxNaoVendidos(Avl produtos, int index, char** aux);
 int toArrayProdutosAuxNaoVendidosF1(Avl produtos, int index, char** aux);
 int toArrayProdutosAuxNaoVendidosF2(Avl produtos, int index, char** aux);
 int toArrayProdutosAuxNaoVendidosF3(Avl produtos, int index, char** aux);
+int calculaNaoComprados(Avl pro,int total);
 
 
 /* Public methods */

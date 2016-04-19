@@ -10,8 +10,10 @@ int retornaTamanhoConjClisGF(ConjClisGF cc);
 char* retornaElementoConjClisGF(ConjClisGF cc,int i);
 ConjClisGF percorreClientes(GF gf);
 ConjClisGF percorreClientes8(GF gf, char* cod,int filia,char tipo);
-ConjClisGF percorreClientes9(GF gf, int mes, char* cod);
+ConjProdsGF percorreClientes9(GF gf, int mes, char* cod);
 ConjClisGF percorreClientes11(GF gf, char* cod);
+int percorreClientes12(GF gf);
+
 
 ConjProdsGF InicializaConjProdsGF();
 ConjProdsGF nProdutosMaisVendidosF1(GF gf, int N, int unidadesVendidas[]);
@@ -19,6 +21,7 @@ ConjProdsGF nProdutosMaisVendidosF2(GF gf, int N, int unidadesVendidas[]);
 ConjProdsGF nProdutosMaisVendidosF3(GF gf, int N, int unidadesVendidas[]);
 char* retornaLista(ConjProdsGF cp, int i);
 int retornaUnidades(ConjProdsGF cp, int i);
+int retornaTamanhoConjProdsGF(ConjProdsGF cp);
 
 GF InicializaGestFil();
 int retornaTamanhoConjClisGF(ConjClisGF cc);

@@ -208,6 +208,26 @@ ConjProdsF toArrayProdutosNaoVendidosF3(FaturacaoGlobal pro){
 }
 
 
+/* Apoio Query 12 */
+
+
+int percorreProdutos12(FaturacaoGlobal pro){
+   int i, total=0, naoComprados=0;
+    Avl produtos ;
+
+    for(i=0;i<26;i++){
+        produtos = createCharNodeF(pro->avl_produtos[i]);
+        total=calculaNaoComprados(produtos,total);
+    }
+    return total;
+}
+
+
+
+
+
+
+
 /*------------------------------------------------*/
 
 FaturacaoGlobal InicializaTotalProdutos() {

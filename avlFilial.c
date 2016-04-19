@@ -64,7 +64,7 @@ typedef struct avl_treeC
 int percorreProdutosClientes(AvlC c, int r[], char** aux, int index);
 void percorreProdutos(AvlP pro, int r[]);
 void comprasFiliaisTodas(AvlP p, int r[]);
-int percorreProdutosClientes9(AvlC c, int mes, char** aux);
+int percorreProdutosClientes9(AvlC c, int mes, char** aux,int *quant);
 int percorreProdutos9(AvlP p, int mes, char** codigos, int* quantidades,int j);
 int calculaValores(AvlP p,int mes,char** codigos,int* quantidades, int j);
 void insereOrdem(int total,char** codigos,int* quantidades,int j);
@@ -474,12 +474,12 @@ return flag;
 
 
 /*Apoio Query 9 */
-int percorreProdutosClientes9(AvlC c, int mes, char** aux){
+int percorreProdutosClientes9(AvlC c, int mes, char** aux,int *quant){
   int i,k, tamanho;
   Avl_treeP tmp;
   AvlP p;
   char** codigos=NULL;
-  int* quantidades;
+  int* quantidades=NULL;
   int index=0;
 
   tamanho = c->TotalComprados;
@@ -491,11 +491,12 @@ int percorreProdutosClientes9(AvlC c, int mes, char** aux){
     tmp = c -> ListaProdutos[i];
     p = createNodePro(tmp);
     index=percorreProdutos9(p, mes,codigos,quantidades,index);
-   
+
   }
-/*MAnda pra lista*/
   for(k=0;codigos[k]!=NULL;k++){
     aux[k] =codigos[k];
+    quant[k]=quantidades[k];
+
   }
   return k;
 }
@@ -611,7 +612,6 @@ int percorreProdutosCliente11(AvlC c, char** aux){
     index=percorreProdutos11(p, codigos,valores,index);
    
   }
-/*MAnda pra lista*/
   for(k=0;k<3;k++){
     aux[k] =codigos[k];
   }
@@ -682,6 +682,25 @@ void TrocaPosQuant11(double* valores,int origem,int destino){
 }
 
 
+/* Apoio Query 12 */
+
+
+int calculaNaoCompraram(AvlC cli,int total){
+
+    int i, comprou=0;
+    if(cli!=NULL){
+        for(i=0;i<26 && comprou==0;i++){
+            if(cli->ListaProdutos[i]!=NULL) comprou=1;
+        }
+        if(comprou==0) total++;
+
+        total=calculaNaoCompraram(cli->left,total);
+        total=calculaNaoCompraram(cli->right,total);
+    }
+   
+    return total;
+
+}
 
 /* Apoio a Queries*/
 
