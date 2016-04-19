@@ -47,6 +47,7 @@ int percorreProdutos10F1(AvlP p, char** lista, int uv[], int index, int n);
 int percorreProdutos10F2(AvlP p, char** lista, int uv[], int index, int n);
 int percorreProdutos10F3(AvlP p, char** lista, int uv[], int index, int n);
 int percorreProdutosCliente11(AvlC c, char** aux);
+int calculaNaoCompraram(AvlC cli,int total);
 
 /* Public methods */
 

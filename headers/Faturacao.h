@@ -18,5 +18,6 @@ ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro);
 ConjProdsF toArrayProdutosNaoVendidosF1(FaturacaoGlobal pro);
 ConjProdsF toArrayProdutosNaoVendidosF2(FaturacaoGlobal pro);
 ConjProdsF toArrayProdutosNaoVendidosF3(FaturacaoGlobal pro);
+int percorreProdutos12(FaturacaoGlobal pro);
 
 #endif
