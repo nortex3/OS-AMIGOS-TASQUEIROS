@@ -545,8 +545,9 @@ void imprimirMenuQueries(){
 				break;
 			case 12:
 				if(initCli==1||initPro == 1 || initVendas==1){
+					printf("\033c");
 					querie12();        
-                    }
+                }
 				else{
 					printf("\033c");
 					printf("Produtos e vendas nao inicializados.\n");

@@ -265,7 +265,6 @@ void querie12(){
 	printf("Número de clientes que não realizaram compras: %d\n",clientes );
 	printf("Número de produtos que não foram comprados: %d\n",produtos );
 	printf("Prima 'Enter' para sair.\n");
-	getchar();
 	j = scanf("%c",&aux);
 	if(aux== '\n'){
 		printf("\033c");
@@ -422,14 +421,14 @@ void printQuerie7(ConjClisGF cligf, int contador, int index){
 
 void printQuerie9(ConjProdsGF cligf, int contador, int index){
 	int n = 0, i,c = 0;
-	printf("################## GEREVENDAS ##################\n");
+	printf("########################## GEREVENDAS ##########################\n");
     for (i=0;i < 20 && index < retornaTamanhoConjProdsGF(cligf); i++){
-			printf("# %s : %d                                      #\n",retornaLista(cligf,index),retornaUnidades(cligf,index));
+			printf("# %s : %d\t\t#\n",retornaLista(cligf,index),retornaUnidades(cligf,index));
 			contador++;
 			index++;
 	}
 	printf("################################################################\n");
-	printf("# Número de produtos comprados: %d                          #\n", retornaTamanhoConjProdsGF(cligf));
+	printf("# Número de produtos comprados: %d                              #\n", retornaTamanhoConjProdsGF(cligf));
 	printf("################################################################\n");
 	printf("# 1. Continuar.                                                #\n");
 	printf("# 2. Retroceder.                                               #\n");
