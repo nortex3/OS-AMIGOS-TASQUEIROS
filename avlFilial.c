@@ -493,7 +493,6 @@ int percorreProdutosClientes9(AvlC c, int mes, char** aux){
     index=percorreProdutos9(p, mes,codigos,quantidades,index);
    
   }
-/*MAnda pra lista*/
   for(k=0;codigos[k]!=NULL;k++){
     aux[k] =codigos[k];
   }
@@ -611,7 +610,6 @@ int percorreProdutosCliente11(AvlC c, char** aux){
     index=percorreProdutos11(p, codigos,valores,index);
    
   }
-/*MAnda pra lista*/
   for(k=0;k<3;k++){
     aux[k] =codigos[k];
   }
@@ -682,6 +680,25 @@ void TrocaPosQuant11(double* valores,int origem,int destino){
 }
 
 
+/* Apoio Query 12 */
+
+
+int calculaNaoCompraram(AvlC cli,int total){
+
+    int i, comprou=0;
+    if(cli!=NULL){
+        for(i=0;i<26 && comprou==0;i++){
+            if(cli->ListaProdutos[i]!=NULL) comprou=1;
+        }
+        if(comprou==0) total++;
+
+        total=calculaNaoCompraram(cli->left,total);
+        total=calculaNaoCompraram(cli->right,total);
+    }
+   
+    return total;
+
+}
 
 /* Apoio a Queries*/
 

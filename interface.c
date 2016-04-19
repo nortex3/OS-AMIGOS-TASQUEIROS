@@ -311,7 +311,7 @@ void imprimirMenuQueries(){
 		   "# 6.  Querie6 - Determina total de vendas e faturado num dado intervalo de meses.              #\n"
 		   "# 7.  Querie7 - Lista de clientes que realizaram compras em todas as filiais.                  #\n"
 		   "# 8.  Querie8 - Apresentar clientes que compraram um dado produto, numa filial especifica.     #\n");
-	printf("# 9.  Querie9 - Lista de clientes que mais compraram um dado produto, num dado mês.            #\n"
+	printf("# 9.  Querie9 - Lista de produtos mais comprados por um dado cliente, num dado mês.            #\n"
 		   "# 10. Querie10 - Listar os N produtos mais vendidos.                                           #\n"
 		   "# 11. Querie11 - Apresentar os 3 produtos em que um dado cliente gastou mais dinheiro          #\n");
 	printf("# 12. Querie12 - Número de clientes que não registaram compras, e produtos que ninguém comprou.#\n"

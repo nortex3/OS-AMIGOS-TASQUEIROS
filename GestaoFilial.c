@@ -290,6 +290,26 @@ ConjClisGF percorreClientes11(GF gf, char* cod){
     return NULL;
 }
 
+
+/* Apoio query 12 */
+
+int percorreClientes12(GF gf){
+    int i, total=0, naoCompraram=0;
+    AvlC clientes ;
+
+    for(i=0;i<26;i++){
+        clientes = createNodeCli(gf->avlClientes[i]);
+        total=calculaNaoCompraram(clientes,total);
+    }
+    return total;
+}
+
+
+
+
+/*---------------------------------------*/
+
+
 GF InicializaGestFil() {
     int k;
     GF res = (GF)malloc(sizeof (struct GestFil));

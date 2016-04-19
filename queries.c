@@ -106,8 +106,8 @@ void querie3(int mes,char* codPro,int modo){
 
 		printf("-----------------Filial 3------------------------\n");
 
-		printf("Total vendas em modo promoção na filial3: %d\n",(int)resF[5] );
-		printf("Total vendas em modo normal na filial3: %d\n",(int)resF[6] );
+		printf("Total vendas em modo promoção na filial3: %d\n",(int)resF[4] );
+		printf("Total vendas em modo normal na filial3: %d\n",(int)resF[5] );
 		printf("Total faturado em modo promoção na filial3: %f\n",resF[10] );
 		printf("Total faturado em modo normal na filial3: %f\n",resF[11] );
 	}
@@ -253,8 +253,27 @@ void querie11(char *s){
 	}
 }
 
-void querie12(){}
 
+void querie12(){
+
+	int clientes=0,produtos=0,j=0;
+	char aux;
+	clientes = percorreClientes12(gf);
+	produtos = percorreProdutos12(fg);
+	
+	printf("Número de clientes que não realizaram compras: %d\n",clientes );
+	printf("Número de produtos que não foram comprados: %d\n",produtos );
+	printf("Prima 'Enter' para sair.\n");
+	getchar();
+	j = scanf("%c",&aux);
+	if(aux== '\n'){
+		printf("\033c");
+	}
+	else{
+		printf("\033c");
+		querie12();
+	}
+}
 
 void printQuerie2(ConjProds prods, int contador, int index){
 	int n = 0, i,c = 0;

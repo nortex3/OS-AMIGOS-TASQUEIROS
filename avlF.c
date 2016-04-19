@@ -490,5 +490,22 @@ int toArrayProdutosAuxNaoVendidosF3(Avl produtos, int index, char** aux){
 }
 
 
+/* Apoio Query 12 */
+
+int calculaNaoComprados(Avl pro,int total){
+
+    int i, comprado=0;
+    if(pro!=NULL){
+        if(pro->TotalVendidas==0)total++;
+      
+        total=calculaNaoComprados(pro->left,total);
+        total=calculaNaoComprados(pro->right,total);
+    }
+   
+    return total;
+
+}
+
+
 
 
