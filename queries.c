@@ -22,7 +22,7 @@ void printQuerie4(ConjProdsF prods, int contador, int index);
 void printQuerie7(ConjClisGF cligf, int contador, int index);
 void printQuerie8(ConjClisGF cligf, int contador, int index);
 void printQuerie9(ConjClisGF cligf, int contador, int index);
-void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n);
+void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n, int contador, int index);
 void printQuerie11(ConjClisGF cligf, int contador, int index);
 void printClientesAux(ConjClientes clientes, int contador, int index);
 
@@ -143,6 +143,7 @@ void querie4(char modo,char filial){
             default:
 				printf("\033c");
 				printf("Opção inválida.\n");
+				break;
 		}
     }
 }
@@ -233,10 +234,11 @@ void querie10(int N){
 	int uvF1[N];
 	int uvF2[N];
 	int uvF3[N];
+	int aux = 0;
 	ConjProdsGF F1 = nProdutosMaisVendidosF1(gf, N, uvF1);
 	ConjProdsGF F2 = nProdutosMaisVendidosF2(gf, N, uvF2);
 	ConjProdsGF F3 = nProdutosMaisVendidosF3(gf, N, uvF3);
-	printQuerie10(F1, F2, F3, N);
+	printQuerie10(F1, F2, F3, N, aux, aux);
 }
 
 
@@ -298,7 +300,7 @@ void printQuerie2(ConjProds prods, int contador, int index){
 		}
 		else{
 			printf("\033c");
-			printf("Comando inválido\n");
+			printf("Comando inválido.\n");
 			printQuerie2(prods, contador-20, index-20);
 		}
 	}
@@ -346,7 +348,7 @@ void printQuerie4(ConjProdsF prods, int contador, int index){
 		}
 		else{
 			printf("\033c");
-			printf("Comando inválido\n");
+			printf("Comando inválido.\n");
 			printQuerie4(prods, contador-20, index-20);
 		}
 	}
@@ -394,7 +396,7 @@ void printQuerie7(ConjClisGF cligf, int contador, int index){
 		}
 		else{
 			printf("\033c");
-			printf("Comando inválido\n");
+			printf("Comando inválido.\n");
 			printQuerie7(cligf, contador-20, index-20);
 		}
 	}
@@ -426,7 +428,7 @@ void printQuerie9(ConjClisGF cligf, int contador, int index){
 		else if(c == 1 && contador == retornaTamanhoConjClisGF(cligf)){
 			printf("\033c");
 			printf("Impossível continuar.\n");
-			printQuerie9(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
+			printQuerie9(cligf, contador, index);
 		}
 		else if(c == 2 && (contador-40) >= 0){
 			printf("\033c");
@@ -442,7 +444,7 @@ void printQuerie9(ConjClisGF cligf, int contador, int index){
 		}
 		else{
 			printf("\033c");
-			printf("Comando inválido\n");
+			printf("Comando inválido.\n");
 			printQuerie9(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
 		}
 	}
@@ -490,33 +492,65 @@ void printQuerie8(ConjClisGF cligf, int contador, int index){
 		}
 		else{
 			printf("\033c");
-			printf("Comando inválido\n");
+			printf("Comando inválido.\n");
 			printQuerie9(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
 		}
 	}
 }
 
-void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n){
-	int j,i;
-	char aux;
+void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n, int contador, int index){
+	int j,i,c=0;
+	int contI = contador, indexI = index;
 
-	printf("###########    %d produtos mais comprados por filial   #################\n", n);
-	printf("########################################################################\n");
-	printf("##       Filial 1       |       Filial 2       |       Filial 3       ##\n");
-	printf("########################################################################\n");
-	for(i=0; i < n ; i++){
-		printf("# %s: %d                %s: %d                %s: %d#\n", retornaLista(F1,i), retornaUnidades(F1,i), retornaLista(F2,i), retornaUnidades(F2,i), retornaLista(F3,i), retornaUnidades(F3,i));
+	printf("###########\t%d produtos mais comprados por filial\t#################\n", n);
+	printf("#########################################################################\n");
+	printf("##       Filial 1       |       Filial 2       |       Filial 3        ##\n");
+	printf("#########################################################################\n");
+	for(i=0; i < 20 && index < n ; i++){
+		printf("# %s: %d\t\t%s: %d\t\t%s: %d\t\t#\n", retornaLista(F1,index), retornaUnidades(F1,index), retornaLista(F2,index), retornaUnidades(F2,index), retornaLista(F3,index), retornaUnidades(F3,index));
+		contador++;
+		index++;
 	}
-	printf("########################################################################\n");
-	printf("Prima 'Enter' para sair.\n");
-	getchar();
-	j = scanf("%c",&aux);
-	if(aux== '\n'){
-		printf("\033c");
-	}
-	else{
-		printf("\033c");
-		printQuerie10(F1, F2, F3, n);
+	printf("#########################################################################\n");
+	printf("# 1. Continuar.                                                         #\n");
+	printf("# 2. Retroceder.                                                        #\n");
+	printf("# 0. Sair.                                                              #\n");
+	printf("#########################################################################\n");
+	printf(">");
+	j = scanf("%d",&c);
+	if(j > 0){
+		switch(c){
+			case 1:
+				if(contador != n){
+					printf("\033c");
+					printQuerie10(F1,F2,F3, n, contador, index++);
+				}
+				if(contador == n){
+					printf("\033c");
+					printf("Impossível continuar.\n");
+					printQuerie10(F1,F2,F3, n, contI, indexI);
+				}
+				break;
+			case 2:
+				if((contador-40) >= 0){
+					printf("\033c");
+					printQuerie10(F1,F2,F3, n, contador-40, index-40);
+				}
+				if((contador-40) <= 0){
+					printf("\033c");
+					printf("Impossível retroceder.\n");
+					printQuerie10(F1,F2,F3, n, contI, indexI);
+				}
+				break;
+			case 0:
+				printf("\033c");
+				break;
+			default:	
+				printf("\033c");
+				printf("Comando inválido.\n");
+				printQuerie10(F1,F2,F3, n, contI, indexI);
+				break;
+		}
 	}
 }
 
@@ -544,7 +578,7 @@ void printQuerie11(ConjClisGF cligf, int contador, int index){
 		}
 		else{
 			printf("\033c");
-			printf("Comando inválido\n");
+			printf("Comando inválido.\n");
 			printQuerie11(cligf, contador-retornaTamanhoConjClisGF(cligf), index-retornaTamanhoConjClisGF(cligf));
 		}
 	}
@@ -598,7 +632,7 @@ void printClientesAux(ConjClientes clientes, int contador, int index){
 		}
 		else{
 			printf("\033c");
-			printf("Comando inválido\n");
+			printf("Comando inválido.\n");
 			printClientesAux(clientes, contador-20, index-20);
 		}
 	}

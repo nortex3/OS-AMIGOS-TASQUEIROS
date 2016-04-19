@@ -309,18 +309,19 @@ Insere na Avl de Produtos
 void insereAvlProd(GF c,char *cod,int quantidade,double preco,int mes,char tipo, int filial){
     int j=26;
     AvlP node;
+
     if (cod[0]>=97 && cod[0]<=123) 
         j = ((int)cod[0])-97;
     else
         if (cod[0]>=64 && cod[0]<=90) 
             j = ((int)cod[0])-65;
 
-    if(existeFP(cod, c-> avlProdutos[j])== 0){
-            node = createNodeP(cod,preco,quantidade,mes,tipo,filial);
-            avl_insertP(c -> avlProdutos[j], node);
+
+    if((existeFP(cod, c-> avlProdutos[j]))== 0){
+        node = createNodeP(cod,quantidade,preco,mes,tipo,filial);
+        avl_insertP(c -> avlProdutos[j], node);
            
     }else{
-
       avl_actualizaP(cod,c->avlProdutos[j],quantidade,preco,mes,tipo,filial);
       
     }

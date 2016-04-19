@@ -881,7 +881,7 @@ int avl_actualizaP(char* s, Avl_treeP ptr,int quantidade,int preco,int mes,char 
       p->TotalPago+=preco*quantidade;
       if(tipo=='N'){
          if(filial==1){
-            p->ComprasFilial1[mes-1][NORMAL] +=quantidade;
+            p->ComprasFilial1[mes-1][NORMAL] +=quantidade; 
           }else{
               if(filial==2){
 
