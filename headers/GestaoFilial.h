@@ -16,12 +16,13 @@ int percorreClientes12(GF gf);
 
 
 ConjProdsGF InicializaConjProdsGF();
-ConjProdsGF nProdutosMaisVendidosF1(GF gf, int N, int unidadesVendidas[]);
-ConjProdsGF nProdutosMaisVendidosF2(GF gf, int N, int unidadesVendidas[]);
-ConjProdsGF nProdutosMaisVendidosF3(GF gf, int N, int unidadesVendidas[]);
+ConjProdsGF nProdutosMaisVendidosF1(GF gf, int N, int unidadesVendidas[], int contCli[]);
+ConjProdsGF nProdutosMaisVendidosF2(GF gf, int N, int unidadesVendidas[], int contCli[]);
+ConjProdsGF nProdutosMaisVendidosF3(GF gf, int N, int unidadesVendidas[], int contCli[]);
 char* retornaLista(ConjProdsGF cp, int i);
 int retornaUnidades(ConjProdsGF cp, int i);
 int retornaTamanhoConjProdsGF(ConjProdsGF cp);
+int retornaClientesConjProdsGF(ConjProdsGF cp, int i);
 
 GF InicializaGestFil();
 int retornaTamanhoConjClisGF(ConjClisGF cc);

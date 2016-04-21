@@ -80,6 +80,86 @@ int produtoMaisVendidoF2(AvlP p, char** lista, int uv[], int index, int n);
 int produtoMaisVendidoF3(AvlP p, char** lista, int uv[], int index, int n);
 
 /* Apoio Query 10 */
+
+int percorreClientes10(AvlC c, char* codigo, int index, int filial){
+  if(c == NULL){
+    return index;
+  }
+   if (c->left)
+      index = percorreClientes10(c->left, codigo, index, filial);
+
+    index = contaClientes(c, codigo, index, filial);
+
+   if (c->right)
+      index = percorreClientes10(c->right, codigo, index, filial);
+
+  return index;  
+}
+
+int contaClientes(AvlC c, char* codigo, int index, int filial){
+  int i = codigo[0]-65;
+  int j, aux = 0;
+  AvlP p = procuraTreeP(c->ListaProdutos[i],codigo);
+  if(p!=NULL){
+    switch(filial){
+      case 1:
+        for(i = 0; i < 2; i++){
+          for(j = 0; j < 12; j++){
+            aux = aux + p->ComprasFilial1[j][i];
+          }
+        }
+        if(aux!=0){
+          index++;
+          return index;
+        }
+        break;
+      case 2:
+        for(i = 0; i < 2; i++){
+          for(j = 0; j < 12; j++){
+            aux = aux + p->ComprasFilial2[j][i];
+          }
+        }
+        if(aux!=0){
+          index++;
+          return index;
+        }
+        break;
+      case 3:
+        for(i = 0; i < 2; i++){
+          for(j = 0; j < 12; j++){
+            aux = aux + p->ComprasFilial3[j][i];
+          }
+        }
+        if(aux!=0){
+          index++;
+          return index;
+        }
+        break;
+    }
+  }
+  return index;
+}
+
+
+void insertProdutoMaisVendido(char* codigo, char** lista, int uv[], int quantidade, int n){
+  int aux = n-1, qtdOld;
+  char* auxS = (char*)malloc(strlen(codigo)+1*sizeof(char));
+  while(aux-1>=0){
+    if(quantidade>uv[aux-1]){
+      strcpy(auxS, lista[aux-1]);
+      lista[aux-1] = (char*)malloc(strlen(codigo)+1*sizeof(char));
+      strcpy(lista[aux-1],codigo);
+      lista[aux] = (char*)malloc(strlen(codigo)+1*sizeof(char));
+      strcpy(lista[aux],auxS);
+      qtdOld = uv[aux-1];
+      uv[aux-1] = quantidade;
+      uv[aux] = qtdOld;
+    }
+    aux--;
+  }
+}
+
+
 int percorreProdutos10F1(AvlP p, char** lista, int uv[], int index, int n){
   if(p == NULL){
     return index;
@@ -110,33 +190,18 @@ int produtoMaisVendidoF1(AvlP p, char** lista, int uv[], int index, int n){
       break;
     }
   }
-  if(flag == 0 && index != n){
-    for(uvindex = 0; uvindex < n; uvindex++){
-      if(aux > uv[uvindex]){
-        indice = uvindex;
-        flag = 0;
-        break;
-      }
-      else{
-        flag = 1;
-      }
-    }
+  if(flag == 0 && index == n){
+      insertProdutoMaisVendido(p->codigo, lista, uv, aux, n);
+  }   
+  else{
+    lista[index] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+    lista[index] = strcpy(lista[index], p->codigo);
+    uv[index] = aux;
+    index++;
   }
-  if(flag == 0){
-    if(lista[indice]!=NULL){
-      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
-      lista[indice] = strcpy(lista[indice], p->codigo);
-      uv[indice] = aux;
-    }
-    else{
-      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
-      lista[indice] = strcpy(lista[indice], p->codigo);
-      uv[indice] = aux;
-      index++;
-    }
-  }
-  return index; 
+  return index;
 }
+
 
 int percorreProdutos10F2(AvlP p, char** lista, int uv[], int index, int n){
   if(p == NULL){
@@ -168,32 +233,16 @@ int produtoMaisVendidoF2(AvlP p, char** lista, int uv[], int index, int n){
       break;
     }
   }
-  if(flag == 0 && index != n){
-    for(uvindex = 0; uvindex < n; uvindex++){
-      if(aux > uv[uvindex]){
-        indice = uvindex;
-        flag = 0;
-        break;
-      }
-      else{
-        flag = 1;
-      }
-    }
+  if(flag == 0 && index == n){
+      insertProdutoMaisVendido(p->codigo, lista, uv, aux, n);
+  }   
+  else{
+    lista[index] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+    lista[index] = strcpy(lista[index], p->codigo);
+    uv[index] = aux;
+    index++;
   }
-  if(flag == 0){
-    if(lista[indice]!=NULL){
-      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
-      lista[indice] = strcpy(lista[indice], p->codigo);
-      uv[indice] = aux;
-    }
-    else{
-      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
-      lista[indice] = strcpy(lista[indice], p->codigo);
-      uv[indice] = aux;
-      index++;
-    }
-  }
-  return index; 
+  return index;
 }
 
 int percorreProdutos10F3(AvlP p, char** lista, int uv[], int index, int n){
@@ -226,32 +275,16 @@ int produtoMaisVendidoF3(AvlP p, char** lista, int uv[], int index, int n){
       break;
     }
   }
-  if(flag == 0 && index != n){
-    for(uvindex = 0; uvindex < n; uvindex++){
-      if(aux > uv[uvindex]){
-        indice = uvindex;
-        flag = 0;
-        break;
-      }
-      else{
-        flag = 1;
-      }
-    }
+  if(flag == 0 && index == n){
+      insertProdutoMaisVendido(p->codigo, lista, uv, aux, n);
+  }   
+  else{
+    lista[index] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
+    lista[index] = strcpy(lista[index], p->codigo);
+    uv[index] = aux;
+    index++;
   }
-  if(flag == 0){
-    if(lista[indice]!=NULL){
-      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
-      lista[indice] = strcpy(lista[indice], p->codigo);
-      uv[indice] = aux;
-    }
-    else{
-      lista[indice] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
-      lista[indice] = strcpy(lista[indice], p->codigo);
-      uv[indice] = aux;
-      index++;
-    }
-  }
-  return index; 
+  return index;
 }
 
 /* Apoio Query 8 */

@@ -43,6 +43,7 @@ int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux,int filial
 int percorre8(AvlP p, char* cod ,int flag,int filial,char tipo);
 int percorreClientesAux(AvlC cli,int r[], char** aux, int index);
 int percorreClientesAux9(AvlC cli,int mes, char** aux, int index);
+int percorreClientes10(AvlC c, char* codigo, int index, int filial);
 int percorreProdutos10F1(AvlP p, char** lista, int uv[], int index, int n);
 int percorreProdutos10F2(AvlP p, char** lista, int uv[], int index, int n);
 int percorreProdutos10F3(AvlP p, char** lista, int uv[], int index, int n);
