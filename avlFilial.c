@@ -98,39 +98,39 @@ int percorreClientes10(AvlC c, char* codigo, int index, int filial){
 
 int contaClientes(AvlC c, char* codigo, int index, int filial){
   int i = codigo[0]-65;
-  int j, aux = 0;
+  int j, aux = 0,flag=0;
   AvlP p = procuraTreeP(c->ListaProdutos[i],codigo);
   if(p!=NULL){
     switch(filial){
       case 1:
-        for(i = 0; i < 2; i++){
-          for(j = 0; j < 12; j++){
-            aux = aux + p->ComprasFilial1[j][i];
+        for(i = 0; i < 2 && flag !=1; i++){
+          for(j = 0; j < 12 && flag!=1; j++){
+            if(p->ComprasFilial1[j][i]!=0) flag=1;
           }
         }
-        if(aux!=0){
+        if(flag!=0){
           index++;
           return index;
         }
         break;
       case 2:
-        for(i = 0; i < 2; i++){
-          for(j = 0; j < 12; j++){
-            aux = aux + p->ComprasFilial2[j][i];
+        for(i = 0; i < 2 && flag !=1; i++){
+          for(j = 0; j < 12 && flag!=1; j++){
+            if(p->ComprasFilial2[j][i]!=0) flag=1;
           }
         }
-        if(aux!=0){
+        if(flag!=0){
           index++;
           return index;
         }
         break;
       case 3:
-        for(i = 0; i < 2; i++){
-          for(j = 0; j < 12; j++){
-            aux = aux + p->ComprasFilial3[j][i];
+        for(i = 0; i < 2 && flag !=1; i++){
+          for(j = 0; j < 12 && flag!=1; j++){
+            if(p->ComprasFilial3[j][i]!=0) flag=1;
           }
         }
-        if(aux!=0){
+        if(flag!=0){
           index++;
           return index;
         }

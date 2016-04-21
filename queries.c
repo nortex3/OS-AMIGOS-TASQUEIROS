@@ -521,21 +521,21 @@ void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n, int co
 	int j,i,c=0;
 	int contI = contador, indexI = index;
 
-	printf("######################\t%d produtos mais comprados por filial\t############################\n", n);
-	printf("###########################################################################################\n");
-	printf("##          Filial 1          \t|           Filial 2          \t|          Filial 3          ##\n");
-	printf("#Código | Unidades | Clientes \t|Código | Unidades | Clientes \t|Código | Unidades | Clientes #\n");
-	printf("###########################################################################################\n");
+	printf("############################\t%d produtos mais comprados por filial  \t#####################################\n", n);
+	printf("#############################################################################################################\n");
+	printf("#             Filial 1         \t    |           Filial 2             \t|          Filial 3                 #\n");
+	printf("#   Código | Unidades   | Clientes  | Código | Unidades  | Clientes \t|   Código | Unidades   | Clientes  #\n");
+	printf("#############################################################################################################\n");
 	for(i=0; i < 20 && index < n ; i++){
-		printf("# %s|%d\t|%d\t| %s|%d\t|%d\t| %s|%d\t|%d\t#\n", retornaLista(F1,index), retornaUnidades(F1,index), retornaClientesConjProdsGF(F1,index), retornaLista(F2,index), retornaUnidades(F2,index), retornaClientesConjProdsGF(F2,index), retornaLista(F3,index), retornaUnidades(F3,index),retornaClientesConjProdsGF(F3,index));
+		printf("#    %s|  %d\t|   %d\t    |  %s|  %d     |       %d\t|    %s|   %d\t|    %d\t    #\n", retornaLista(F1,index), retornaUnidades(F1,index), retornaClientesConjProdsGF(F1,index), retornaLista(F2,index), retornaUnidades(F2,index), retornaClientesConjProdsGF(F2,index), retornaLista(F3,index), retornaUnidades(F3,index),retornaClientesConjProdsGF(F3,index));
 		contador++;
 		index++;
 	}
-	printf("###########################################################################################\n");
-	printf("# 1. Continuar.                                                                           #\n");
-	printf("# 2. Retroceder.                                                                          #\n");
-	printf("# 0. Sair.                                                                                #\n");
-	printf("###########################################################################################\n");
+	printf("#############################################################################################################\n");
+	printf("# 1. Continuar.                                                                                             #\n");
+	printf("# 2. Retroceder.                                                                                            #\n");
+	printf("# 0. Sair.                                                                                                  #\n");
+	printf("#############################################################################################################\n");
 	printf(">");
 	j = scanf("%d",&c);
 	if(j > 0){
