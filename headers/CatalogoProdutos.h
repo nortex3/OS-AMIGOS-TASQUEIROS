@@ -8,7 +8,6 @@ typedef struct conjProds* ConjProds;
 Produtos InicializaProdutos();
 ConjProds InicializaConjProds();
 void insereAVLProdutos(Produtos p,char *cod);
-int VeTotalP(Produtos p);
 int ExisteProduto(char* cod, Produtos p);
 ConjProds toArrayProdutos(Produtos pro, char c);
 int retornaTamanhoPro(ConjProds cc);
