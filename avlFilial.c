@@ -290,7 +290,6 @@ int produtoMaisVendidoF3(AvlP p, char** lista, int uv[], int index, int n){
 /* Apoio Query 8 */
 
 int percorreProdutosClientes8(AvlC clientes, char* cod, int index,int flag, char** aux, int filial, char tipo){
-     int i;
     
       if(clientes == NULL){
       return index;
@@ -312,7 +311,7 @@ int percorreProdutosClientes8(AvlC clientes, char* cod, int index,int flag, char
 
     
 int percorreProdutos8(AvlC c,char* cod,int index,int flag, char** aux, int filial, char tipo){
-    int i=0,n=0;
+    int n=0;
     flag = 0;
      if (cod[0]>=97 && cod[0]<=123) 
         n = ((int)cod[0])-97;
@@ -361,7 +360,7 @@ int percorre8(AvlP p, char* cod,int flag,int filial,char tipo){
 
 int percorre8F1Normal(AvlP p, char* cod, int flag){
     int comprasfilial=0; 
-    int i=0;
+    int i;
     
   if(p == NULL){
     flag=0;
@@ -385,7 +384,7 @@ return flag;
 
 int percorre8F1Promo(AvlP p, char* cod, int flag){
     int comprasfilial=0; 
-    int i=0;
+    int i;
     
   if(p == NULL){
     flag=0;
@@ -409,7 +408,7 @@ return flag;
 
 int percorre8F2Normal(AvlP p, char* cod, int flag){
     int comprasfilial=0; 
-    int i=0;
+    int i;
     
   if(p == NULL){
     flag=0;
@@ -433,7 +432,7 @@ return flag;
 
 int percorre8F2Promo(AvlP p, char* cod, int flag){
     int comprasfilial=0; 
-    int i=0;
+    int i;
     
   if(p == NULL){
     flag=0;
@@ -458,7 +457,7 @@ return flag;
 
 int percorre8F3Normal(AvlP p, char* cod, int flag){
     int comprasfilial=0; 
-    int i=0;
+    int i;
     
   if(p == NULL){
     flag=0;
@@ -483,7 +482,7 @@ return flag;
 
 int percorre8F3Promo(AvlP p, char* cod, int flag){
     int comprasfilial=0; 
-    int i=0;
+    int i;
     
   if(p == NULL){
     flag=0;
@@ -552,11 +551,10 @@ int percorreProdutos9(AvlP p, int mes, char** codigos, int* quantidades,int pos)
 
 
 int calculaValores(AvlP p,int mes,char** codigos,int* quantidades, int pos){
-  int i, tamanho = 1;
+  
   int compradosNormais=0;
   int compradosPromo=0;
   int total=0;
-  char* c;
   if(p!=NULL){
 
     compradosPromo=p->ComprasFilial1[mes-1][PROMO]+p->ComprasFilial2[mes-1][PROMO]+p->ComprasFilial3[mes-1][PROMO];
@@ -674,7 +672,6 @@ int percorreProdutos11(AvlP p, char** codigos, double* valores,int pos){
 
 int calculaValores11(AvlP p,char** codigos,double* valores, int pos){
   
-  char* c;
   if(p!=NULL){
       codigos[pos] = (char*)malloc(strlen(p->codigo)+1*sizeof(char));
       strcpy(codigos[pos], p->codigo);

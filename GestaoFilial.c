@@ -3,7 +3,6 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "headers/Faturacao.h"
 #include "headers/avlFilial.h"
 #include "headers/GestaoFilial.h"
 
@@ -13,7 +12,7 @@
 
 
 struct GestFil {
-	Avl_treeP avlProdutos[26]; /* Inutil- nao tem informacao*/
+	Avl_treeP avlProdutos[26]; 
 	Avl_treeC avlClientes[26];
 };
 
@@ -106,6 +105,7 @@ ConjProdsGF nProdutosMaisVendidosF1(GF gf, int N, int unidadesVendidas[], int co
     produtos -> clientes = contCli;
     produtos -> lista = aux;
     produtos -> unidades = unidadesVendidas;
+    
     return produtos;
 }
 
@@ -139,6 +139,7 @@ ConjProdsGF nProdutosMaisVendidosF2(GF gf, int N, int unidadesVendidas[], int co
     produtos -> clientes = contCli;
     produtos -> lista = aux;
     produtos -> unidades = unidadesVendidas;
+   
     return produtos;
 }
 
@@ -209,6 +210,7 @@ ConjClisGF percorreClientes8(GF gf, char* cod, int filial, char tipo){
     free(aux);
     clientes -> lista = aux2;
     clientes -> tamanho = index;
+    free(aux2);
     return clientes;
     }
     else return NULL;
@@ -290,6 +292,7 @@ ConjClisGF percorreClientes(GF gf){
     free(aux);
     clientes -> lista = aux2;
     clientes -> tamanho = index;
+    free(aux2);
     return clientes;
 
 }
@@ -320,7 +323,6 @@ ConjClisGF percorreClientes11(GF gf, char* cod){
     int i, index=0,n, tamanhoMaximo=3;
     AvlC cli, cliente;
     char** aux;
-    char** aux2;
     ConjClisGF clientes = InicializaConjClisGF();
     
     if (cod[0]>=97 && cod[0]<=123) 
@@ -339,7 +341,7 @@ ConjClisGF percorreClientes11(GF gf, char* cod){
         
         clientes -> lista = aux;
         clientes -> tamanho = index;
-        free(aux2);
+        free(aux);
         return clientes;
     }
     return NULL;
@@ -349,7 +351,7 @@ ConjClisGF percorreClientes11(GF gf, char* cod){
 /* Apoio query 12 */
 
 int percorreClientes12(GF gf){
-    int i, total=0, naoCompraram=0;
+    int i, total=0;
     AvlC clientes ;
 
     for(i=0;i<26;i++){

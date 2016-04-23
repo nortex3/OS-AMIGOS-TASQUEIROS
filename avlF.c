@@ -494,7 +494,7 @@ int toArrayProdutosAuxNaoVendidosF3(Avl produtos, int index, char** aux){
 
 int calculaNaoComprados(Avl pro,int total){
 
-    int i, comprado=0;
+    int i;
     if(pro!=NULL){
         if(pro->TotalVendidas==0)total++;
       

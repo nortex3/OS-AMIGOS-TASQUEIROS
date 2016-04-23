@@ -70,6 +70,7 @@ void querie2(char c){
     ConjProds prods = toArrayProdutos(pro, c);
 	printf("\033c");
     printQuerie2(prods, aux, aux);
+    free(prods);
 }
 
 
@@ -113,7 +114,6 @@ void querie3(int mes,char* codPro,int modo){
 	}
 }
 
-
 }
 void querie4(char modo,char filial){
     int aux = 0;
@@ -145,6 +145,7 @@ void querie4(char modo,char filial){
 				printf("Opção inválida.\n");
 		}
     }
+    free(prods);
 }
 
 void querie5(char *s){
@@ -203,14 +204,18 @@ void querie7(){
 	printf("\033c");
 	ConjClisGF tmp = percorreClientes(gf);
 	printQuerie7(tmp, aux, aux);
+	free(tmp);
 
 }
+
 void querie8(char* s,int filial,char tipo){
     int aux =0;
     printf("\033c");
     ConjClisGF tmp = percorreClientes8(gf,s,filial,tipo);
     if(tmp!=NULL){
-		printQuerie8(tmp, aux, aux);}
+		printQuerie8(tmp, aux, aux);
+		free(tmp);
+	}
 	else{
 	 printf("\033c");
 	 printf("Produto Inexistente ou Nao vendido com os dados inseridos.\n");
@@ -222,8 +227,10 @@ void querie9(char* s,int mes){
 	int aux = 0;
 	printf("\033c");
 	ConjProdsGF tmp = percorreClientes9(gf,mes,s);
-	if(tmp!=NULL)
+	if(tmp!=NULL){
 		printQuerie9(tmp, aux, aux);
+		free(tmp);
+	}
 	else{
 	 printf("\033c");
 	 printf("Cliente Inexistente.\n");
@@ -241,6 +248,9 @@ void querie10(int N){
 	ConjProdsGF F2 = nProdutosMaisVendidosF2(gf, N, uvF2, ccF2);
 	ConjProdsGF F3 = nProdutosMaisVendidosF3(gf, N, uvF3, ccF3);
 	printQuerie10(F1, F2, F3, N, aux, aux);
+	free(F1);
+	free(F2);
+	free(F3);
 }
 
 
@@ -249,8 +259,10 @@ void querie11(char *s){
 	int aux = 0;
 	printf("\033c");
 	ConjClisGF tmp = percorreClientes11(gf,s);
-	if(tmp!=NULL)
+	if(tmp!=NULL){
 		printQuerie11(tmp, aux, aux);
+		free(tmp);
+	}
 	else{
 	 printf("\033c");
 	 printf("Cliente Inexistente.\n");
@@ -556,7 +568,7 @@ void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n, int co
 					printf("\033c");
 					printQuerie10(F1,F2,F3, n, contador-40, index-40);
 				}
-				if((contador-40) <= 0){
+				if((contador-40)<= 0){
 					printf("\033c");
 					printf("Impossível retroceder.\n");
 					printQuerie10(F1,F2,F3, n, contI, indexI);

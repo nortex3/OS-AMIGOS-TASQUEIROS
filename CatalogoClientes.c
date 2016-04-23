@@ -49,18 +49,10 @@ Clientes InicializaClientes(){
 	Clientes tmp = (Clientes)malloc(sizeof(struct clientes));
 	for(i = 0; i < 26; i++){
 		tmp -> AVLClientes[i] = createTree();
-		tmp->total[i]=0;}
+		tmp->total[i]=0;
+	}
     return tmp;
 }
-
-
-int VeTotalC(Clientes p){
-
-	int r=p->total[1]; 
-	return r;
-}
-
-
 
 
 /*
@@ -114,6 +106,7 @@ ConjClientes toArrayClientes(Clientes cli, char c){
    index=toArrayClientesAux(b, index, aux);
    clientes->lista=aux;
    clientes->tamanho=index;
+   free(aux);
    return clientes;
 }
 

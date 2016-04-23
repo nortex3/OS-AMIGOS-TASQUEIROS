@@ -117,6 +117,7 @@ ConjProdsF toArrayProdutosNaoVendidos(FaturacaoGlobal pro){
    free(aux);
    produtos->lista=aux2;
    produtos->tamanho=index;
+   free(aux2);
    return produtos;
 }
 
@@ -212,7 +213,7 @@ ConjProdsF toArrayProdutosNaoVendidosF3(FaturacaoGlobal pro){
 
 
 int percorreProdutos12(FaturacaoGlobal pro){
-   int i, total=0, naoComprados=0;
+   int i, total=0;
     Avl produtos ;
 
     for(i=0;i<26;i++){

@@ -45,11 +45,7 @@ char retornaPrimeiraLetraPro(ConjProds cc,int i){
 
 
 /* Catalogo de produtos */
-int VeTotalP(Produtos p){
 
-	int r=p->total[1]; 
-	return r;
-}
 
 Produtos InicializaProdutos(){
 	int i;
@@ -107,6 +103,7 @@ ConjProds toArrayProdutos(Produtos pro, char c){
    index=toArrayProdutosAux(b, index, aux);
    prods->lista=aux;
    prods->tamanho=index;
+   free(aux);
    return prods;
 }
 
