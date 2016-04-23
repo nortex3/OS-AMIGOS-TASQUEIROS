@@ -16,7 +16,6 @@
 #include "headers/avlF.h"
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 
 #define NORMAL 0

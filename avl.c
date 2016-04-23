@@ -16,7 +16,6 @@
 #include "headers/avl.h"
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
  /* Data structures */
 
