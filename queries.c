@@ -568,10 +568,12 @@ void printQuerie10(ConjProdsGF F1, ConjProdsGF F2, ConjProdsGF F3, int n, int co
 					printf("\033c");
 					printQuerie10(F1,F2,F3, n, contador-40, index-40);
 				}
+				contador=0;
+				indexI=0;
 				if((contador-40)<= 0){
 					printf("\033c");
 					printf("Impossível retroceder.\n");
-					printQuerie10(F1,F2,F3, n, contI, indexI);
+					printQuerie10(F1,F2,F3, n, contador, indexI);
 				}
 				break;
 			case 0:
