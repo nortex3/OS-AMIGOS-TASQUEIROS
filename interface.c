@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 #include "headers/interface.h"
 #include "headers/CatalogoProdutos.h"
 #include "headers/CatalogoClientes.h"
@@ -20,6 +21,7 @@ void inicializarMenu();
 void imprimirMenuQueries();
 int printMenu();
 
+time_t start = 0, end = 0; int seconds; /*Variáveis de clock*/
 static int initCli = 0;
 static int initPro = 0;
 static int initVendas = 0;
@@ -323,6 +325,7 @@ void imprimirMenuQueries(){
 	if(n > 0){
 		switch(r){
 			case 1:
+				start = time(0);
 				printf("\033c");
 				querie1Clientes();
 				initCli = 1;
@@ -330,6 +333,9 @@ void imprimirMenuQueries(){
 				initPro = 1;
 				querie1Vendas();
 				initVendas = 1;
+				end = time(0);
+				seconds = (end - start);
+				printf("Leitura concluída em %d segundos.\n",seconds );
 				imprimirMenuQueries();
 				break;
 			case 2:

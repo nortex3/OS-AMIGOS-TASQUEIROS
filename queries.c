@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 #include "headers/CatalogoProdutos.h"
 #include "headers/CatalogoClientes.h"
@@ -16,6 +17,9 @@ extern Clientes cli;
 extern Produtos pro;
 extern FaturacaoGlobal fg;
 extern GF gf;
+extern start;
+extern end;
+extern seconds;
 
 void printQuerie2(ConjProds prods, int contador, int index);
 void printQuerie4(ConjProdsF prods, int contador, int index);
@@ -57,7 +61,7 @@ void querie1Produtos(){
 
 void querie1Vendas(){
 	Leitura ler = inicializaLeitura();
-	ler = leituraVendas(gf, fg, pro, cli, "Vendas_1M.txt");
+	ler = leituraVendas(gf, fg, pro, cli, "Vendas_3M.txt");
 	printf("Nome do ficheiro: %s\n"
 		   " Número de linhas lidas: %d\n"
 		   " Número de linhas correctas: %d\n"
@@ -66,31 +70,39 @@ void querie1Vendas(){
 }
 
 void querie2(char c){
+	start = time(0);
     int aux = 0;
     ConjProds prods = toArrayProdutos(pro, c);
 	printf("\033c");
+	end = time(0);
+	seconds = (end - start);
+	printf("Query 2 concluída em %d segundos.\n",seconds );
     printQuerie2(prods, aux, aux);
     free(prods);
 }
 
 
 void querie3(int mes,char* codPro,int modo){
-
+	start = time(0);
 	double res[4];
 	double resF[12];
 	int r=0;
 	if(modo==1){
 		r=TotalVendasTotalFaturadoGlobal(fg,mes, codPro,res,modo);
+		end = time(0);
 		if(r==1) printf("Codigo Inexistente\n");
 		else{
 		printf("Total vendas em modo promoção: %d\n",(int)res[0] );
 		printf("Total vendas em modo normal: %d\n",(int)res[1] );
 		printf("Total faturado em modo promoção: %f\n",res[2] );
 		printf("Total faturado em modo normal: %f\n",res[3] );
+		seconds = (end - start);
+		printf("Query 3 concluída em %d segundos.\n",seconds );
 	}
 	}else{
 
 		r=TotalVendasTotalFaturadoGlobal(fg,mes, codPro,resF,modo);
+		end = time(0);
 		if(r==1) printf("Codigo Inexistente\n");
 		else{
 		printf("-----------------Filial 1------------------------\n");
@@ -111,33 +123,48 @@ void querie3(int mes,char* codPro,int modo){
 		printf("Total vendas em modo normal na filial3: %d\n",(int)resF[5] );
 		printf("Total faturado em modo promoção na filial3: %f\n",resF[10] );
 		printf("Total faturado em modo normal na filial3: %f\n",resF[11] );
+		seconds = (end - start);
+		printf("Query 3 concluída em %d segundos.\n",seconds );
 	}
 }
 
 }
 void querie4(char modo,char filial){
+	start = time(0);
     int aux = 0;
     ConjProdsF prods;
     if (modo==1){
     prods = toArrayProdutosNaoVendidos(fg);
+    end = time(0);
 	printf("\033c");
+	seconds = (end - start);
+	printf("Query 4 concluída em %d segundos.\n",seconds );
     printQuerie4(prods, aux, aux);
     }
     else {
         switch(filial){
 			case 1:
+				end = time(0);
 				prods = toArrayProdutosNaoVendidosF1(fg);
                 printf("\033c");
+                seconds = (end - start);
+                printf("Query 4 concluída em %d segundos.\n",seconds );
                 printQuerie4(prods, aux, aux);
 				break;
 			case 2:
+				end = time(0);
                 prods = toArrayProdutosNaoVendidosF2(fg);
                 printf("\033c");
+                seconds = (end - start);
+                printf("Query 4 concluída em %d segundos.\n",seconds );
                 printQuerie4(prods, aux, aux);
 				break;
             case 3:
+            	end = time(0);
                 prods = toArrayProdutosNaoVendidosF3(fg);
                 printf("\033c");
+                seconds = (end - start);
+                printf("Query 4 concluída em %d segundos.\n",seconds );
                 printQuerie4(prods, aux, aux);
 				break;
             default:
@@ -149,6 +176,7 @@ void querie4(char modo,char filial){
 }
 
 void querie5(char *s){
+	start = time(0);
 	char aux;
 	int mes[36];
 	int i=0,j=0;
@@ -160,6 +188,9 @@ void querie5(char *s){
 	Nexiste=CalculaTotais(gf,s,mes);
 	if(Nexiste==1) printf("Cliente Inexistente\n");
 	else{
+		end = time(0);
+		seconds = end-start;
+		printf("Query 5 concluída em %d segundos.\n",seconds );
 		printf("###########    Produtos comprados pelo cliente %s   ###########\n", s);
 		printf("##################################################################\n");
 		printf("##\tMês\t|    Filial 1   |   Filial 2    |   Filial 3    ##\n");
@@ -191,8 +222,12 @@ void querie5(char *s){
 }
 
 void querie6(int mesi,int mesf){
+	start = time(0);
 	double res[2];
 	CalculaTotalVendasEFaturado(fg,mesi,mesf,res);
+	end = time(0);
+	seconds = end-start;
+	printf("Query 6 concluída em %d segundos.\n",seconds );
 	printf("Total de vendas, entre mês %d e mês %d : %d\n",mesi, mesf,(int)res[0] );
 	printf("Total faturado, entre mês %d e mês %d : %f\n",mesi, mesf,res[1] );
 
@@ -200,19 +235,27 @@ void querie6(int mesi,int mesf){
 }
 
 void querie7(){
+	start = time(0);
 	int aux = 0;
 	printf("\033c");
 	ConjClisGF tmp = percorreClientes(gf);
+	end = time(0);
+	seconds = end-start;
+	printf("Query 7 concluída em %d segundos.\n",seconds );
 	printQuerie7(tmp, aux, aux);
 	free(tmp);
 
 }
 
 void querie8(char* s,int filial,char tipo){
+	start = time(0);
     int aux =0;
     printf("\033c");
     ConjClisGF tmp = percorreClientes8(gf,s,filial,tipo);
     if(tmp!=NULL){
+    	end = time(0);
+		seconds = end-start;
+		printf("Query 8 concluída em %d segundos.\n",seconds );
 		printQuerie8(tmp, aux, aux);
 		free(tmp);
 	}
@@ -223,11 +266,14 @@ void querie8(char* s,int filial,char tipo){
 
 }
 void querie9(char* s,int mes){
-
+	start = time(0);
 	int aux = 0;
 	printf("\033c");
 	ConjProdsGF tmp = percorreClientes9(gf,mes,s);
 	if(tmp!=NULL){
+		end = time(0);
+		seconds = end-start;
+		printf("Query 9 concluída em %d segundos.\n",seconds );
 		printQuerie9(tmp, aux, aux);
 		free(tmp);
 	}
@@ -237,6 +283,7 @@ void querie9(char* s,int mes){
 	}
 }
 void querie10(int N){
+	start = time(0);
 	int uvF1[N];
 	int uvF2[N];
 	int uvF3[N];
@@ -247,6 +294,9 @@ void querie10(int N){
 	ConjProdsGF F1 = nProdutosMaisVendidosF1(gf, N, uvF1, ccF1);
 	ConjProdsGF F2 = nProdutosMaisVendidosF2(gf, N, uvF2, ccF2);
 	ConjProdsGF F3 = nProdutosMaisVendidosF3(gf, N, uvF3, ccF3);
+	end = time(0);
+	seconds = end-start;
+	printf("Query 10 concluída em %d segundos.\n",seconds );
 	printQuerie10(F1, F2, F3, N, aux, aux);
 	free(F1);
 	free(F2);
@@ -255,11 +305,14 @@ void querie10(int N){
 
 
 void querie11(char *s){
-
+	start = time(0);
 	int aux = 0;
 	printf("\033c");
 	ConjClisGF tmp = percorreClientes11(gf,s);
 	if(tmp!=NULL){
+		end = time(0);
+		seconds = end-start;
+		printf("Query 11 concluída em %d segundos.\n",seconds );
 		printQuerie11(tmp, aux, aux);
 		free(tmp);
 	}
@@ -271,12 +324,14 @@ void querie11(char *s){
 
 
 void querie12(){
-
+	start = time(0);
 	int clientes=0,produtos=0,j=0;
 	char aux;
 	clientes = percorreClientes12(gf);
 	produtos = percorreProdutos12(fg);
-	
+	end = time(0);
+	seconds = end-start;
+	printf("Query 12 concluída em %d segundos.\n",seconds );
 	printf("Número de clientes que não realizaram compras: %d\n",clientes );
 	printf("Número de produtos que não foram comprados: %d\n",produtos );
 	printf("Prima 'Enter' para sair.\n");
